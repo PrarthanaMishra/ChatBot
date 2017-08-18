@@ -17,28 +17,28 @@ var bot = new botBuilder.UniversalBot(connector, [
     }
 ]);
 
-bot.dialog('welcomeMsg', [function (session, args, next) {
-    session.dialogData.contactInfo = args || {};
-    if (!session.dialogData.contactInfo.name) {
-        session.beginDialog('askName');
-    }
-    else {
-        next();
-    }
-},
-function (session, result, next) {
-    if (result.response) {
-        session.dialogData.contactInfo.name = result.response;
-    }
-    session.send("Hi %s", session.dialogData.contactInfo.name);
-    session.beginDialog('showServicesButtons');
+bot.dialog('welcomeMsg', [
+    function (session, args, next) {
+        session.dialogData.contactInfo = args || {};
+        if (!session.dialogData.contactInfo.name) {
+            session.beginDialog('askName');
+        }
+        else {
+            next();
+        }
+    },
+    function (session, result, next) {
+        if (result.response) {
+            session.dialogData.contactInfo.name = result.response;
+        }
+        session.send("Hi %s", session.dialogData.contactInfo.name);
+        session.beginDialog('showServicesButtons');
 
-},
-function (session, result) {
-    session.dialogData.contactInfo.phoneNumber = result.response;
-    session.send("Thanks %s for the response. We will reach you on %s soon", session.dialogData.contactInfo.name, session.dialogData.contactInfo.phoneNumber);
-}
-
+    },
+    function (session, result) {
+        session.dialogData.contactInfo.phoneNumber = result.response;
+        session.send("Thanks %s for the response. We will reach you on %s soon", session.dialogData.contactInfo.name, session.dialogData.contactInfo.phoneNumber);
+    }
 ]);
 
 //dialog definitions
@@ -52,7 +52,6 @@ function (session, result) {
 
 var servicesTypes = function (session) {
     return new botBuilder.Message(session)
-        //  .text("These are the services we provide. Please select any one item given below")
         .suggestedActions(
         botBuilder.SuggestedActions.create(
             session, [
@@ -61,17 +60,18 @@ var servicesTypes = function (session) {
                 botBuilder.CardAction.imBack(session, "Decoration", "Decoration"),
                 botBuilder.CardAction.imBack(session, "Entertainment", "Entertainment"),
                 botBuilder.CardAction.imBack(session, "venue", "Venue booking"),
-                botBuilder.CardAction.imBack(session, "Please specify what are you looking for", "Others"),
+                botBuilder.CardAction.imBack(session, "Please specify what are you looking for", "Others")
 
             ]
         ));
 
-}
-bot.dialog('showServicesButtons', function (session) {
-    // session.send("These are the services we provide. Please select any one given below");
-    session.send(servicesTypes(session));
-}
-);
+};
+bot.dialog('showServicesButtons', [
+    function (session, args, next) {
+        session.send("These are the services we provide. Please select any one given below");
+        session.send(servicesTypes(session));
+    }
+]);
 
 bot.dialog('catering', function (session, args, next) {
     session.send("Some of the samples are");
@@ -86,14 +86,15 @@ bot.dialog('catering', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card1, card2, card3, card4]);
     session.send(msg);
-    session.send(servicesTypes(session));
+    session.send(servicesTypes(session)).endDialog();
 })
     .triggerAction({
         matches: /^catering$/i,
         onSelectAction: function (session, args, next) {
             session.beginDialog(args.action, args);
-            session.beginDialog('number');
-            //   session.send(servicesTypes(session));
+            // session.send(servicesTypes(session));
+            // session.beginDialog('number');
+
         }
     });
 
@@ -183,7 +184,7 @@ bot.on('conversationUpdate', function (message) {
     }
 });
 bot.dialog('number', [function (session, args, next) {
-    session.send(servicesTypes(session));
+    //  session.send(servicesTypes(session));
 
     botBuilder.Prompts.number(session, "For further assist you, please enter your mobile number so that our representers will reach you shortly");
 
