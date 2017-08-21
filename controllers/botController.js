@@ -56,7 +56,7 @@ bot.dialog('askName', [
         if (result.response) {
             if (session.userData.contactInfo.bool) {
                 session.userData.contactInfo.name = result.response;
-                session.userData.contactInfo.bool = false;
+                session.userData.contactInfo.bool = undefined;
                 session.send("Thanks %s for updating your name", session.userData.contactInfo.name);
                 return session.endDialogWithResult({ response: session.userData.contactInfo });
 
@@ -124,7 +124,10 @@ bot.dialog('others', [function (session) {
     botBuilder.Prompts.text(session, "Please specify what are you looking for?");
 },
 function (session, result) {
-    session.send("Okay, thanks for the response, We will get back to you shortly");
+    session.userData.contactInfo.others = result.response;
+    session.send("Okay, thanks for the response, we will get back to you shortly");
+    session.send(servicesTypes(session));
+    session.endDialogWithResult({ response: session.userData.contactInfo });
 }
 ]).triggerAction({
     matches: /^others$/i,
