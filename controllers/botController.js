@@ -38,6 +38,7 @@ var bot = new botBuilder.UniversalBot(connector, [
                 session.userData.contactInfo = result.response;
                 session.send("Thanks %s for response. We will get back to you on %s number soon", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
                 session.send(servicesTypes(session));
+
             }
         }
 
@@ -146,15 +147,12 @@ function (session, result) {
 bot.dialog('catering', function (session, args, next) {
     session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
-    var card1 = new botBuilder.HeroCard(session).images([
-        botBuilder.CardImage.create(session, pa + '/images/Catering/Aroma_Wedding_Caterer_Showcase_UnoBridge_0_1475162978464.jpg')
-    ]);
     var card2 = new botBuilder.HeroCard(session)
-        .images([botBuilder.CardImage.create(session, pa + '/images/Catering/Aroma_Wedding_Caterer_UnoBridge_1475162978158.jpg')]);
-    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Catering/Bengalooru_Tiffany_UnoBridge_1475163080364.jpg')]);
-    var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Catering/Sri_Manjunatha_Caterer_UnoBridge_1475163100864.jpg')]);
+        .images([botBuilder.CardImage.create(session, pa + '/images/Catering/1.jpg')]);
+    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Catering/2.jpg')]);
+    var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Catering/3.jpg')]);
 
-    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card1, card2, card3, card4]);
+    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
     showMsgOnSelect(session);
 })
@@ -170,9 +168,9 @@ bot.dialog('catering', function (session, args, next) {
 bot.dialog('Photograph', function (session, args, next) {
     session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
-    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/Chetan_Krishna_Photography_UnoBridge_1475161847415.jpg')]);
-    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/Neethu_Photography_Showcase_UnoBridge_1_1475165921177.jpg')]);
-    var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/Sumanth_Shetty_Photography_UnoBridge_1475163122953.jpg')]);
+    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/1.jpg')]);
+    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/2.jpg')]);
+    var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/3.jpg')]);
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
@@ -189,12 +187,12 @@ bot.dialog('Photograph', function (session, args, next) {
 bot.dialog('Decoration', function (session, args, next) {
     session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
-    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226433400b5345_W480.jpg')]);
-    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226479001RS25.jpg')]);
-    var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226479001RS30.jpg')]);
-    var card5 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226590195a712c9bef8c434d7adfa01793cea8eb0.jpg')]);
+    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1.jpg')]);
+    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/2.jpg')]);
+    var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/3.jpg')]);
+    //  var card5 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226590195a712c9bef8c434d7adfa01793cea8eb0.jpg')]);
 
-    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4, card5]);
+    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
     showMsgOnSelect(session);
 })
@@ -209,10 +207,10 @@ bot.dialog('Decoration', function (session, args, next) {
 bot.dialog('Entertainment', function (session, args, next) {
     session.send("Some of the samples are");;
     var pa = 'https://young-ridge-11917.herokuapp.com';
-    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/Aryans_Dance_Studio_UnoBridge_1475163788165.jpg')]);
+    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/1.jpg')]);
     // var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/1489575630852WhatsAppImage20170314at3.22.53PM.jpg')]);
-    var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/DJ_Ash_UnoBridge_1475160544053.jpg')]);
-    var card5 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/DJ_Hassan_UnoBridge_1475163746351.jpg')]);
+    var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/2.jpg')]);
+    var card5 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/3.jpg')]);
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card4, card5]);
     session.send(msg);
@@ -229,8 +227,8 @@ bot.dialog('Entertainment', function (session, args, next) {
 bot.dialog('venue', function (session, args, next) {
     session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
-    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venu booking/1495092042320km5.JPG')]);
-    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/1496741808165IMG20170606143630.jpg')]);
+    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venu booking/1.JPG')]);
+    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/2.jpg')]);
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3]);
     session.send(msg);
     showMsgOnSelect(session);
