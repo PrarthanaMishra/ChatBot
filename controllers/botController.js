@@ -112,11 +112,12 @@ var showMsgOnSelect = function (session) {
 }
 
 bot.dialog('exit', function (session) {
+    session.endConversation("Thanks for visiting our website!!!");
+    session.endDialog();
 }).triggerAction({
     matches: /^exit$/i,
     onSelectAction: function (session, args, next) {
         session.beginDialog(args.action, args);
-        session.endConversation("Thanks for visiting our website");
     }
 });
 
@@ -244,17 +245,19 @@ bot.dialog('clear', function (session) {
     }
 });
 
-bot.dialog('number', [function (session, args, next) {
+bot.dialog('number', [function (session, args) {
     session.dialogData.contactInfo = args || {};
-    if (!session.userData.contactInfo.phoneNumber && !session.userData.contactInfo.bool) {
-        botBuilder.Prompts.number(session, "For further assist you, please enter your mobile number so that our representers will reach you shortly");
+    if (session.userData.contactInfo.phoneNumber) {
+        session.endDialogWithResult({ response: session.dialogData.contactInfo });
     }
-    if (session.userData.contactInfo.bool) {
+    else if (session.userData.contactInfo.bool) {
         botBuilder.Prompts.number(session, "Please enter your number");
     }
     else {
-        session.endDialogWithResult({ response: session.dialogData.contactInfo });
+        //if (!session.userData.contactInfo.phoneNumber && !session.userData.contactInfo.bool) {
+        botBuilder.Prompts.number(session, "For further assist you, please enter your mobile number so that our representers will reach you shortly");
     }
+
 },
 function (session, result) {
     if (result.response) {
@@ -265,7 +268,6 @@ function (session, result) {
                 session.userData.contactInfo.bool = undefined;
                 return session.endDialogWithResult({ response: session.userData.contactInfo });
             }
-
             session.dialogData.contactInfo.phoneNumber = result.response;
             session.endDialogWithResult({ response: session.dialogData.contactInfo });
         }
@@ -282,7 +284,7 @@ bot.dialog('help', function (session) {
         .title("Please select one").buttons(
         [botBuilder.CardAction.dialogAction(session, "startAction", "", "Start"),
         botBuilder.CardAction.dialogAction(session, "addNameAction", "", "Add/update name"),
-        botBuilder.CardAction.dialogAction(session, "addPhoneNumber", "", "add/update phone number"),
+        botBuilder.CardAction.dialogAction(session, "addPhoneNumber", "", "Add/update phone number"),
         botBuilder.CardAction.dialogAction(session, "exit", "", "Exit")]);
     var msg = new botBuilder.Message(session).attachments([cards]);
     session.send(msg);
@@ -295,6 +297,7 @@ bot.dialog('help', function (session) {
     matches: /^help$/i,
 
 });
+
 
 bot.dialog('name', [function (session) {
     session.userData.contactInfo.bool = true;
