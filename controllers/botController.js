@@ -8,10 +8,7 @@ var connector = new botBuilder.ChatConnector({
 var bot = new botBuilder.UniversalBot(connector, [
     function (session) {
         session.send("Welcome to unoBridge! One stop shop for all your event needs!");
-        //  if (!session.userData.contactInfo.name) {
         session.beginDialog('askName', session.userData.contactInfo);
-        // }
-        // next();
     },
     function (session, result) {
         if (result.response) {
@@ -21,7 +18,9 @@ var bot = new botBuilder.UniversalBot(connector, [
         session.beginDialog('welcomeMsg');
     },
     function (session, result) {
-        //  session.userData.contactInfo = result.response;
+        if (result.response) {
+            session.userData.contactInfo = result.response;
+        }
         //   session.beginDialog('showServicesButtons');
         session.send(servicesTypes(session));
     },
@@ -52,7 +51,6 @@ bot.dialog('askName', [
     function (session, result) {
         if (result.response) {
             session.dialogData.contactInfo.name = result.response;
-            console.log("*****************" + session.dialogData.contactInfo.name);
             session.endDialogWithResult({ response: session.dialogData.contactInfo });
         }
     }
@@ -61,9 +59,9 @@ bot.dialog('askName', [
 //dialog definition
 bot.dialog('welcomeMsg',
     function (session) {
-        //  session.dialogData.contactInfo = args;
+        session.dialogData.contactInfo = args;
         session.send("Hi %s", session.userData.contactInfo.name);
-        session.endDialog();
+        session.endDialog({ response: session.dialogData.contactInfo });
 
     }
 );
@@ -104,7 +102,6 @@ var servicesTypes = function (session) {
 
 };
 bot.dialog('exit', function (session) {
-
 }).triggerAction({
     matches: /^exit$/i,
     onSelectAction: function (session, args, next) {
@@ -198,7 +195,7 @@ bot.dialog('Entertainment', function (session, args, next) {
     });
 
 bot.dialog('venue', function (session, args, next) {
-    var pa = 'https://young-ridge-11917.herokuapp.com:' + (process.env.PORT || 3000);
+    var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venu booking/1495092042320km5.JPG')]);
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/1496741808165IMG20170606143630.jpg')]);
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3]);
