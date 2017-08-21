@@ -5,6 +5,7 @@ var connector = new botBuilder.ChatConnector({
     appPassword: 'uUNYyWc5aGpAhA9f0sSREfM'
 });
 
+var bool = false;
 var bot = new botBuilder.UniversalBot(connector, [
     function (session) {
         session.send("Welcome to unoBridge! One stop shop for all your event needs!");
@@ -21,7 +22,6 @@ var bot = new botBuilder.UniversalBot(connector, [
         if (result.response) {
             session.userData.contactInfo = result.response;
         }
-        //   session.beginDialog('showServicesButtons');
         if (!session.userData.contactInfo.phoneNumber) {
             return session.send(servicesTypes(session));
         }
@@ -44,7 +44,7 @@ var bot = new botBuilder.UniversalBot(connector, [
 bot.dialog('askName', [
     function (session, args, next) {
         session.dialogData.contactInfo = args || {};
-        if (!session.dialogData.contactInfo.name) {
+        if (!session.dialogData.contactInfo.name || session.userData.contactInfo.bool) {
             botBuilder.Prompts.text(session, "What's your name");
         }
         else {
@@ -54,6 +54,13 @@ bot.dialog('askName', [
     },
     function (session, result) {
         if (result.response) {
+            if (session.userData.contactInfo.bool) {
+                session.userData.contactInfo.name = result.response;
+                session.userData.contactInfo.bool = false;
+                session.send("Thanks %s for updating your name", session.userData.contactInfo.name);
+                return session.endDialogWithResult({ response: session.userData.contactInfo });
+
+            }
             session.dialogData.contactInfo.name = result.response;
             session.endDialogWithResult({ response: session.dialogData.contactInfo });
         }
@@ -70,17 +77,8 @@ bot.dialog('welcomeMsg',
     }
 );
 
-bot.dialog('showServicesButtons', [
-    function (session) {
-        //   session.send("These are the services we provide. Please select any one given below");
-        session.send(servicesTypes(session));
-        //session.endDialog();
-    }
-]);
-
 var servicesTypes = function (session) {
     var str = "";
-    console.log("_____________________" + session.userData.contactInfo.phoneNumber);
     if (session.userData && session.userData.contactInfo.phoneNumber) {
         str = "Click to check other services";
     }
@@ -97,8 +95,8 @@ var servicesTypes = function (session) {
                 botBuilder.CardAction.imBack(session, "Decoration", "Decoration"),
                 botBuilder.CardAction.imBack(session, "Entertainment", "Entertainment"),
                 botBuilder.CardAction.imBack(session, "venue", "Venue booking"),
-                botBuilder.CardAction.imBack(session, "Please specify what are you looking for", "Others"),
-                botBuilder.CardAction.imBack(session, "exit", "Exit")
+                botBuilder.CardAction.imBack(session, "others", "Others"),
+                botBuilder.CardAction.imBack(session, "exit", "End")
 
 
             ]
@@ -106,16 +104,35 @@ var servicesTypes = function (session) {
 
 };
 
+var showMsgOnSelect = function (session) {
+    if (session.userData.contactInfo.phoneNumber) {
+        session.send("Hi %s, We will reach you on this %s number shortly", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
+        session.send(servicesTypes(session));
+    }
+}
+
 bot.dialog('exit', function (session) {
 }).triggerAction({
     matches: /^exit$/i,
     onSelectAction: function (session, args, next) {
         session.beginDialog(args.action, args);
         session.endConversation("Thanks for visiting our website");
-        bool = false;
-
     }
 });
+
+bot.dialog('others', [function (session) {
+    botBuilder.Prompts.text(session, "Please specify what are you looking for?");
+},
+function (session, result) {
+    session.send("Okay, thanks for the response, We will get back to you shortly");
+}
+]).triggerAction({
+    matches: /^others$/i,
+    onSelectAction: function (session, args, next) {
+        session.beginDialog(args.action, args);
+    }
+});
+
 
 
 bot.dialog('catering', function (session, args, next) {
@@ -131,9 +148,7 @@ bot.dialog('catering', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card1, card2, card3, card4]);
     session.send(msg);
-    if (session.userData.contactInfo.phoneNumber) {
-        session.send(servicesTypes(session));
-    }
+    showMsgOnSelect(session);
 })
     .triggerAction({
         matches: /^catering$/i,
@@ -152,6 +167,7 @@ bot.dialog('Photograph', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
+    showMsgOnSelect(session);
 })
     .triggerAction({
         matches: /^Photograph$/i,
@@ -170,6 +186,7 @@ bot.dialog('Decoration', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4, card5]);
     session.send(msg);
+    showMsgOnSelect(session);
 })
     .triggerAction({
         matches: /^Decoration$/i,
@@ -189,6 +206,7 @@ bot.dialog('Entertainment', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card4, card5]);
     session.send(msg);
+    showMsgOnSelect(session);
 })
     .triggerAction({
         matches: /^Entertainment$/i,
@@ -204,6 +222,7 @@ bot.dialog('venue', function (session, args, next) {
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/1496741808165IMG20170606143630.jpg')]);
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3]);
     session.send(msg);
+    showMsgOnSelect(session);
 })
     .triggerAction({
         matches: /^venue$/i,
@@ -223,24 +242,34 @@ bot.dialog('clear', function (session) {
 });
 
 bot.dialog('number', [function (session, args, next) {
-    //  session.send(servicesTypes(session));
     session.dialogData.contactInfo = args || {};
-    if (!session.userData.contactInfo.phoneNumber) {
+    if (!session.userData.contactInfo.phoneNumber && !session.userData.contactInfo.bool) {
         botBuilder.Prompts.number(session, "For further assist you, please enter your mobile number so that our representers will reach you shortly");
     }
+    if (session.userData.contactInfo.bool) {
+        botBuilder.Prompts.number(session, "Please enter your number");
+    }
     else {
-        //  session.endDialogWithResult(session.dialogData.contactInfo);
-        session.endDialog({ response: session.dialogData.contactInfo });
+        session.endDialogWithResult({ response: session.dialogData.contactInfo });
     }
 },
 function (session, result) {
-    if (result.response > 7000000000 && result.response < 9999999999) {
-        session.dialogData.contactInfo.phoneNumber = result.response;
-        session.endDialogWithResult({ response: session.dialogData.contactInfo });
-    }
-    else {
-        session.send("Invalid phone number");
-        session.replaceDialog('number');
+    if (result.response) {
+        if (result.response > 7000000000 && result.response < 9999999999) {
+            if (session.userData.contactInfo.bool) {
+                session.userData.contactInfo.phoneNumber = result.response;
+                session.send("Thanks for updating your number, we will get back to you on %s soon", session.userData.contactInfo.phoneNumber);
+                session.userData.contactInfo.bool = undefined;
+                return session.endDialogWithResult({ response: session.userData.contactInfo });
+            }
+
+            session.dialogData.contactInfo.phoneNumber = result.response;
+            session.endDialogWithResult({ response: session.dialogData.contactInfo });
+        }
+        else {
+            session.send("Invalid phone number");
+            session.replaceDialog('number');
+        }
     }
 }
 ]);
@@ -249,19 +278,37 @@ bot.dialog('help', function (session) {
     var cards = new botBuilder.HeroCard(session)
         .title("Please select one").buttons(
         [botBuilder.CardAction.dialogAction(session, "startAction", "", "Start"),
-        //  botBuilder
-        botBuilder.CardAction.dialogAction(session, "exitAction", "", "Exit")]);
+        botBuilder.CardAction.dialogAction(session, "addNameAction", "", "Add/update name"),
+        botBuilder.CardAction.dialogAction(session, "addPhoneNumber", "", "add/update phone number"),
+        botBuilder.CardAction.dialogAction(session, "exit", "", "Exit")]);
     var msg = new botBuilder.Message(session).attachments([cards]);
     session.send(msg);
     bot.beginDialogAction('startAction', '/');
-    bot.beginDialogAction('exitAction', 'exit');
+    bot.beginDialogAction('exit', 'exit');
+    bot.beginDialogAction('addNameAction', 'name');
+    bot.beginDialogAction('addPhoneNumber', 'phoneNumber');
+
 }).triggerAction({
     matches: /^help$/i,
 
 });
 
+bot.dialog('name', [function (session) {
+    session.userData.contactInfo.bool = true;
+    session.beginDialog('askName', session.userData.contactInfo);
+},
+function (session, result) {
+    session.endDialog();
 
-
+}]);
+bot.dialog('phoneNumber', [function (session) {
+    session.userData.contactInfo.bool = true;
+    session.beginDialog('number', session.userData.contactInfo);
+},
+function (session, result) {
+    session.endDialog();
+}
+]);
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
