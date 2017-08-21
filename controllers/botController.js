@@ -112,6 +112,7 @@ bot.dialog('exit', function (session) {
     onSelectAction: function (session, args, next) {
         session.beginDialog(args.action, args);
         session.endConversation("Thanks for visiting our website");
+        bool = false;
 
     }
 });
@@ -130,6 +131,9 @@ bot.dialog('catering', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card1, card2, card3, card4]);
     session.send(msg);
+    if (session.userData.contactInfo.phoneNumber) {
+        session.send(servicesTypes(session));
+    }
 })
     .triggerAction({
         matches: /^catering$/i,
