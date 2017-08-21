@@ -101,6 +101,7 @@ var servicesTypes = function (session) {
         ));
 
 };
+
 bot.dialog('exit', function (session) {
 }).triggerAction({
     matches: /^exit$/i,
@@ -183,7 +184,7 @@ bot.dialog('Entertainment', function (session, args, next) {
     var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/DJ_Ash_UnoBridge_1475160544053.jpg')]);
     var card5 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/DJ_Hassan_UnoBridge_1475163746351.jpg')]);
 
-    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4, card5]);
+    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card4, card5]);
     session.send(msg);
     session.send(servicesTypes(session));
 })
@@ -211,14 +212,14 @@ bot.dialog('venue', function (session, args, next) {
         }
     });
 
-// bot.dialog('clear', function (session) {
-// }).triggerAction({
-//     matches: /^clear$/i,
-//     onSelectAction: function (session) {
-//         session.send("hello");
-//         session.userData.contactInfo = {};
-//     }
-// });
+bot.dialog('clear', function (session) {
+}).triggerAction({
+    matches: /^clear$/i,
+    onSelectAction: function (session) {
+        session.send("hello");
+        session.userData.contactInfo = {};
+    }
+});
 
 bot.dialog('number', [function (session, args, next) {
     //  session.send(servicesTypes(session));
@@ -247,6 +248,7 @@ bot.dialog('help', function (session) {
     var cards = new botBuilder.HeroCard(session)
         .title("Please select one").buttons(
         [botBuilder.CardAction.dialogAction(session, "startAction", "", "Start"),
+        //  botBuilder
         botBuilder.CardAction.dialogAction(session, "exitAction", "", "Exit")]);
     var msg = new botBuilder.Message(session).attachments([cards]);
     session.send(msg);
