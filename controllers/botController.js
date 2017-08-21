@@ -17,23 +17,27 @@ var bot = new botBuilder.UniversalBot(connector, [
         console.log("/////////////" + session.userData.contactInfo.name);
         session.beginDialog('welcomeMsg', session.userData.contactInfo);
     },
-    function (session, result) {
+    function (session, result, next) {
         if (result.response) {
             session.userData.contactInfo = result.response;
         }
         //   session.beginDialog('showServicesButtons');
-        session.send(servicesTypes(session));
+        if (!session.userData.contactInfo.phoneNumber) {
+            return session.send(servicesTypes(session));
+        }
+        next();
     },
     function (session, result) {
         session.beginDialog('number', session.userData.contactInfo);
     },
+
     function (session, result) {
         if (result.response) {
             session.userData.contactInfo = result.response;
         }
         session.send("Thanks %s for response. We will get back to you on %s number soon", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
-
-    }
+        session.send(servicesTypes(session));
+    },
 ]);
 
 //dialog definition
@@ -126,15 +130,12 @@ bot.dialog('catering', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card1, card2, card3, card4]);
     session.send(msg);
-    session.send(servicesTypes(session));
-
 })
     .triggerAction({
         matches: /^catering$/i,
         onSelectAction: function (session, args, next) {
             session.beginDialog(args.action, args);
-            // session.send(servicesTypes(session));
-            //    session.endDialog();
+            session.endDialog();
         }
     });
 
@@ -147,12 +148,12 @@ bot.dialog('Photograph', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
-    session.send(servicesTypes(session));
 })
     .triggerAction({
         matches: /^Photograph$/i,
         onSelectAction: function (session, args, next) {
             session.beginDialog(args.action, args);
+            session.endDialog();
 
         }
     });
@@ -165,19 +166,17 @@ bot.dialog('Decoration', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4, card5]);
     session.send(msg);
-    session.send(servicesTypes(session));
 })
     .triggerAction({
         matches: /^Decoration$/i,
         onSelectAction: function (session, args, next) {
             session.beginDialog(args.action, args);
-
+            session.endDialog();
         }
     });
 
 bot.dialog('Entertainment', function (session, args, next) {
     session.send("These are the samples we provide");
-    //  session.Prompts.text(session, 'Please provide your number so that we can reach you with details');
     var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/Aryans_Dance_Studio_UnoBridge_1475163788165.jpg')]);
     // var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/1489575630852WhatsAppImage20170314at3.22.53PM.jpg')]);
@@ -186,12 +185,12 @@ bot.dialog('Entertainment', function (session, args, next) {
 
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card4, card5]);
     session.send(msg);
-    session.send(servicesTypes(session));
 })
     .triggerAction({
         matches: /^Entertainment$/i,
         onSelectAction: function (session, args, next) {
             session.beginDialog(args.action, args);
+            session.endDialog();
         }
     });
 
@@ -201,14 +200,12 @@ bot.dialog('venue', function (session, args, next) {
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/1496741808165IMG20170606143630.jpg')]);
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3]);
     session.send(msg);
-    session.send(servicesTypes(session));
 })
     .triggerAction({
         matches: /^venue$/i,
         onSelectAction: function (session, args, next) {
             session.beginDialog(args.action, args);
-            //  session.beginDialog('number');
-
+            session.endDialog();
         }
     });
 
