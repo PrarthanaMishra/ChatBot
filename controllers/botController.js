@@ -15,7 +15,7 @@ var bot = new botBuilder.UniversalBot(connector, [
             session.userData.contactInfo = result.response;
         }
         console.log("/////////////" + session.userData.contactInfo.name);
-        session.beginDialog('welcomeMsg');
+        session.beginDialog('welcomeMsg', session.userData.contactInfo);
     },
     function (session, result) {
         if (result.response) {
@@ -58,7 +58,7 @@ bot.dialog('askName', [
 
 //dialog definition
 bot.dialog('welcomeMsg',
-    function (session) {
+    function (session, args) {
         session.dialogData.contactInfo = args;
         session.send("Hi %s", session.userData.contactInfo.name);
         session.endDialog({ response: session.dialogData.contactInfo });
