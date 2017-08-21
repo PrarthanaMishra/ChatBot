@@ -117,7 +117,7 @@ bot.dialog('exit', function (session) {
 
 bot.dialog('catering', function (session, args, next) {
     session.send("Some of the samples are");
-    var pa = 'https://young-ridge-11917.herokuapp.com' + (process.env.PORT || 3000);
+    var pa = 'https://young-ridge-11917.herokuapp.com:' + (process.env.PORT || 3000);
     var card1 = new botBuilder.HeroCard(session).images([
         botBuilder.CardImage.create(session, pa + '/images/Catering/Aroma_Wedding_Caterer_Showcase_UnoBridge_0_1475162978464.jpg')
     ]);
@@ -142,7 +142,7 @@ bot.dialog('catering', function (session, args, next) {
 
 
 bot.dialog('Photograph', function (session, args, next) {
-    var pa = 'https://young-ridge-11917.herokuapp.com' + (process.env.PORT || 3000);
+    var pa = 'https://young-ridge-11917.herokuapp.com:' + (process.env.PORT || 3000);
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/Chetan_Krishna_Photography_UnoBridge_1475161847415.jpg')]);
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/Neethu_Photography_Showcase_UnoBridge_1_1475165921177.jpg')]);
     var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/Sumanth_Shetty_Photography_UnoBridge_1475163122953.jpg')]);
@@ -159,7 +159,7 @@ bot.dialog('Photograph', function (session, args, next) {
         }
     });
 bot.dialog('Decoration', function (session, args, next) {
-    var pa = 'https://young-ridge-11917.herokuapp.com' + (process.env.PORT || 3000);
+    var pa = 'https://young-ridge-11917.herokuapp.com:' + (process.env.PORT || 3000);
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226433400b5345_W480.jpg')]);
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226479001RS25.jpg')]);
     var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226479001RS30.jpg')]);
@@ -180,7 +180,7 @@ bot.dialog('Decoration', function (session, args, next) {
 bot.dialog('Entertainment', function (session, args, next) {
     session.send("These are the samples we provide");
     //  session.Prompts.text(session, 'Please provide your number so that we can reach you with details');
-    var pa = 'https://young-ridge-11917.herokuapp.com' + (process.env.PORT || 3000);
+    var pa = 'https://young-ridge-11917.herokuapp.com:' + (process.env.PORT || 3000);
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/Aryans_Dance_Studio_UnoBridge_1475163788165.jpg')]);
     // var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/1489575630852WhatsAppImage20170314at3.22.53PM.jpg')]);
     var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/DJ_Ash_UnoBridge_1475160544053.jpg')]);
@@ -198,7 +198,7 @@ bot.dialog('Entertainment', function (session, args, next) {
     });
 
 bot.dialog('venue', function (session, args, next) {
-    var pa = 'https://young-ridge-11917.herokuapp.com' + (process.env.PORT || 3000);
+    var pa = 'https://young-ridge-11917.herokuapp.com:' + (process.env.PORT || 3000);
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venu booking/1495092042320km5.JPG')]);
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/1496741808165IMG20170606143630.jpg')]);
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3]);
