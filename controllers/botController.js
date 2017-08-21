@@ -5,7 +5,6 @@ var connector = new botBuilder.ChatConnector({
     appPassword: 'uUNYyWc5aGpAhA9f0sSREfM'
 });
 
-var bool = false;
 var bot = new botBuilder.UniversalBot(connector, [
     function (session) {
         session.send("Welcome to unoBridge! One stop shop for all your event needs!");
@@ -22,21 +21,26 @@ var bot = new botBuilder.UniversalBot(connector, [
         if (result.response) {
             session.userData.contactInfo = result.response;
         }
-        if (!session.userData.contactInfo.phoneNumber) {
-            return session.send(servicesTypes(session));
-        }
-        next();
+        // if (!session.userData.contactInfo.phoneNumber) {
+        session.send(servicesTypes(session));
+        // }
+        // next();
     },
     function (session, result) {
-        session.beginDialog('number', session.userData.contactInfo);
+        if (!session.userData.contactInfo.phoneNumber) {
+            session.beginDialog('number', session.userData.contactInfo);
+        }
     },
 
     function (session, result) {
         if (result.response) {
-            session.userData.contactInfo = result.response;
+            if (!session.userData.contactInfo.phoneNumber) {
+                session.userData.contactInfo = result.response;
+                session.send("Thanks %s for response. We will get back to you on %s number soon", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
+                session.send(servicesTypes(session));
+            }
         }
-        session.send("Thanks %s for response. We will get back to you on %s number soon", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
-        session.send(servicesTypes(session));
+
     },
 ]);
 
@@ -106,7 +110,7 @@ var servicesTypes = function (session) {
 
 var showMsgOnSelect = function (session) {
     if (session.userData.contactInfo.phoneNumber) {
-        session.send("Hi %s, We will reach you on this %s number shortly", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
+        session.send("Thanks %s for response, we will reach you on this %s number shortly", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
         session.send(servicesTypes(session));
     }
 }
@@ -164,6 +168,7 @@ bot.dialog('catering', function (session, args, next) {
 
 
 bot.dialog('Photograph', function (session, args, next) {
+    session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/Chetan_Krishna_Photography_UnoBridge_1475161847415.jpg')]);
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Photography/Neethu_Photography_Showcase_UnoBridge_1_1475165921177.jpg')]);
@@ -182,6 +187,7 @@ bot.dialog('Photograph', function (session, args, next) {
         }
     });
 bot.dialog('Decoration', function (session, args, next) {
+    session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226433400b5345_W480.jpg')]);
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226479001RS25.jpg')]);
@@ -201,7 +207,7 @@ bot.dialog('Decoration', function (session, args, next) {
     });
 
 bot.dialog('Entertainment', function (session, args, next) {
-    session.send("These are the samples we provide");
+    session.send("Some of the samples are");;
     var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/Aryans_Dance_Studio_UnoBridge_1475163788165.jpg')]);
     // var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/1489575630852WhatsAppImage20170314at3.22.53PM.jpg')]);
@@ -221,6 +227,7 @@ bot.dialog('Entertainment', function (session, args, next) {
     });
 
 bot.dialog('venue', function (session, args, next) {
+    session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venu booking/1495092042320km5.JPG')]);
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/1496741808165IMG20170606143630.jpg')]);
@@ -247,11 +254,12 @@ bot.dialog('clear', function (session) {
 
 bot.dialog('number', [function (session, args) {
     session.dialogData.contactInfo = args || {};
-    if (session.userData.contactInfo.phoneNumber) {
-        session.endDialogWithResult({ response: session.dialogData.contactInfo });
-    }
-    else if (session.userData.contactInfo.bool) {
+
+    if (session.userData.contactInfo.bool) {
         botBuilder.Prompts.number(session, "Please enter your number");
+    }
+    else if (session.userData.contactInfo.phoneNumber) {
+        session.endDialogWithResult({ response: session.dialogData.contactInfo });
     }
     else {
         //if (!session.userData.contactInfo.phoneNumber && !session.userData.contactInfo.bool) {
