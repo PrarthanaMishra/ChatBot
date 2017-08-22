@@ -332,22 +332,45 @@ function (session, result) {
 }
 ]);
 
+// bot.on('conversationUpdate', function (message) {
+//     console.dir(message);
+//     if (message.membersAdded && (message.membersAdded[0].name === 'Bot' || message.membersAdded[0].name === 'TEST')) {
+//         message.membersAdded.forEach(function (identity) {
+//             console.log("identity id" + identity.id + "bot id" + message.address.bot.id);
+//             if (identity.name == 'Bot' || identity.name === 'TEST') {
+//                 bot.beginDialog(message.address, '/');
+//             }
+//             else {
+//                 return;
+//             }
+
+//         });
+
+//     }
+// });
+
 bot.on('conversationUpdate', function (message) {
-    console.dir(message);
-    if (message.membersAdded && (message.membersAdded[0].name === 'Bot' || message.membersAdded[0].name === 'TEST')) {
+    if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
-            console.log("identity id" + identity.id + "bot id" + message.address.bot.id);
-            if (identity.name == 'Bot' || identity.name === 'TEST') {
-                bot.beginDialog(message.address, '/');
+            if (identity.id === message.address.bot.id) {
+                // Bot is joining conversation (page loaded)
+                var reply = new botBuilder.Message()
+                    .address(message.address)
+                    .text("Welcome to my page");
+                bot.send(reply);
+            } else {
+                // User is joining conversation (they sent message)
+                var address = Object.create(message.address);
+                address.user = identity;
+                var reply = new botBuilder.Message()
+                    .address(address)
+                    .text("Hello %s", identity.name);
+                bot.send(reply);
             }
-            else {
-                return;
-            }
-
         });
-
     }
 });
+
 
 exports.getBotListener = function () {
     return connector.listen();
