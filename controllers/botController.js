@@ -6,8 +6,11 @@ var connector = new botBuilder.ChatConnector({
 });
 
 var bot = new botBuilder.UniversalBot(connector, [
-    function (session) {
+    function (session, args, next) {
         session.send("Welcome to unoBridge! One stop shop for all your event needs!");
+        next();
+    },
+    function (session) {
         session.beginDialog('askName', session.userData.contactInfo);
     },
     function (session, result) {
@@ -49,11 +52,10 @@ var bot = new botBuilder.UniversalBot(connector, [
 //dialog definition
 bot.dialog('askName', [
     function (session, args, next) {
-        //if (args) {
         session.dialogData.contactInfo = args || {};
         if (!session.dialogData.contactInfo.name || session.userData.contactInfo.bool) {
             botBuilder.Prompts.text(session, "What's your name");
-            //  }
+
         }
         else {
             session.endDialog({ response: session.dialogData.contactInfo });
