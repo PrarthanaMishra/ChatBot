@@ -360,7 +360,7 @@ bot.on('conversationUpdate', function (message) {
                 var reply = new botBuilder.Message()
                     .address(message.address)
                     .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
-
+                bot.beginDialog(message.address, '/');
                 // bot.send(reply);
                 // if (session.userData && session.userData.contactInfo && session.userData.contactInfo.name) {
                 //     bot.beginDialog('welcomeMsg');
@@ -376,7 +376,7 @@ bot.on('conversationUpdate', function (message) {
                 //     .address(address)
                 //     .text("Hello %s", identity.name);
                 // bot.send(reply);
-                bot.beginDialog(message.address, '/');
+
             }
         });
     }
