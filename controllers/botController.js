@@ -360,8 +360,8 @@ bot.on('conversationUpdate', function (message) {
                 var reply = new botBuilder.Message()
                     .address(message.address)
                     .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
-                bot.beginDialog(message.address, '/');
-                // bot.send(reply);
+                // bot.beginDialog(message.address, '/');
+                bot.send(reply);
                 // if (session.userData && session.userData.contactInfo && session.userData.contactInfo.name) {
                 //     bot.beginDialog('welcomeMsg');
                 // }
@@ -369,6 +369,10 @@ bot.on('conversationUpdate', function (message) {
                 //     bot.beginDialog('askName');
                 // }
             } else {
+                var reply = new botBuilder.Message()
+                    .address(message.address)
+                    .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
+                //  bot.beginDialog(message.address, '/');
                 // User is joining conversation (they sent message)
                 var address = Object.create(message.address);
                 address.user = identity;
