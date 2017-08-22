@@ -333,7 +333,8 @@ function (session, result) {
 ]);
 
 bot.on('conversationUpdate', function (message) {
-    if (message.membersAdded && message.membersAdded[0].name === 'User') {
+    console.dir(message);
+    if (message.membersAdded && message.membersAdded[0].name === 'Bot') {
         message.membersAdded.forEach(function (identity) {
             console.log("identity id" + identity.id + "bot id" + message.address.bot.id);
             //  if (identity.id === message.address.bot.id) {
