@@ -14,7 +14,6 @@ var bot = new botBuilder.UniversalBot(connector, [
         if (result.response) {
             session.userData.contactInfo = result.response;
         }
-        console.log("/////////////" + session.userData.contactInfo.name);
         session.beginDialog('welcomeMsg', session.userData.contactInfo);
     },
     function (session, result, next) {
@@ -34,7 +33,9 @@ var bot = new botBuilder.UniversalBot(connector, [
 
     function (session, result) {
         if (result.response) {
-            if (!session.userData.contactInfo.phoneNumber) {
+            if (!session.userData || !session.userData.contactInfo || !session.userData.contactInfo.phoneNumber) {
+                session.userData = session.userData || {};
+                session.userData.contactInfo = session.userData.contactInfo || {};
                 session.userData.contactInfo = result.response;
                 session.send("Thanks %s for response. We will get back to you on %s number soon", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
                 session.send(servicesTypes(session));
@@ -48,9 +49,11 @@ var bot = new botBuilder.UniversalBot(connector, [
 //dialog definition
 bot.dialog('askName', [
     function (session, args, next) {
+        //if (args) {
         session.dialogData.contactInfo = args || {};
         if (!session.dialogData.contactInfo.name || session.userData.contactInfo.bool) {
             botBuilder.Prompts.text(session, "What's your name");
+            //  }
         }
         else {
             session.endDialog({ response: session.dialogData.contactInfo });
@@ -59,7 +62,7 @@ bot.dialog('askName', [
     },
     function (session, result) {
         if (result.response) {
-            if (session.userData.contactInfo.bool) {
+            if (session.userData && session.userData.contactInfo && session.userData.contactInfo.bool) {
                 session.userData.contactInfo.name = result.response;
                 session.userData.contactInfo.bool = undefined;
                 session.send("Thanks %s for updating your name", session.userData.contactInfo.name);
@@ -228,8 +231,8 @@ bot.dialog('venue', function (session, args, next) {
     session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venu booking/1.JPG')]);
-    var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/2.jpg')]);
-    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3]);
+    // var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/2.jpg')]);
+    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
     session.send(msg);
     showMsgOnSelect(session);
 })
@@ -246,9 +249,14 @@ bot.dialog('clear', function (session) {
     matches: /^clear$/i,
     onSelectAction: function (session) {
         session.send("hello");
+        delete session.userData;
+        console.log("++++++++++++++++" + session.userData);
         session.userData.contactInfo = {};
+        session.userData = {};
     }
 });
+
+bot.use(botBuilder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i }));
 
 bot.dialog('number', [function (session, args) {
     session.dialogData.contactInfo = args || {};
@@ -267,7 +275,7 @@ bot.dialog('number', [function (session, args) {
 },
 function (session, result) {
     if (result.response) {
-        if (result.response > 7000000000 && result.response < 9999999999) {
+        if (result.response > 7000000000 && result.response <= 9999999999) {
             if (session.userData.contactInfo.bool) {
                 session.userData.contactInfo.phoneNumber = result.response;
                 session.send("Thanks for updating your number, we will get back to you on %s soon", session.userData.contactInfo.phoneNumber);
@@ -328,12 +336,17 @@ bot.on('conversationUpdate', function (message) {
             console.log("identity id" + identity.id + "bot id" + message.address.bot.id);
             if (identity.id === message.address.bot.id) {
                 bot.beginDialog(message.address, '/');
+                // bot.beginDialog(message.address, 'hi');
             }
 
         });
     }
 });
 
+bot.dialog('hi', function (session) {
+    session.send("Hi how are you?");
+    session.endDialog();
+});
 
 
 
