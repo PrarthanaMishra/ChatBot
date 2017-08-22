@@ -152,6 +152,7 @@ bot.dialog('catering', function (session, args, next) {
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
     showMsgOnSelect(session);
+    bot.beginDialogAction('goAction', 'action');
 })
     .triggerAction({
         matches: /catering/i,
@@ -173,6 +174,7 @@ bot.dialog('Photograph', function (session, args, next) {
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
     showMsgOnSelect(session);
+    bot.beginDialogAction('goAction', 'action');
 })
     .triggerAction({
         matches: /Photograph/i,
@@ -192,6 +194,7 @@ bot.dialog('Decoration', function (session, args, next) {
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
     showMsgOnSelect(session);
+    bot.beginDialogAction('goAction', 'action');
 })
     .triggerAction({
         matches: /Decoration/i,
@@ -234,6 +237,7 @@ bot.dialog('venue', function (session, args, next) {
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
     session.send(msg);
     showMsgOnSelect(session);
+    bot.beginDialogAction('goAction', 'action');
 })
     .triggerAction({
         matches: /(venue|marriage hall)/i,
