@@ -201,13 +201,15 @@ bot.dialog('Decoration', function (session, args, next) {
 bot.dialog('Entertainment', function (session, args, next) {
     session.send("Some of the samples are");;
     var pa = 'https://young-ridge-11917.herokuapp.com';
-    var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/5.jpg')]);
+    var card2 = new botBuilder.HeroCard(session)
+        .images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/5.jpg')])
+        .buttons([botBuilder.CardAction.dialogAction(session, "goAction", "", "Go back")]);
     var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/2.jpg')]);
     var card5 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/3.jpg')]);
-
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card4, card5]);
     session.send(msg);
     showMsgOnSelect(session);
+    bot.beginDialogAction('goAction', 'action');
 })
     .triggerAction({
         matches: /^Entertainment$/i,
@@ -216,6 +218,10 @@ bot.dialog('Entertainment', function (session, args, next) {
             session.endDialog();
         }
     });
+
+bot.dialog('action', function (session) {
+    session.send(servicesTypes(session));
+});
 
 bot.dialog('venue', function (session, args, next) {
     session.send("Some of the samples are");
@@ -226,7 +232,7 @@ bot.dialog('venue', function (session, args, next) {
     showMsgOnSelect(session);
 })
     .triggerAction({
-        matches: /^venue$/i,
+        matches: /(venue|marriage hall)/i,
         onSelectAction: function (session, args, next) {
             session.beginDialog(args.action, args);
             session.endDialog();
