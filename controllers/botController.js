@@ -1,19 +1,15 @@
 var path = require('path');
 var botBuilder = require('botbuilder');
+var config = require('../config');
 var connector = new botBuilder.ChatConnector({
-    appId: '79035254-da99-42bd-b6b8-23f39f86d3b9',
-    appPassword: 'uUNYyWc5aGpAhA9f0sSREfM'
+    appId: config.appId,
+    appPassword: config.password
 });
 
 var bot = new botBuilder.UniversalBot(connector, [
     function (session, args, next) {
-        //  session.send("Welcome to unoBridge! One stop shop for all your event needs!");
-        //  next();
         session.beginDialog('askName', session.userData.contactInfo);
     },
-    // function (session) {
-    //     session.beginDialog('askName', session.userData.contactInfo);
-    // },
     function (session, result) {
         if (result.response) {
             session.userData.contactInfo = result.response;
@@ -24,10 +20,7 @@ var bot = new botBuilder.UniversalBot(connector, [
         if (result.response) {
             session.userData.contactInfo = result.response;
         }
-        // if (!session.userData.contactInfo.phoneNumber) {
         session.send(servicesTypes(session));
-        // }
-        // next();
     },
     function (session, result) {
         if (!session.userData.contactInfo.phoneNumber) {
@@ -41,7 +34,7 @@ var bot = new botBuilder.UniversalBot(connector, [
                 session.userData = session.userData || {};
                 session.userData.contactInfo = session.userData.contactInfo || {};
                 session.userData.contactInfo = result.response;
-                session.send("Thanks %s for response. We will get back to you on %s number soon", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
+                session.send("Thanks %s for response. We will get back to you on %s number soon", session.userData.contactInfo.name.toUpperCase(), session.userData.contactInfo.phoneNumber);
                 session.send(servicesTypes(session));
 
             }
@@ -72,11 +65,8 @@ bot.dialog('askName', [
                 return session.endDialogWithResult({ response: session.userData.contactInfo });
 
             }
-            // if (session.userData && session.userData.contactInfo) {
-            //    session.userData.contactInfo.name = result.response;
             session.dialogData.contactInfo.name = result.response;
             session.endDialogWithResult({ response: session.dialogData.contactInfo });
-            //  }
         }
     }
 ]);
@@ -87,7 +77,6 @@ bot.dialog('welcomeMsg',
         session.dialogData.contactInfo = args || {};
         session.send("Hi %s", session.userData.contactInfo.name);
         session.endDialog({ response: session.dialogData.contactInfo });
-
     }
 );
 
@@ -151,8 +140,6 @@ function (session, result) {
     }
 });
 
-
-
 bot.dialog('catering', function (session, args, next) {
     session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
@@ -199,8 +186,6 @@ bot.dialog('Decoration', function (session, args, next) {
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1.jpg')]);
     var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/2.jpg')]);
     var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/3.jpg')]);
-    //  var card5 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Decoration/1475226590195a712c9bef8c434d7adfa01793cea8eb0.jpg')]);
-
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2, card3, card4]);
     session.send(msg);
     showMsgOnSelect(session);
@@ -217,7 +202,6 @@ bot.dialog('Entertainment', function (session, args, next) {
     session.send("Some of the samples are");;
     var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/1.jpg')]);
-    // var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/1489575630852WhatsAppImage20170314at3.22.53PM.jpg')]);
     var card4 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/2.jpg')]);
     var card5 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Entertainment/3.jpg')]);
 
@@ -237,7 +221,6 @@ bot.dialog('venue', function (session, args, next) {
     session.send("Some of the samples are");
     var pa = 'https://young-ridge-11917.herokuapp.com';
     var card2 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venu booking/1.JPG')]);
-    // var card3 = new botBuilder.HeroCard(session).images([botBuilder.CardImage.create(session, pa + '/images/Venue booking/2.jpg')]);
     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
     session.send(msg);
     showMsgOnSelect(session);
@@ -250,22 +233,17 @@ bot.dialog('venue', function (session, args, next) {
         }
     });
 
-bot.dialog('clear', function (session) {
+bot.dialog('__clear', function (session) {
 }).triggerAction({
-    matches: /^clear$/i,
+    matches: /^__clear$/i,
     onSelectAction: function (session) {
         session.send("hello");
-        console.log("++++++++++++++++" + session.userData);
         session.userData.contactInfo = {};
-
     }
 });
 
-bot.use(botBuilder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i }));
-
 bot.dialog('number', [function (session, args) {
     session.dialogData.contactInfo = args || {};
-
     if (session.userData.contactInfo.bool) {
         botBuilder.Prompts.number(session, "Please enter your number");
     }
@@ -273,7 +251,6 @@ bot.dialog('number', [function (session, args) {
         session.endDialogWithResult({ response: session.dialogData.contactInfo });
     }
     else {
-        //if (!session.userData.contactInfo.phoneNumber && !session.userData.contactInfo.bool) {
         botBuilder.Prompts.number(session, "For further assist you, please enter your mobile number so that our representers will reach you shortly");
     }
 
@@ -317,7 +294,6 @@ bot.dialog('help', function (session) {
 
 });
 
-
 bot.dialog('name', [function (session) {
     session.userData.contactInfo.bool = true;
     session.beginDialog('askName', session.userData.contactInfo);
@@ -335,23 +311,6 @@ function (session, result) {
 }
 ]);
 
-// bot.on('conversationUpdate', function (message) {
-//     console.dir(message);
-//     if (message.membersAdded && (message.membersAdded[0].name === 'Bot' || message.membersAdded[0].name === 'TEST')) {
-//         message.membersAdded.forEach(function (identity) {
-//             console.log("identity id" + identity.id + "bot id" + message.address.bot.id);
-//             if (identity.name == 'Bot' || identity.name === 'TEST') {
-//                 bot.beginDialog(message.address, '/');
-//             }
-//             else {
-//                 return;
-//             }
-
-//         });
-
-//     }
-// });
-
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
@@ -360,43 +319,22 @@ bot.on('conversationUpdate', function (message) {
                 var reply = new botBuilder.Message()
                     .address(message.address)
                     .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
-                // bot.beginDialog(message.address, '/');
                 bot.send(reply);
-                // if (session.userData && session.userData.contactInfo && session.userData.contactInfo.name) {
-                //     bot.beginDialog('welcomeMsg');
-                // }
-                // else {
-                //     bot.beginDialog('askName');
-                // }
+
             } else {
                 var reply = new botBuilder.Message()
                     .address(message.address)
                     .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
-                //  bot.beginDialog(message.address, '/');
                 // User is joining conversation (they sent message)
                 var address = Object.create(message.address);
                 address.user = identity;
-                // var reply = new botBuilder.Message()
-                //     .address(address)
-                //     .text("Hello %s", identity.name);
-                // bot.send(reply);
+
 
             }
         });
     }
 });
 
-
 exports.getBotListener = function () {
     return connector.listen();
 }
-// // exports.getprecheck = function (req, res, next) {
-// //     console.log("precheck has been called");
-// //     console.dir(req.headers);
-// //     if (req.headers.access_token) {
-// //         //todo check if acces token is valid call next()
-// //         return next();
-// //     }
-
-// //     res.status(401).send("invalid access token");
-// // }
