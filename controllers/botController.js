@@ -57,16 +57,25 @@ bot.dialog('askName', [
         }
     },
     function (session, result) {
+        console.log("+++++++++++++++++" + result.response);
         if (result.response) {
-            if (session.userData && session.userData.contactInfo && session.userData.contactInfo.bool) {
-                session.userData.contactInfo.name = result.response;
-                session.userData.contactInfo.bool = undefined;
-                session.send("Thanks %s for updating your name", session.userData.contactInfo.name);
-                return session.endDialogWithResult({ response: session.userData.contactInfo });
+            var reg = /^[a-zA-Z ]+$/;
+            if (result.response.match(reg)) {
 
+                //  if (session.user)
+                if (session.userData && session.userData.contactInfo && session.userData.contactInfo.bool) {
+                    session.userData.contactInfo.name = result.response;
+                    session.userData.contactInfo.bool = undefined;
+                    session.send("Thanks %s for updating your name", session.userData.contactInfo.name);
+                    return session.endDialogWithResult({ response: session.userData.contactInfo });
+                }
+                session.dialogData.contactInfo.name = result.response;
+                session.endDialogWithResult({ response: session.dialogData.contactInfo });
             }
-            session.dialogData.contactInfo.name = result.response;
-            session.endDialogWithResult({ response: session.dialogData.contactInfo });
+            else {
+                session.send("Invalid name");
+                session.replaceDialog('askName');
+            }
         }
     }
 ]);
