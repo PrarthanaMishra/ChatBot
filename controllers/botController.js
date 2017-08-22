@@ -252,10 +252,9 @@ bot.dialog('clear', function (session) {
     matches: /^clear$/i,
     onSelectAction: function (session) {
         session.send("hello");
-        delete session.userData;
         console.log("++++++++++++++++" + session.userData);
         session.userData.contactInfo = {};
-        session.userData = {};
+
     }
 });
 
