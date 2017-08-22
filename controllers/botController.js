@@ -7,12 +7,13 @@ var connector = new botBuilder.ChatConnector({
 
 var bot = new botBuilder.UniversalBot(connector, [
     function (session, args, next) {
-        session.send("Welcome to unoBridge! One stop shop for all your event needs!");
-        next();
-    },
-    function (session) {
+        // session.send("Welcome to unoBridge! One stop shop for all your event needs!");
+        // next();
         session.beginDialog('askName', session.userData.contactInfo);
     },
+    // function (session) {
+    //     session.beginDialog('askName', session.userData.contactInfo);
+    // },
     function (session, result) {
         if (result.response) {
             session.userData.contactInfo = result.response;
@@ -332,27 +333,53 @@ function (session, result) {
 }
 ]);
 
+// bot.on('conversationUpdate', function (message) {
+//     if (message.membersAdded) {
+//         if (message.membersAdded[0].name = "Bot") {
+//             return;
+//         }
+//         message.address.user = message.membersAdded[0];
+
+//         message.membersAdded.forEach(function (identity) {
+//             console.log("identity id" + identity.id + "bot id" + message.address.bot.id);
+
+//             if (identity.id === message.address.bot.id) {
+//                 // bot.beginDialog(message.address, '/');
+//                 // bot.beginDialog(message.address, 'hi');
+//                 return;
+//             }
+//             else {
+//                 bot.beginDialog(message.address, '/');
+//             }
+
+//         });
+//     }
+// });
+
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
-            console.log("identity id" + identity.id + "bot id" + message.address.bot.id);
-            // if (message.membersAdded[0].name = "Bot") {
-            //     return;
-            // }
-            // message.address.user = message.membersAdded[0];
-
-            if (identity.id === message.address.bot.id) {
-                // bot.beginDialog(message.address, '/');
-                // bot.beginDialog(message.address, 'hi');
-                return;
-            }
-            else {
+            if (identity.id == message.address.bot.id) {
+                // Bot is joining conversation (page loaded)
+                var reply = new builder.Message()
+                    .address(message.address)
+                    .text("Welcome to unoBridge! One stop shop for all your event needs!");
+                bot.send(reply);
+            } else {
+                // User is joining conversation (they sent message)
+                var address = Object.create(message.address);
+                address.user = identity;
                 bot.beginDialog(message.address, '/');
+                // var reply = new builder.Message()
+                //     .address(address)
+                //     .text("Hello %s", identity.name);
+                // bot.send(reply);
             }
-
         });
     }
 });
+
+
 
 bot.dialog('hi', function (session) {
     session.send("Hi how are you?");
