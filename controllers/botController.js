@@ -7,8 +7,8 @@ var connector = new botBuilder.ChatConnector({
 
 var bot = new botBuilder.UniversalBot(connector, [
     function (session, args, next) {
-        session.send("Welcome to unoBridge! One stop shop for all your event needs!");
-        // next();
+        //  session.send("Welcome to unoBridge! One stop shop for all your event needs!");
+        //  next();
         session.beginDialog('askName', session.userData.contactInfo);
     },
     // function (session) {
@@ -72,8 +72,11 @@ bot.dialog('askName', [
                 return session.endDialogWithResult({ response: session.userData.contactInfo });
 
             }
+            // if (session.userData && session.userData.contactInfo) {
+            //    session.userData.contactInfo.name = result.response;
             session.dialogData.contactInfo.name = result.response;
             session.endDialogWithResult({ response: session.dialogData.contactInfo });
+            //  }
         }
     }
 ]);
@@ -356,16 +359,24 @@ bot.on('conversationUpdate', function (message) {
                 // Bot is joining conversation (page loaded)
                 var reply = new botBuilder.Message()
                     .address(message.address)
-                    .text("Welcome to my page");
-                bot.send(reply);
+                    .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
+
+                // bot.send(reply);
+                // if (session.userData && session.userData.contactInfo && session.userData.contactInfo.name) {
+                //     bot.beginDialog('welcomeMsg');
+                // }
+                // else {
+                //     bot.beginDialog('askName');
+                // }
             } else {
                 // User is joining conversation (they sent message)
                 var address = Object.create(message.address);
                 address.user = identity;
-                var reply = new botBuilder.Message()
-                    .address(address)
-                    .text("Hello %s", identity.name);
-                bot.send(reply);
+                // var reply = new botBuilder.Message()
+                //     .address(address)
+                //     .text("Hello %s", identity.name);
+                // bot.send(reply);
+                bot.beginDialog(message.address, '/');
             }
         });
     }
