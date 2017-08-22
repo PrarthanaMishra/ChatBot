@@ -333,59 +333,19 @@ function (session, result) {
 ]);
 
 bot.on('conversationUpdate', function (message) {
-    if (message.membersAdded) {
+    if (message.membersAdded && message.membersAdded[0].name === 'User') {
         message.membersAdded.forEach(function (identity) {
             console.log("identity id" + identity.id + "bot id" + message.address.bot.id);
-            if (identity.id === message.address.bot.id) {
-                bot.beginDialog(message.address, '/');
-            }
-            else {
-                return;
-            }
+            //  if (identity.id === message.address.bot.id) {
+            bot.beginDialog(message.address, '/');
+            // }
+            // else {
+            //     return;
+            // }
 
         });
     }
 });
-
-// bot.on('conversationUpdate', function (message) {
-//     if (message.membersAdded) {
-//         message.membersAdded.forEach(function (identity) {
-//             if (identity.id === message.address.bot.id) {
-//                 message.address.user = message.membersAdded[identity];
-//                 // Bot is joining conversation (page loaded)
-//                 // var reply = new builder.Message()
-//                 //     .address(message.address)
-//                 //     .text("Welcome to unoBridge! One stop shop for all your event needs!");
-//                 // bot.send(reply);
-//                 // bot.beginDialog(message.address, '/');
-//                 return;
-
-//             } else {
-//                 // User is joining conversation (they sent message)
-//                 // var address = Object.create(message.address);
-//                 // address.user = identity;
-//                 // bot.beginDialog(message.address, '/');
-//                 // var reply = new builder.Message()
-//                 //     .address(address)
-//                 //     .text("Hello %s", identity.name);
-//                 // bot.send(reply);
-//                 // return;
-//                 var reply = new builder.Message()
-//                     .address(message.address)
-//                     .text("Welcome to unoBridge! One stop shop for all your event needs!");
-//                 bot.send(reply);
-//                 bot.beginDialog(message.address, '/');
-
-
-//             }
-//         });
-//     }
-// });
-
-// // exports.getHelloWorld = function (req, res) {
-// //     console.log("helloworld");
-// //     res.send("jjjjjjjj");
-// // }
 
 exports.getBotListener = function () {
     return connector.listen();
