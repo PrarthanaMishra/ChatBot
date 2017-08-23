@@ -52,12 +52,14 @@ bot.dialog('askName', [
 
         }
         else {
-            session.endDialog({ response: session.dialogData.contactInfo });
+            session.endDialogWithResult({ response: session.dialogData.contactInfo });
 
         }
     },
     function (session, result) {
-        console.log("+++++++++++++++++" + result.response);
+        if (result.response === true) {
+            return;
+        }
         if (result.response) {
             var reg = /^[a-zA-Z ]+$/;
             if (result.response.match(reg)) {
@@ -117,9 +119,17 @@ var servicesTypes = function (session) {
 };
 
 var showMsgOnSelect = function (session) {
-    if (session.userData.contactInfo.phoneNumber) {
+    if (session.userData && session.userData.contactInfo && session.userData.contactInfo.phoneNumber) {
         session.send("Thanks %s for response, we will reach you on this %s number shortly", session.userData.contactInfo.name, session.userData.contactInfo.phoneNumber);
         session.send(servicesTypes(session));
+    }
+    else if (!session.userData || !session.userData.contactInfo || !session.userData.contactInfo.name) {
+        //  session.send("Please type continue or click the below button");
+        var card2 = new botBuilder.HeroCard(session).title('Please type continue or click the below button')
+            .buttons([botBuilder.CardAction.dialogAction(session, " ", "", "continue")]);
+        var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
+        session.send(msg);
+
     }
 }
 
@@ -267,27 +277,32 @@ bot.dialog('__clear', function (session) {
 
 bot.dialog('number', [function (session, args) {
     session.dialogData.contactInfo = args || {};
-    if (session.userData.contactInfo.bool) {
+    if (session.userData && session.userData.contactInfo && session.userData.contactInfo.bool) {
         botBuilder.Prompts.number(session, "Please enter your number");
     }
-    else if (session.userData.contactInfo.phoneNumber) {
+    else if (session.userData && session.userData.contactInfo && session.userData.contactInfo.phoneNumber) {
         session.endDialogWithResult({ response: session.dialogData.contactInfo });
     }
     else {
         botBuilder.Prompts.number(session, "For further assist you, please enter your mobile number so that our representers will reach you shortly");
-    }
 
+    }
 },
 function (session, result) {
+    if (result.response === true) {
+        return;
+    }
     if (result.response) {
         if (result.response > 7000000000 && result.response <= 9999999999) {
-            if (session.userData.contactInfo.bool) {
+            if (session.userData && session.userData.contactInfo && session.userData.contactInfo.bool) {
                 session.userData.contactInfo.phoneNumber = result.response;
                 session.send("Thanks for updating your number, we will get back to you on %s soon", session.userData.contactInfo.phoneNumber);
                 session.userData.contactInfo.bool = undefined;
                 return session.endDialogWithResult({ response: session.userData.contactInfo });
             }
+
             session.dialogData.contactInfo.phoneNumber = result.response;
+            console.dir(session.dialogData);
             session.endDialogWithResult({ response: session.dialogData.contactInfo });
         }
         else {
@@ -338,12 +353,19 @@ bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
-                // Bot is joining conversation (page loaded)
-                var reply = new botBuilder.Message()
-                    .address(message.address)
-                    .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
-                bot.send(reply);
+                bot.loadSession(message.address, function (err, session) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    var card2 = new botBuilder
+                        .HeroCard(session)
+                        .title('Welcome to unoBridge! One stop shop for all your event needs!\n\
+                    Please type Hi or click on Hi')
+                        .buttons([botBuilder.CardAction.dialogAction(session, " ", "", "Hi")]);
+                    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
+                    session.send(msg);
 
+                });
             } else {
                 var reply = new botBuilder.Message()
                     .address(message.address)
@@ -351,12 +373,25 @@ bot.on('conversationUpdate', function (message) {
                 // User is joining conversation (they sent message)
                 var address = Object.create(message.address);
                 address.user = identity;
-
-
             }
         });
     }
 });
+
+//middleware
+// bot.use({
+//     botbuilder: function (session, next) {
+//         console.log("commming" + session.message.text);
+//         if (session.message.text === 'catering') {
+//             bot.beginDialog('/', 'catering');
+//         }
+//         next();
+//     },
+//     sent: function (session, next) {
+//         console.log("sennt" + session.message.text);
+//         next();
+//     }
+// });
 
 exports.getBotListener = function () {
     return connector.listen();
