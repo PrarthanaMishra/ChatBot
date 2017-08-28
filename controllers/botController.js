@@ -130,6 +130,7 @@ var showMsgOnSelect = function (session) {
         var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
         session.send(msg);
 
+
     }
 }
 
@@ -361,9 +362,10 @@ bot.on('conversationUpdate', function (message) {
                         .HeroCard(session)
                         .title('Welcome to unoBridge! One stop shop for all your event needs!\n\
                     Please type Hi or click on Hi')
-                        .buttons([botBuilder.CardAction.dialogAction(session, " ", "", "Hi")]);
+                        .buttons([botBuilder.CardAction.dialogAction(session, "sendTypingdialog ", "Title", "Hi")]);
                     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
                     session.send(msg);
+                    bot.beginDialogAction('sendTypingdialog', 'sendTyping');
 
                 });
             } else {
@@ -376,6 +378,10 @@ bot.on('conversationUpdate', function (message) {
             }
         });
     }
+});
+
+bot.dialog('sendTyping', function (session) {
+    session.sendTyping();
 });
 
 //middleware
