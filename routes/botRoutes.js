@@ -1,5 +1,6 @@
 var router = require('express').Router();
-var botListener = require('../controllers/botController.js');
+//var botListener = require('../controllers/botController.js');
+var botListener = require('../controllers/newBotController.js');
 
 router.post('/', botListener.getBotListener());
 // router.get('/', botListener.getHelloWorld);

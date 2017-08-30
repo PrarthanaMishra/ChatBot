@@ -39,8 +39,7 @@ var bot = new botBuilder.UniversalBot(connector, [
 
             }
         }
-
-    },
+    }
 ]);
 
 //dialog definition
@@ -48,8 +47,50 @@ bot.dialog('askName', [
     function (session, args, next) {
         session.dialogData.contactInfo = args || {};
         if (!session.dialogData.contactInfo.name || session.userData.contactInfo.bool) {
-            botBuilder.Prompts.text(session, "What's your name");
 
+            var card2 = new botBuilder.HeroCard(session)
+                .title("Hi,Your good name please?")
+                .buttons([botBuilder.CardAction.dialogAction(session, "goAction", "goBack", "Go back")]);
+            var msg = new botBuilder.Message(session)
+                .attachmentLayout(botBuilder.AttachmentLayout.carousel)
+                .attachments([card2]);
+            var msg1 = new botBuilder.Message(session)
+                .addAttachment({
+                    contentType: "application/vnd.microsoft.card.adaptive",
+                    content: {
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "type": "AdaptiveCard",
+                        "version": "0.5",
+                        "body": [
+                            {
+                                "type": "Input.Text",
+                                "id": "firstName",
+                                "placeholder": "What is your first name?"
+                            },
+                            {
+                                "type": "Input.Text",
+                                "id": "lastName",
+                                "placeholder": "What is your last name?"
+                            }
+                        ],
+                        "actions": [
+                            {
+                                "type": "Action.Submit",
+                                "title": "Action.Submit",
+                                "data": {
+                                    "x": 13
+                                }
+                            }
+                        ]
+                    }
+                });
+
+
+            botBuilder.Prompts.text(session, " ");
+            session.send(msg);
+            session.send(msg1);
+            bot.beginDialogAction('goAction', 'action');
+            console.log("aaaaaaaaaaaaaaaaaaa" + session);
         }
         else {
             session.endDialogWithResult({ response: session.dialogData.contactInfo });
@@ -57,11 +98,14 @@ bot.dialog('askName', [
         }
     },
     function (session, result) {
+        console.dir(session);
         if (result.response === true) {
             return;
         }
         if (result.response) {
             var reg = /^[a-zA-Z ]+$/;
+            console.log("-------------------------------");
+            console.dir(result);
             if (result.response.match(reg)) {
 
                 //  if (session.user)
@@ -86,7 +130,7 @@ bot.dialog('askName', [
 bot.dialog('welcomeMsg',
     function (session, args) {
         session.dialogData.contactInfo = args || {};
-        session.send("Hi %s", session.userData.contactInfo.name);
+        session.send("Hi %s \n How can I help you?", session.userData.contactInfo.name);
         session.endDialog({ response: session.dialogData.contactInfo });
     }
 );
@@ -97,7 +141,7 @@ var servicesTypes = function (session) {
         str = "Click to check other services";
     }
     else {
-        str = "These are the services we provide.Please click any one given below";
+        str = "These are the services we provide.";
     }
     return new botBuilder.Message(session).text(
         str)
@@ -354,6 +398,7 @@ bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
+                console.log("bbbbbbbbbooooooooooo" + message.address.bot.id);
                 bot.loadSession(message.address, function (err, session) {
                     if (err) {
                         return console.log(err);
@@ -362,7 +407,7 @@ bot.on('conversationUpdate', function (message) {
                         .HeroCard(session)
                         .title('Welcome to unoBridge! One stop shop for all your event needs!\n\
                     Please type Hi or click on Hi')
-                        .buttons([botBuilder.CardAction.dialogAction(session, "sendTypingdialog ", "Title", "Hi")]);
+                        .buttons([botBuilder.CardAction.dialogAction(session, "sendTypingdialog ", "", "Hi")]);
                     var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
                     session.send(msg);
                     bot.beginDialogAction('sendTypingdialog', 'sendTyping');
@@ -381,6 +426,7 @@ bot.on('conversationUpdate', function (message) {
 });
 
 bot.dialog('sendTyping', function (session) {
+    console.log('+++++++++++++++++');
     session.sendTyping();
 });
 
