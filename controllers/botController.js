@@ -48,49 +48,15 @@ bot.dialog('askName', [
         session.dialogData.contactInfo = args || {};
         if (!session.dialogData.contactInfo.name || session.userData.contactInfo.bool) {
 
+
             var card2 = new botBuilder.HeroCard(session)
                 .title("Hi,Your good name please?")
                 .buttons([botBuilder.CardAction.dialogAction(session, "goAction", "goBack", "Go back")]);
             var msg = new botBuilder.Message(session)
                 .attachmentLayout(botBuilder.AttachmentLayout.carousel)
                 .attachments([card2]);
-            var msg1 = new botBuilder.Message(session)
-                .addAttachment({
-                    contentType: "application/vnd.microsoft.card.adaptive",
-                    content: {
-                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                        "type": "AdaptiveCard",
-                        "version": "0.5",
-                        "body": [
-                            {
-                                "type": "Input.Text",
-                                "id": "firstName",
-                                "placeholder": "What is your first name?"
-                            },
-                            {
-                                "type": "Input.Text",
-                                "id": "lastName",
-                                "placeholder": "What is your last name?"
-                            }
-                        ],
-                        "actions": [
-                            {
-                                "type": "Action.Submit",
-                                "title": "Action.Submit",
-                                "data": {
-                                    "x": 13
-                                }
-                            }
-                        ]
-                    }
-                });
 
 
-            botBuilder.Prompts.text(session, " ");
-            session.send(msg);
-            session.send(msg1);
-            bot.beginDialogAction('goAction', 'action');
-            console.log("aaaaaaaaaaaaaaaaaaa" + session);
         }
         else {
             session.endDialogWithResult({ response: session.dialogData.contactInfo });
