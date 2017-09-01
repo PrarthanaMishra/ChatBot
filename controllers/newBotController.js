@@ -33,7 +33,7 @@ function processSubmitAction(session, value) {
 
     switch (value.type) {
         case 'catering':
-            session.beginDialog('catering');
+        // session.beginDialog('catering');
     }
 }
 
@@ -64,8 +64,8 @@ bot.on('conversationUpdate', function (message) {
                     blankCard.setBody(textBlock);
                     blankCard.setBody(textCard);
                     //  bot.dialog('catering', require('../dialogs/cateringDialog'));
-                    bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
-                    session.beginDialog('serviceButtons');
+                    //  bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
+                    //  session.beginDialog('serviceButtons');
 
 
                     var card = new EmptyCard();
@@ -95,8 +95,6 @@ bot.on('conversationUpdate', function (message) {
                     blankCard.setAction(action2);
                     var msg = new botBuilder.Message(session).addAttachment(blankCard);
                     session.send(msg);
-
-
                 });
             } else {
                 var reply = new botBuilder.Message()
