@@ -1,56 +1,24 @@
-{
-    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-    "type": "AdaptiveCard",
-    "version": "1.0",
-    "body": [
-        {
-            "type": "ColumnSet",
-            //  "imageSize": "large",
-            "columns": [
-                {
-                    "type": "Column",
-                    "size": "auto",
-                    "items": [
-                        {
-                            "type": "Image",
-                            "url": "https://young-ridge-11917.herokuapp.com/images/Catering/1.jpg",
-                            "separation": "strong",
-                            "size": "stretch",
-                            "selectAction": {
-                                "type": "Action.OpenUrl",
-                                "title": "cool link",
-                                "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "type": "Column",
-                    "size": "auto",
-                    "separation": "strong",
-                    "items": [
-                        {
-                            "type": "Image",
-                            "url": "https://young-ridge-11917.herokuapp.com/images/Catering/1.jpg",
-                            "selectAction": {
-                                "type": "Action.OpenUrl",
-                                "title": "cool link",
-                                "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "type": "Column",
-                    "size": "auto",
-                    "items": [
-                        {
-                            "type": "Image",
-                            "url": "https://young-ridge-11917.herokuapp.com/images/Catering/1.jpg"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
+action1
+                        .setType('Action.Submit')
+                        .setTitle('Catering')
+                        .setData(data1);
+                    card
+                        .setType('AdaptiveCard')
+                        .setActions(action1);
+
+                    data2.setType('Photograpy');
+                    action2.
+                        setType('Action.Submit')
+                        .setTitle('Photography')
+                        .setData(data2);
+                    card
+                        .setType('AdaptiveCard')
+                        .setActions(action2);
+
+
+                         var action2 = new Action();
+                    var data2 = new Data();
+                    data1.setType('catering');//thses two lines are enough for buttons
+                    
+                    blankCard.setAction(action1);
+                    blankCard.setAction(action2);

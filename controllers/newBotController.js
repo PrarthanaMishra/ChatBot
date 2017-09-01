@@ -64,51 +64,11 @@ bot.on('conversationUpdate', function (message) {
                         .setType("TextBlock")
                         .setText("Welcome to unoBridge! One stop shop for all your event needs!")
                         .setWeight('bolder');
-
-                    textCard
-                        .setType('Input.Text')
-                        .setPlaceHolder("What's is your name")
-                        .setId("name");
-
                     var blankCard = new BlankCard();
-                    var arr = [textBlock, textCard];
                     blankCard.setBody(textBlock);
-                    blankCard.setBody(textCard);
-
-
-
-
-
-                    session.beginDialog('serviceButtons');
-
-
-                    var card = new EmptyCard();
-                    var action1 = new Action();
-                    var data1 = new Data();
-
-                    var action2 = new Action();
-                    var data2 = new Data();
-                    data1.setType('catering');//thses two lines are enough for buttons
-                    action1
-                        .setType('Action.Submit')
-                        .setTitle('Catering')
-                        .setData(data1);
-                    card
-                        .setType('AdaptiveCard')
-                        .setActions(action1);
-
-                    data2.setType('Photograpy');
-                    action2.
-                        setType('Action.Submit')
-                        .setTitle('Photography')
-                        .setData(data2);
-                    card
-                        .setType('AdaptiveCard')
-                        .setActions(action2);
-                    blankCard.setAction(action1);
-                    blankCard.setAction(action2);
                     var msg = new botBuilder.Message(session).addAttachment(blankCard);
                     session.send(msg);
+                    session.beginDialog('serviceButtons');
                 });
             } else {
                 var reply = new botBuilder.Message()

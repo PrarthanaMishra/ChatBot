@@ -16,6 +16,24 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
+                                    "text": "These are the services we provide",
+                                    'weight': 'bolder',
+
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+
+                        {
+                            "type": "Column",
+                            "size": "auto",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
                                     "text": "Decoration",
                                     'weight': 'bolder',
 
