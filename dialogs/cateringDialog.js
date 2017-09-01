@@ -66,6 +66,7 @@ module.exports = function catering(session) {
     var msg = new botBuilder.Message(session)
         .addAttachment(blankCard);
     session.send(msg);
+    session.endDialog();
 
 }
 

@@ -8,6 +8,8 @@ var Button = require('../adaptiveCards/button');
 var EmptyCard = require('../adaptiveCards/emptyCard');
 var Data = require('../adaptiveCards/data');
 var Action = require('../adaptiveCards/actions');
+var cateringDialog = require('../dialogs/cateringDialog');
+var serviceButtons = require('../dialogs/serviceButtons');
 
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
@@ -18,9 +20,6 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
     session.beginDialog('serviceButtons');
     console.log("______________________________");
 
-
-    //  bot.dialog('catering', require('../dialogs/cateringDialog'));
-    //  bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
 
 
     if (session.message && session.message.value) {
@@ -41,9 +40,13 @@ function processSubmitAction(session, value) {
 
     switch (value.type) {
         case 'catering':
-            session.beginDialog('catering');
+        //  session.beginDialog('catering');
     }
 }
+
+bot.dialog('catering', cateringDialog);
+bot.dialog('serviceButtons', serviceButtons);
+
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
@@ -71,8 +74,11 @@ bot.on('conversationUpdate', function (message) {
                     var arr = [textBlock, textCard];
                     blankCard.setBody(textBlock);
                     blankCard.setBody(textCard);
-                    bot.dialog('catering', require('../dialogs/cateringDialog'));
-                    bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
+
+
+
+
+
                     session.beginDialog('serviceButtons');
 
 
