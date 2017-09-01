@@ -122,12 +122,14 @@ module.exports = function catering(session) {
             ]
         }
 
+
     var blankCard = new BlankCard();
     //  blankCard.setBody(card);
     blankCard.setBody(card);
     var msg = new botBuilder.Message(session)
         .addAttachment(blankCard);
     session.send(msg);
+    session.endDialog();
 
 }
 

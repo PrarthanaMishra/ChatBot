@@ -58,6 +58,7 @@ module.exports = function catering(session) {
                 }
             ]
         }
+    console.log("+++++++++++++++++++++++++++");
 
     var blankCard = new BlankCard();
     //  blankCard.setBody(card);

@@ -15,8 +15,16 @@ var connector = new botBuilder.ChatConnector({
 });
 
 var bot = new botBuilder.UniversalBot(connector, function (session) {
+    session.beginDialog('serviceButtons');
+    console.log("______________________________");
+
+
+    //  bot.dialog('catering', require('../dialogs/cateringDialog'));
+    //  bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
+
 
     if (session.message && session.message.value) {
+        console.log("++++++++++++++");
         // A Card's Submit Action obj was received
         processSubmitAction(session, session.message.value);
         return;
@@ -33,7 +41,7 @@ function processSubmitAction(session, value) {
 
     switch (value.type) {
         case 'catering':
-        // session.beginDialog('catering');
+            session.beginDialog('catering');
     }
 }
 
@@ -63,9 +71,9 @@ bot.on('conversationUpdate', function (message) {
                     var arr = [textBlock, textCard];
                     blankCard.setBody(textBlock);
                     blankCard.setBody(textCard);
-                    //  bot.dialog('catering', require('../dialogs/cateringDialog'));
-                    //  bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
-                    //  session.beginDialog('serviceButtons');
+                    bot.dialog('catering', require('../dialogs/cateringDialog'));
+                    bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
+                    session.beginDialog('serviceButtons');
 
 
                     var card = new EmptyCard();
