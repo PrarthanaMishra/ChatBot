@@ -70,7 +70,7 @@ module.exports = function catering(session) {
                                 "type": "Action.Submit",
                                 "title": "catering",
                                 "data": {
-                                    "type": 'Catering'
+                                    "type": 'catering'
                                 }
 
                             }

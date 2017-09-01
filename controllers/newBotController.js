@@ -63,7 +63,7 @@ bot.on('conversationUpdate', function (message) {
                     var arr = [textBlock, textCard];
                     blankCard.setBody(textBlock);
                     blankCard.setBody(textCard);
-                    bot.dialog('catering', require('../dialogs/cateringDialog'));
+                    //  bot.dialog('catering', require('../dialogs/cateringDialog'));
                     bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
                     session.beginDialog('serviceButtons');
 
