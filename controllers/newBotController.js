@@ -8,8 +8,9 @@ var Button = require('../adaptiveCards/button');
 var EmptyCard = require('../adaptiveCards/emptyCard');
 var Data = require('../adaptiveCards/data');
 var Action = require('../adaptiveCards/actions');
-var cateringDialog = require('../dialogs/cateringDialog');
 var serviceButtons = require('../dialogs/serviceButtons');
+var cateringDialog = require('../dialogs/cateringDialog');
+var photographyDialog = require('../dialogs/photographyDialog');
 
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
@@ -40,13 +41,15 @@ function processSubmitAction(session, value) {
 
     switch (value.type) {
         case 'catering':
-        //  session.beginDialog('catering');
+            session.beginDialog('catering'); break;
+        case 'photography':
+            session.beginDialog('photography'); break;
     }
 }
 
-bot.dialog('catering', cateringDialog);
 bot.dialog('serviceButtons', serviceButtons);
-
+bot.dialog('catering', cateringDialog);
+bot.dialog('photography', photographyDialog);
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {

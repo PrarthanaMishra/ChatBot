@@ -16,7 +16,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    "text": "These are the services we provide",
+                                    "text": "These are the services we provide!!!!",
                                     'weight': 'bolder',
 
                                 }
@@ -41,9 +41,11 @@ module.exports = function catering(session) {
 
                             ],
                             "selectAction": {
-                                "type": "Action.OpenUrl",
-                                "title": "cool link 1",
-                                "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                "type": "Action.Submit",
+                                "title": "Decoration",
+                                "data": {
+                                    "type": 'decoration'
+                                }
                             }
 
                         },
@@ -58,18 +60,15 @@ module.exports = function catering(session) {
                                     'weight': 'bolder',
                                     'style': 'Person'
                                 }
-                            ]
-                        },
-                        {
-                            "type": "Column",
-                            "size": "auto",
-                            "items": [
-                                {
-                                    "type": "Action.OpenUrl",
-                                    "title": "cool link 1",
-                                    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                                },
-                            ]
+                            ],
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "title": "photography",
+                                "data": {
+                                    "type": 'photography'
+                                }
+
+                            }
                         },
                         {
                             "type": "Column",
@@ -109,7 +108,15 @@ module.exports = function catering(session) {
                                     'weight': 'bolder',
                                     'style': 'Person'
                                 }
-                            ]
+                            ],
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "title": "venue",
+                                "data": {
+                                    "type": 'venue'
+                                }
+
+                            }
                         },
                         {
                             "type": "Column",
@@ -121,7 +128,15 @@ module.exports = function catering(session) {
                                     'weight': 'bolder',
                                     'style': 'Person'
                                 }
-                            ]
+                            ],
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "title": "mehandi",
+                                "data": {
+                                    "type": 'mehandi'
+                                }
+
+                            }
                         },
                         {
                             "type": "Column",
@@ -133,7 +148,15 @@ module.exports = function catering(session) {
                                     'weight': 'bolder',
                                     'style': 'Person'
                                 }
-                            ]
+                            ],
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "title": "makeup",
+                                "data": {
+                                    "type": 'makeup'
+                                }
+
+                            }
                         }
                     ]
                 }
@@ -142,7 +165,6 @@ module.exports = function catering(session) {
 
 
     var blankCard = new BlankCard();
-    //  blankCard.setBody(card);
     blankCard.setBody(card);
     var msg = new botBuilder.Message(session)
         .addAttachment(blankCard);
