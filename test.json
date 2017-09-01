@@ -4,30 +4,51 @@
     "version": "1.0",
     "body": [
         {
-            "type": "Input.Text",
-            "placeholder": "Hi What's your name",
-            "style": "url",
-            "id": "name"
-        },
-        {
-            "type": "Input.Date",
-            "placeholder": "Please enter the date",
-            "id": "date",
-            "separation": "strong"
-        },
-        {
-            "type": "Input.ChoiceSet",
-            "isMultiSelect": false,
-            "choices": [
+            "type": "ColumnSet",
+            //  "imageSize": "large",
+            "columns": [
                 {
-                    "title": "Catering",
-                    "value": "catering",
-                    "isSelected": true,
+                    "type": "Column",
+                    "size": "auto",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://young-ridge-11917.herokuapp.com/images/Catering/1.jpg",
+                            "separation": "strong",
+                            "size": "stretch",
+                            "selectAction": {
+                                "type": "Action.OpenUrl",
+                                "title": "cool link",
+                                "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                            }
+                        }
+                    ]
                 },
                 {
-                    "title": "cdskdkcn",
-                    "value": "cateoooo",
-                    "isSelected": false
+                    "type": "Column",
+                    "size": "auto",
+                    "separation": "strong",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://young-ridge-11917.herokuapp.com/images/Catering/1.jpg",
+                            "selectAction": {
+                                "type": "Action.OpenUrl",
+                                "title": "cool link",
+                                "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "size": "auto",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://young-ridge-11917.herokuapp.com/images/Catering/1.jpg"
+                        }
+                    ]
                 }
             ]
         }

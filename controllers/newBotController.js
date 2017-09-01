@@ -1,7 +1,7 @@
 var path = require('path');
 var botBuilder = require('botbuilder');
 var config = require('../config');
-var blankCard = require('../adaptiveCards/blankCard.js');
+var BlankCard = require('../adaptiveCards/blankCard');
 var TextFieldCard = require('../adaptiveCards/textFieldCard');
 var TextBlockCard = require('../adaptiveCards/textBlock');
 var Button = require('../adaptiveCards/button');
@@ -21,75 +21,21 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
         processSubmitAction(session, session.message.value);
         return;
     }
-    // textCard.
-    var textCard = new TextFieldCard();
-    var textBlock = new TextBlockCard();
-    var button = new Button();
-    // button.setType('Action.ShowCard').setTitle('Catering');
-    textBlock.setWrap(true).setType("TextBlock").setText("Welcome to unobridge").setWeight('bolder')
-
-    textCard.setType('Input.Text').setPlaceHolder("What's is your name").setId("name");
-    console.log("++++++++++++++++++++++");
-    console.dir(textBlock);
-    blankCard.content.body.push(textBlock, textCard);
-
-
-    var action = {
-        'type': 'Action.ShowCard',
-        'title': 'Catering',
-        'speak': '<s>Hotels</s>',
-        'card': {
-            'type': 'AdaptiveCard',
-            //  'body': [ /* */],
-            'actions': [
-                {
-                    'type': 'Action.Submit',
-                    'title': 'Search',
-                    'speak': '<s>Search</s>',
-                    'data': {
-                        'type': 'hotelSearch'
-                    }
-                }
-            ]
-        }
-    }
-
-    var action = new Action();
-    var data = new Data();
-    var card = new EmptyCard();
-    data.setType('hotelSearch');
-    action.setType('Action.Submit').setTitle('Search').setData(data);
-    card.setType('AdaptiveCard').setActions(action);
-    button.setType('Action.ShowCard').setTitle('Catering').setCard(card);
-    blankCard.content.actions.push(button);
-
-
-    var card3 = new botBuilder.HeroCard(session).tap({
-        value: "https://www.linkedin.com/feed/",
-        Type: "openUrl",
-    })
-        .images([botBuilder.CardImage.create(session, "https://s-media-cache-ak0.pinimg.com/originals/b5/87/2b/b5872b3bb9513d57ea8df4c7bde03052.jpg")]);
-
-    // var msg = new botBuilder.Message(session)
-    //     .addAttachment(card);
-    // var msg = new botBuilder.Message(session)
-    //     .addAttachment(card3);
-    var msg = new botBuilder.Message(session).addAttachment(blankCard);
-    session.send(msg);
-
 });
 
 function processSubmitAction(session, value) {
-    console.dir("///////////////" + value.name + value.phone + value.type + value.date);
     session.userdata = {};
     session.userdata.contactInfo = {};
     if (session && session.userdata && session.userdata.contactInfo) {
         session.userdata.contactInfo.name = value.name;
         session.userdata.contactInfo.phone = value.phone;
     }
-    console.dir(session.userdata.contactInfo);
-}
 
+    switch (value.type) {
+        case 'catering':
+            session.beginDialog('catering');
+    }
+}
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
@@ -99,12 +45,55 @@ bot.on('conversationUpdate', function (message) {
                     if (err) {
                         return console.log(err);
                     }
-                    var card2 = new botBuilder
-                        .HeroCard(session)
-                        .title('Welcome to unoBridge! One stop shop for all your event needs!\n\
-                    Please type Hi or click on Hi')
-                        .buttons([botBuilder.CardAction.dialogAction(session, "sendTypingdialog ", "", "Hi")]);
-                    var msg = new botBuilder.Message(session).attachmentLayout(botBuilder.AttachmentLayout.carousel).attachments([card2]);
+
+                    var textCard = new TextFieldCard();
+                    var textBlock = new TextBlockCard();
+                    textBlock
+                        .setWrap(true)
+                        .setType("TextBlock")
+                        .setText("Welcome to unoBridge! One stop shop for all your event needs!")
+                        .setWeight('bolder');
+
+                    textCard
+                        .setType('Input.Text')
+                        .setPlaceHolder("What's is your name")
+                        .setId("name");
+
+                    var blankCard = new BlankCard();
+                    var arr = [textBlock, textCard];
+                    blankCard.setBody(textBlock);
+                    blankCard.setBody(textCard);
+                    bot.dialog('catering', require('../dialogs/cateringDialog'));
+                    bot.dialog('serviceButtons', require('../dialogs/serviceButtons'));
+                    session.beginDialog('serviceButtons');
+
+
+                    var card = new EmptyCard();
+                    var action1 = new Action();
+                    var data1 = new Data();
+
+                    var action2 = new Action();
+                    var data2 = new Data();
+                    data1.setType('catering');//thses two lines are enough for buttons
+                    action1
+                        .setType('Action.Submit')
+                        .setTitle('Catering')
+                        .setData(data1);
+                    card
+                        .setType('AdaptiveCard')
+                        .setActions(action1);
+
+                    data2.setType('Photograpy');
+                    action2.
+                        setType('Action.Submit')
+                        .setTitle('Photography')
+                        .setData(data2);
+                    card
+                        .setType('AdaptiveCard')
+                        .setActions(action2);
+                    blankCard.setAction(action1);
+                    blankCard.setAction(action2);
+                    var msg = new botBuilder.Message(session).addAttachment(blankCard);
                     session.send(msg);
 
 

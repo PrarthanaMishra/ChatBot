@@ -16,10 +16,13 @@ Button.prototype.setTitle = function setTitle(title) {
     this.title = title;
     return this;
 }
-Button.prototype.getActions = function getCard() {
+Button.prototype.getCard = function getCard() {
     return this.card;
 }
-Button.prototype.setActions = function setCard(card) {
+Button.prototype.setCard = function setCard(card) {
+    // if (!this.actions) {
+    //     this.actions = {};
+    // }
     this.card = card;
     return this;
 }
