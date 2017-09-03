@@ -1,6 +1,5 @@
 var router = require('express').Router();
-//var botListener = require('../controllers/botController.js');
-var botListener = require('../controllers/newBotController.js');
+var botListener = require('../controllers/adaptiveCardController.js');
 
 router.post('/', botListener.getBotListener());
 // router.get('/', botListener.getHelloWorld);

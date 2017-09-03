@@ -42,12 +42,11 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "Decoration",
+                                "title": "decoration",
                                 "data": {
                                     "type": 'decoration'
                                 }
                             }
-
                         },
                         {
                             "type": "Column",
@@ -144,16 +143,16 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'MakeUpArtist',
+                                    'text': 'Entertainment',
                                     'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "makeup",
+                                "title": "entertainment",
                                 "data": {
-                                    "type": 'makeup'
+                                    "type": 'entertainment'
                                 }
 
                             }

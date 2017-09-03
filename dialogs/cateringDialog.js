@@ -22,15 +22,9 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                        "url": "https://www.unobridge.com/servicedetails/578f1c92501325661856c496"
                                     }
                                 },
-                                {
-                                    "type": "TextBlock",
-                                    'text': 'hello',
-                                    'weight': 'bolder',
-                                    'style': 'Person'
-                                }
                             ]
                         },
                         {
@@ -40,7 +34,12 @@ module.exports = function catering(session) {
 
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Catering/2.jpg'
+                                    "url": pa + '/images/Catering/2.jpg',
+                                    "selectAction": {
+                                        "type": "Action.OpenUrl",
+                                        "title": "cool link",
+                                        "url": "https://www.unobridge.com/servicedetails/578f1c92501325661856c496"
+                                    }
                                 }
                             ]
                         },
@@ -50,7 +49,27 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Catering/3.jpg'
+                                    "url": pa + '/images/Catering/3.jpg',
+                                    "selectAction": {
+                                        "type": "Action.OpenUrl",
+                                        "title": "cool link",
+                                        "url": "https://www.unobridge.com/servicedetails/578f1c92501325661856c496"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "size": "auto",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "url": pa + '/images/Catering/4.jpg',
+                                    "selectAction": {
+                                        "type": "Action.OpenUrl",
+                                        "title": "cool link",
+                                        "url": "https://www.unobridge.com/servicedetails/578f1c92501325661856c496"
+                                    }
                                 }
                             ]
                         }
@@ -58,10 +77,8 @@ module.exports = function catering(session) {
                 }
             ]
         }
-    console.log("+++++++++++++++++++++++++++");
 
     var blankCard = new BlankCard();
-    //  blankCard.setBody(card);
     blankCard.setBody(card);
     var msg = new botBuilder.Message(session)
         .addAttachment(blankCard);
