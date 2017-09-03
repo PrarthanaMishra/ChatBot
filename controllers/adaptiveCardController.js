@@ -4,10 +4,6 @@ var config = require('../config');
 var BlankCard = require('../adaptiveCards/blankCard');
 var TextFieldCard = require('../adaptiveCards/textFieldCard');
 var TextBlockCard = require('../adaptiveCards/textBlock');
-var Button = require('../adaptiveCards/button');
-var EmptyCard = require('../adaptiveCards/emptyCard');
-var Data = require('../adaptiveCards/data');
-var Action = require('../adaptiveCards/actions');
 var serviceButtons = require('../dialogs/serviceButtons');
 var cateringDialog = require('../dialogs/cateringDialog');
 var photographyDialog = require('../dialogs/photographyDialog');
@@ -180,16 +176,38 @@ bot.on('conversationUpdate', function (message) {
                     session.send(msg);
                     session.beginDialog('serviceButtons');
                 });
-            } else {
-                var reply = new botBuilder.Message()
-                    .address(message.address)
-                    .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
-                // User is joining conversation (they sent message)
-                var address = Object.create(message.address);
-                address.user = identity;
             }
+            else {
+                // var reply = new botBuilder.Message()
+                //     .address(message.address)
+                //     .text("Welcome to unoBridge! One stop shop for all your event needs!, Please say Hi");
+                // User is joining conversation (they sent message)
+                // var address = Object.create(message.address);
+                // address.user = identity;
+                // bot.loadSession(message.address, function (err, session) {
+                //     if (err) {
+                //         return console.log(err);
+                //     }
+
+                //     var textCard = new TextFieldCard();
+                //     var textBlock = new TextBlockCard();
+                //     textBlock
+                //         .setWrap(true)
+                //         .setType("TextBlock")
+                //         .setText("Welcome to unoBridge! One stop shop for all your event needs!")
+                //         .setWeight('bolder');
+                //     var blankCard = new BlankCard();
+                //     blankCard.setBody(textBlock);
+                //     var msg = new botBuilder.Message(session).addAttachment(blankCard);
+                //     session.send(msg);
+                //     session.beginDialog('serviceButtons');
+                // });
+            }
+
         });
+
     }
+
 });
 
 bot.dialog('clear', function (session) {
