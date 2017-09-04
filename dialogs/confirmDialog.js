@@ -1,7 +1,9 @@
 var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
-module.exports = function (session) {
+module.exports = function (session, args) {
+    session.userData = session.userData || {};
+    session.userData.serviceButtons = args || {};
     var card = {
         "type": "Container",
         "items": [
@@ -14,7 +16,7 @@ module.exports = function (session) {
                         "items": [
                             {
                                 "type": 'TextBlock',
-                                "text": "Are you sure?",
+                                "text": "Are you looking for " + session.userData.serviceButtons,
                                 "weight": 'bolder',
                                 // 'size': "large"
                             }

@@ -15,6 +15,7 @@ var confirmDialog = require('../dialogs/confirmDialog');
 var contactFormDialog = require('../dialogs/contactFormDialog');
 var tollFreeContactDialog = require('../dialogs/tollFreeContactDialog');
 var thanksMsgDialog = require('../dialogs/thanksMsgDialog');
+var contactDetails = require('../dialogs/contactDetails');
 
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
@@ -26,26 +27,27 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
         session.userData.serviceButtons = session.userData.serviceButtons || {};
 
         // A Card's Submit Action obj was received
+
         switch (session.message.value.type) {
             case 'catering':
                 session.userData.serviceButtons = 'catering';
                 console.dir(session.userData.serviceButtons);
-                session.beginDialog('confirmDialog'); break;
+                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'photography':
                 session.userData.serviceButtons = 'photography';
-                session.beginDialog('confirmDialog'); break;
+                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'decoration':
                 session.userData.serviceButtons = 'decoration';
-                session.beginDialog('confirmDialog'); break;
+                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'entertainment':
                 session.userData.serviceButtons = 'entertainment';
-                session.beginDialog('confirmDialog'); break;
+                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'venue':
                 session.userData.serviceButtons = 'venue';
-                session.beginDialog('confirmDialog'); break;
+                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'mehndi':
                 session.userData.serviceButtons = 'mehndi';
-                session.beginDialog('confirmDialog'); break;
+                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'yes':
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
             case 'no':
@@ -71,7 +73,8 @@ function serviceSubmitAction(session, serviceButtons, args) {
         if (serviceButtons === 'catering') {
             session.beginDialog('catering');
             if (session && session.userdata && session.userdata.contactInfo.phone) {
-                session.beginDialog('tollFreeContactDialog');
+                // session.beginDialog('tollFreeContactDialog');
+                session.beginDialog('details', session.userData.contactInfo);
                 session.beginDialog('thanksMsgDialog');
                 return;
             }
@@ -80,7 +83,7 @@ function serviceSubmitAction(session, serviceButtons, args) {
         else if (serviceButtons === 'photography') {
             session.beginDialog('photography');
             if (session && session.userdata && session.userdata.contactInfo.phone) {
-                session.beginDialog('tollFreeContactDialog');
+                session.beginDialog('details', session.userData.contactInfo);
                 session.beginDialog('thanksMsgDialog');
                 return;
             }
@@ -89,7 +92,7 @@ function serviceSubmitAction(session, serviceButtons, args) {
         else if (serviceButtons === 'decoration') {
             session.beginDialog('decoration');
             if (session && session.userdata && session.userdata.contactInfo.phone) {
-                session.beginDialog('tollFreeContactDialog');
+                session.beginDialog('details', session.userData.contactInfo);
                 session.beginDialog('thanksMsgDialog');
                 return;
             }
@@ -98,7 +101,7 @@ function serviceSubmitAction(session, serviceButtons, args) {
         else if (serviceButtons === 'entertainment') {
             session.beginDialog('entertainment');
             if (session && session.userdata && session.userdata.contactInfo.phone) {
-                session.beginDialog('tollFreeContactDialog');
+                session.beginDialog('details', session.userData.contactInfo);
                 session.beginDialog('thanksMsgDialog');
                 return;
             }
@@ -107,7 +110,7 @@ function serviceSubmitAction(session, serviceButtons, args) {
         else if (serviceButtons === 'venue') {
             session.beginDialog('venue');
             if (session && session.userdata && session.userdata.contactInfo.phone) {
-                session.beginDialog('tollFreeContactDialog');
+                session.beginDialog('details', session.userData.contactInfo);
                 session.beginDialog('thanksMsgDialog');
                 return;
             }
@@ -116,7 +119,7 @@ function serviceSubmitAction(session, serviceButtons, args) {
         else if (serviceButtons === 'mehndi') {
             session.beginDialog('mehndi');
             if (session && session.userdata && session.userdata.contactInfo.phone) {
-                session.beginDialog('tollFreeContactDialog');
+                session.beginDialog('details', session.userData.contactInfo);
                 session.beginDialog('thanksMsgDialog');
                 return;
             }
@@ -133,12 +136,15 @@ function formSubmitAction(session, value, args) {
     console.dir(session.userData.contactInfo);
     if (session && session.userdata && session.userdata.contactInfo &&
         session.userdata.contactInfo.name && session.userdata.contactInfo.phone) {
+        session.beginDialog('details', session.userData.contactInfo);
         return session.beginDialog('thanksMsgDialog');
     }
     console.dir(value);
     session.userdata.contactInfo.name = value.name;
     session.userdata.contactInfo.phone = value.phone;
     console.dir(session.userData.contactInfo);
+    session.beginDialog('details', session.userData.contactInfo);
+    session.beginDialog('thanksMsgDialog');
 }
 
 //Dialog definitions
@@ -153,6 +159,7 @@ bot.dialog('confirmDialog', confirmDialog);
 bot.dialog('contactFormDialog', contactFormDialog);
 bot.dialog('tollFreeContactDialog', tollFreeContactDialog);
 bot.dialog('thanksMsgDialog', thanksMsgDialog);
+bot.dialog('details', contactDetails);
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
