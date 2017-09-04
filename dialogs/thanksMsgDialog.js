@@ -47,6 +47,29 @@ module.exports = function thanksMsg(session) {
                             }
 
                         }
+                    },
+                    {
+                        "type": "Columns",
+                        "size": "auto",
+                        "items": [
+                            {
+                                "type": "TextBlock",
+                                'text': 'UpdateContactDetails',
+                                'weight': 'bolder',
+                                'style': 'Person',
+                                // 'size': 'larger'
+
+                            }
+
+                        ],
+                        "selectAction": {
+                            "type": "Action.Submit",
+                            "title": "updatecontact",
+                            "data": {
+                                "type": 'updatecontact'
+                            }
+
+                        }
                     }
                 ]
             }

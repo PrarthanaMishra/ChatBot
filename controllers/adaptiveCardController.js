@@ -16,6 +16,7 @@ var contactFormDialog = require('../dialogs/contactFormDialog');
 var tollFreeContactDialog = require('../dialogs/tollFreeContactDialog');
 var thanksMsgDialog = require('../dialogs/thanksMsgDialog');
 var contactDetails = require('../dialogs/contactDetails');
+var editContactDetailsDialog = require('../dialogs/editContactDetailsDialog');
 
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
@@ -59,6 +60,14 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('thanksMsgDialog'); break;
             case 'goback':
                 session.beginDialog('serviceButtons'); break;
+            case 'updatecontact':
+                session.beginDialog('editContactDetailsDialog', session.userData.contactInfo); break;
+            case 'update':
+                formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.updateFlag); break;
+            case 'updatecancel':
+                session.beginDialog('details', session.userData.contactInfo);
+                session.beginDialog('thanksMsgDialog'); break;
+
         }
 
     }
@@ -129,13 +138,14 @@ function serviceSubmitAction(session, serviceButtons, args) {
     }
 }
 
-function formSubmitAction(session, value, args) {
+function formSubmitAction(session, value, args, flag) {
     console.dir(args);
     session.userdata = session.userData || {};
     session.userdata.contactInfo = args || {};
+    session.userData.updateFlag = flag || {};
     console.dir(session.userData.contactInfo);
     if (session && session.userdata && session.userdata.contactInfo &&
-        session.userdata.contactInfo.name && session.userdata.contactInfo.phone) {
+        session.userdata.contactInfo.name && session.userdata.contactInfo.phone && !session.userData.updateFlag) {
         session.beginDialog('details', session.userData.contactInfo);
         return session.beginDialog('thanksMsgDialog');
     }
@@ -160,6 +170,7 @@ bot.dialog('contactFormDialog', contactFormDialog);
 bot.dialog('tollFreeContactDialog', tollFreeContactDialog);
 bot.dialog('thanksMsgDialog', thanksMsgDialog);
 bot.dialog('details', contactDetails);
+bot.dialog('editContactDetailsDialog', editContactDetailsDialog);
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
