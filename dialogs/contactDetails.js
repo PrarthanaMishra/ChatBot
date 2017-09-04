@@ -4,6 +4,10 @@ var BlankCard = require('../adaptiveCards/blankCard.js');
 module.exports = function (session, args) {
     session.userData = session.userData || {};
     session.userData.contactInfo = args || {};
+    session.userData.contactInfo.serviceChoosed = args.serviceChoosed || [];
+    console.log("++++++++++++++");
+    console.dir(session.userData.contactInfo.serviceChoosed);
+
     var card = {
         "type": "Container",
         "items": [
@@ -16,22 +20,36 @@ module.exports = function (session, args) {
                         "items": [
                             {
                                 "type": 'TextBlock',
-                                "text": "Thanks " + session.userData.contactInfo.name + " for the response. ",
+                                "text": "Thanks " + session.userData.contactInfo.name + " for update! ",
                                 "weight": 'bolder',
                                 // 'size': "large"
                             },
                             {
                                 "type": 'TextBlock',
-                                "text": "We will contact you on this number ",
+                                "text": "We will reach you shortly on this number ",
                                 "weight": 'bolder',
                                 // 'size': "large"
                             },
                             {
                                 "type": 'TextBlock',
-                                "text": session.userData.contactInfo.phone + " soon",
+                                "text": session.userData.contactInfo.phone,
                                 "weight": 'bolder',
                                 // 'size': "large"
-                            }
+                            },
+
+                            {
+                                "type": 'TextBlock',
+                                "text": session.userData.contactInfo.serviceChoosed.join(', '),
+                                "weight": 'bolder',
+                                // 'size': "large"
+                            },
+                            {
+                                "type": 'TextBlock',
+                                "text": "is service you choosed.",
+                                "weight": 'bolder',
+                                // 'size': "large"
+                            },
+
                         ]
                     }
                 ]

@@ -22,7 +22,7 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://www.unobridge.com/servicedetails/5793076675ead40e0af5540a"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSAU3LRYQ/public/Bridal_Safari_UnoBridge_1475163148930.jpg"
                                     }
                                 },
                             ]
@@ -38,7 +38,7 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://www.unobridge.com/servicedetails/5793379475ead40e0af55aee"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSUMGXYYQ/public/MKB__Wedding_Photography_UnoBridge_1475163210212.jpg"
                                     }
                                 }
                             ]
@@ -53,7 +53,7 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://www.unobridge.com/servicedetails/573056bed003e06957ab8445"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBS7JV3VZN/public/Chetan_Krishna_Photography_UnoBridge_1475161847415.jpg"
                                     }
                                 }
                             ]
@@ -68,7 +68,7 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://www.unobridge.com/servicedetails/57973483d74265b52ea91859"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBS5PAJA3R/public/Vikash_Kumar_Photography_UnoBridge_1475163862437.jpg"
                                     }
                                 }
                             ]

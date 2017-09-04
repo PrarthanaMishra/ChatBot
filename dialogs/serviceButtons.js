@@ -12,11 +12,17 @@ module.exports = function catering(session) {
                     "columns": [
                         {
                             "type": "Column",
-                            "size": "auto",
+                            "size": "2",
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    "text": "These are the services we provide!!!!",
+                                    "text": "Hi, I am a chat bot! These are the services we",
+                                    'weight': 'bolder',
+
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "text": " offer, choose one of the following:-",
                                     'weight': 'bolder',
 
                                 }

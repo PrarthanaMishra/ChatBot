@@ -1,7 +1,9 @@
 var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
-module.exports = function thanksMsg(session) {
+module.exports = function thanksMsg(session, args) {
+    session.userData = session.userData || {};
+    session.userData.contactInfo = session.userData.contactInfo || args;
     var card = {
         'type': 'Container',
         'items': [
@@ -17,7 +19,25 @@ module.exports = function thanksMsg(session) {
                                 "text": "Thanks for visiting our website!!!",
                                 "weight": "bolder",
 
-                            }
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "For more enquires/info, contact unobridge",
+                                "weight": "bolder",
+
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": " on 9108103333",
+                                "weight": "bolder",
+
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "or mail us at sales@unobridge.com",
+                                "weight": "bolder",
+
+                            },
                         ]
                     }
                 ]
@@ -48,6 +68,7 @@ module.exports = function thanksMsg(session) {
 
                         }
                     },
+
                     {
                         "type": "Columns",
                         "size": "auto",
@@ -77,6 +98,11 @@ module.exports = function thanksMsg(session) {
         ]
     }
 
+
+    if (!(session.userData && session.userData.contactInfo && session.userData.contactInfo.name && session.userData.contactInfo.phone)) {
+        // delete card.items[1].columns[1];
+        card.items[1].columns.splice(1, 1);
+    }
     var blankCard = new BlankCard();
     blankCard.setBody(card);
     var msg = new botBuilder.Message(session)

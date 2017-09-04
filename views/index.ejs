@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="/botchat.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="bot" />
+    <script src="/botchat.js"></script>
+    <script>
+        BotChat.App({
+            directLine: { secret: "bjf6GOqQmiI.cwA.1Es.vqFQs3Iha8qI73hXuIsSFSbpcpKkQOy9AGjUFBWV2PY" },
+            user: { id: 'userid' },
+            bot: { id: 'botid' },
+            resize: 'detect'
+        }, document.getElementById("bot"));
+    </script>
+</body>
+
+</html>

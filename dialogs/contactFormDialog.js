@@ -14,13 +14,13 @@ module.exports = function contactFormDialog(session) {
                         "items": [
                             {
                                 "type": "TextBlock",
-                                "text": "Fill the form below. Our repres",
+                                "text": "Provide us your name and contact number,",
                                 "weight": "bolder",
                                 // "size": "large"
                             },
                             {
                                 "type": "TextBlock",
-                                "text": "sentators will reach you shortly",
+                                "text": " we will reach you shortly",
                                 "weight": "bolder",
                                 // "size": "large"
                             },

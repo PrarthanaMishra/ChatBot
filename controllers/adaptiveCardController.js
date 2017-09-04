@@ -25,36 +25,59 @@ var connector = new botBuilder.ChatConnector({
 
 var bot = new botBuilder.UniversalBot(connector, function (session) {
     if (session.message && session.message.value) {
+
         session.userData.serviceButtons = session.userData.serviceButtons || {};
+        session.userData.contactInfo = session.userData.contactInfo || {};
+        session.userData.contactInfo.serviceChoosed = session.userData.contactInfo.serviceChoosed || [];
 
         // A Card's Submit Action obj was received
 
         switch (session.message.value.type) {
             case 'catering':
+                console.dir(session.userData);
                 session.userData.serviceButtons = 'catering';
-                console.dir(session.userData.serviceButtons);
+                if (session.userData.contactInfo.serviceChoosed.indexOf('catering') < 0) {
+                    session.userData.contactInfo.serviceChoosed.push('catering');
+                }
+                console.dir(session.userData.contactInfo.serviceButtons);
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'photography':
                 session.userData.serviceButtons = 'photography';
+                if (session.userData.contactInfo.serviceChoosed.indexOf('photography') < 0) {
+                    session.userData.contactInfo.serviceChoosed.push('photography');
+                }
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'decoration':
                 session.userData.serviceButtons = 'decoration';
+                if (session.userData.contactInfo.serviceChoosed.indexOf('decoration') < 0) {
+                    session.userData.contactInfo.serviceChoosed.push('decoration');
+                }
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'entertainment':
                 session.userData.serviceButtons = 'entertainment';
+                if (session.userData.contactInfo.serviceChoosed.indexOf('entertainment') < 0) {
+                    session.userData.contactInfo.serviceChoosed.push('entertainment');
+                }
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'venue':
                 session.userData.serviceButtons = 'venue';
+                if (session.userData.contactInfo.serviceChoosed.indexOf('venue') < 0) {
+                    session.userData.contactInfo.serviceChoosed.push('venue');
+                }
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'mehndi':
                 session.userData.serviceButtons = 'mehndi';
+                if (session.userData.contactInfo.serviceChoosed.indexOf('mehndi') < 0) {
+                    session.userData.contactInfo.serviceChoosed.push('mehndi');
+                }
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'yes':
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
             case 'no':
-                session.beginDialog('serviceButtons'); break;
+                session.beginDialog('thanksMsgDialog', session.userData.contactInfo); break;
+            //   session.beginDialog('serviceButtons'); break;
             case 'submit':
-                formSubmitAction(session, session.message.value, session.userData.contactInfo); break;
+                formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.serviceChoosed); break;
             case 'cancel':
                 session.beginDialog('tollFreeContactDialog');
                 session.beginDialog('thanksMsgDialog'); break;
@@ -65,7 +88,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'update':
                 formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.updateFlag); break;
             case 'updatecancel':
-                session.beginDialog('details', session.userData.contactInfo);
+                session.beginDialog('details', session.userData.contactInfo, session.userData.serviceChoosed);
                 session.beginDialog('thanksMsgDialog'); break;
 
         }
@@ -74,9 +97,10 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
 });
 
 
-function serviceSubmitAction(session, serviceButtons, args) {
+function serviceSubmitAction(session, serviceButtons, args, serviceChoosed) {
     session.userdata = session.userData || {};
     session.userdata.contactInfo = args || {};
+    session.userData.serviceChoosed = serviceChoosed || [];
     console.dir(session.userData.contactInfo);
     if (serviceButtons) {
         if (serviceButtons === 'catering') {
@@ -138,11 +162,12 @@ function serviceSubmitAction(session, serviceButtons, args) {
     }
 }
 
-function formSubmitAction(session, value, args, flag) {
+function formSubmitAction(session, value, args, flag, serviceChoosed) {
     console.dir(args);
     session.userdata = session.userData || {};
     session.userdata.contactInfo = args || {};
     session.userData.updateFlag = flag || {};
+    session.userData.serviceChoosed = serviceChoosed || [];
     console.dir(session.userData.contactInfo);
     if (session && session.userdata && session.userdata.contactInfo &&
         session.userdata.contactInfo.name && session.userdata.contactInfo.phone && !session.userData.updateFlag) {
@@ -153,6 +178,7 @@ function formSubmitAction(session, value, args, flag) {
     session.userdata.contactInfo.name = value.name;
     session.userdata.contactInfo.phone = value.phone;
     console.dir(session.userData.contactInfo);
+    console.dir(session.userData.serviceChoosed);
     session.beginDialog('details', session.userData.contactInfo);
     session.beginDialog('thanksMsgDialog');
 }
@@ -234,6 +260,7 @@ bot.dialog('clear', function (session) {
     onSelectAction: function (session) {
         session.send("hello");
         session.userData.contactInfo = {};
+        session.userData.serviceChoosed = [];
     }
 });
 
