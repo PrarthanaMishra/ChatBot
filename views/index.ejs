@@ -9,11 +9,39 @@
     <div id="bot" />
     <script src="/botchat.js"></script>
     <script>
+        function getModel() {
+            var userId = btoa(new Date().getTime());
+            return {
+                userId: userId,
+                userName: "You",
+                botId: "TEST",
+                botIconUrl: '',
+            };
+        }
+
+
+        try {
+            var model = localStorage.getItem('__chat');
+            if (!model) {
+                model = getModel();
+                localStorage.setItem('__chat', JSON.stringify(model));
+            } else {
+                model = JSON.parse(model);
+            }
+        } catch (e) {
+            console.error(e);
+            model = getModel();
+        }
+
+
+
+
+
         BotChat.App({
             directLine: { secret: "bjf6GOqQmiI.cwA.1Es.vqFQs3Iha8qI73hXuIsSFSbpcpKkQOy9AGjUFBWV2PY" },
-            user: { id: 'userid' },
-            bot: { id: 'botid' },
-            resize: 'detect'
+            user: { id: model.userId },
+            bot: { id: model.botId },
+            resize: 'window'
         }, document.getElementById("bot"));
     </script>
 </body>
