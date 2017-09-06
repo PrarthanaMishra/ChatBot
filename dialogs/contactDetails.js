@@ -57,8 +57,8 @@ module.exports = function (session, args) {
             }
         ]
     }
-    if (!(session.userData && session.userData.name && session.userData.phone)) {
-        delete card.items[0].columns[0].items.splice(0, 2);
+    if (!(session.userData && session.userData.contactInfo.name && session.userData.contactInfo.phone)) {
+        delete card.items[0].columns[0].items.splice(0, 3);
     }
     var blankCard = new BlankCard();
     blankCard.setBody(card);
