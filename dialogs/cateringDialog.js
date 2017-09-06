@@ -49,7 +49,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Catering/7.jpg',
+                                    "url": pa + '/images/Catering/8.JPG',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
