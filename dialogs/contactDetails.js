@@ -5,7 +5,6 @@ module.exports = function (session, args) {
     session.userData = session.userData || {};
     session.userData.contactInfo = args || {};
     session.userData.contactInfo.serviceChoosed = args.serviceChoosed || [];
-    console.log("++++++++++++++");
     console.dir(session.userData.contactInfo.serviceChoosed);
 
     var card = {
@@ -21,32 +20,32 @@ module.exports = function (session, args) {
                             {
                                 "type": 'TextBlock',
                                 "text": "Thanks " + session.userData.contactInfo.name + " for update! ",
-                                "weight": 'bolder',
+                                //"weight": 'bolder',
                                 // 'size': "large"
                             },
                             {
                                 "type": 'TextBlock',
                                 "text": "We will reach you shortly on this number ",
-                                "weight": 'bolder',
+                                //"weight": 'bolder',
                                 // 'size': "large"
                             },
                             {
                                 "type": 'TextBlock',
                                 "text": session.userData.contactInfo.phone,
-                                "weight": 'bolder',
+                                //"weight": 'bolder',
                                 // 'size': "large"
                             },
 
                             {
                                 "type": 'TextBlock',
                                 "text": session.userData.contactInfo.serviceChoosed.join(', '),
-                                "weight": 'bolder',
+                                //"weight": 'bolder',
                                 // 'size': "large"
                             },
                             {
                                 "type": 'TextBlock',
                                 "text": "is the service you choosed.",
-                                "weight": 'bolder',
+                                // "weight": 'bolder',
                                 // 'size': "large"
                             },
 
@@ -59,6 +58,12 @@ module.exports = function (session, args) {
     }
     if (!(session.userData && session.userData.contactInfo.name && session.userData.contactInfo.phone)) {
         delete card.items[0].columns[0].items.splice(0, 3);
+        console.log("--------------");
+    }
+    if (!(session.userData && session.userData.contactInfo && (session.userData.contactInfo.serviceChoosed.length > 0))) {
+        console.log(session.userData.contactInfo.serviceChoosed);
+        delete card.items[0].columns[0].items.splice(4, 1);
+        console.log("****************");
     }
     var blankCard = new BlankCard();
     blankCard.setBody(card);

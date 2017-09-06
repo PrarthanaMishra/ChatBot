@@ -17,25 +17,25 @@ module.exports = function thanksMsg(session, args) {
                             {
                                 "type": "TextBlock",
                                 "text": "Thanks for visiting our website!!!",
-                                "weight": "bolder",
+                                // "weight": "bolder",
 
                             },
                             {
                                 "type": "TextBlock",
                                 "text": "For more enquires/info, contact unobridge",
-                                "weight": "bolder",
+                                //"weight": "bolder",
 
                             },
                             {
                                 "type": "TextBlock",
                                 "text": " on 9108103333",
-                                "weight": "bolder",
+                                //"weight": "bolder",
 
                             },
                             {
                                 "type": "TextBlock",
                                 "text": "or mail us at sales@unobridge.com",
-                                "weight": "bolder",
+                                //"weight": "bolder",
 
                             },
                         ]
@@ -51,7 +51,7 @@ module.exports = function thanksMsg(session, args) {
                         "items": [
                             {
                                 "type": "TextBlock",
-                                'text': 'GoBack',
+                                'text': 'Go back',
                                 'weight': 'bolder',
                                 'style': 'Person',
                                 'size': 'larger'

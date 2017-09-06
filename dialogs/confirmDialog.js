@@ -36,7 +36,7 @@ module.exports = function (session, args) {
                             {
                                 "type": 'TextBlock',
                                 "text": "Yes",
-                                "weight": 'bolder',
+                                // "weight": 'bolder',
 
                             },
                         ],
@@ -55,7 +55,7 @@ module.exports = function (session, args) {
                             {
                                 "type": 'TextBlock',
                                 "text": "No",
-                                "weight": "bolder",
+                                // "weight": "bolder",
 
                             }
 

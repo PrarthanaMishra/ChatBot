@@ -17,6 +17,8 @@ var tollFreeContactDialog = require('../dialogs/tollFreeContactDialog');
 var thanksMsgDialog = require('../dialogs/thanksMsgDialog');
 var contactDetails = require('../dialogs/contactDetails');
 var editContactDetailsDialog = require('../dialogs/editContactDetailsDialog');
+var otherInfoDialog = require('../dialogs/otherInfoDialog');
+
 
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
@@ -74,7 +76,9 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'yes':
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
             case 'no':
-                session.beginDialog('thanksMsgDialog', session.userData.contactInfo); break;
+                session.userData.contactInfo.serviceChoosed.pop();
+                session.beginDialog('otherInfoDialog', session.userData.contactInfo); break;
+            //  session.beginDialog('thanksMsgDialog', session.userData.contactInfo); break;
             //   session.beginDialog('serviceButtons'); break;
             case 'submit':
                 formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.serviceChoosed); break;
@@ -91,9 +95,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'updatecancel':
                 session.beginDialog('details', session.userData.contactInfo, session.userData.serviceChoosed);
                 session.beginDialog('thanksMsgDialog'); break;
-
         }
-
     }
 });
 
@@ -171,12 +173,23 @@ function formSubmitAction(session, value, args, flag, serviceChoosed) {
     console.dir(session.userData.contactInfo);
     if (session && session.userdata && session.userdata.contactInfo &&
         session.userdata.contactInfo.name && session.userdata.contactInfo.phone && !session.userData.updateFlag) {
+        if (session.userData.contactInfo.other) {
+            session.userData.contactInfo.other = value.lookingfor;
+        }
+        // else {
+        //     return;
+        // }
         session.beginDialog('details', session.userData.contactInfo);
         return session.beginDialog('thanksMsgDialog');
     }
+
     console.dir(value);
-    session.userdata.contactInfo.name = value.name;
-    session.userdata.contactInfo.phone = value.phone;
+    if (value.name) {
+        session.userdata.contactInfo.name = value.name;
+    }
+    if (value.phone) {
+        session.userdata.contactInfo.phone = value.phone;
+    }
     console.dir(session.userData.contactInfo);
     console.dir(session.userData.serviceChoosed);
     session.beginDialog('details', session.userData.contactInfo);
@@ -197,6 +210,7 @@ bot.dialog('tollFreeContactDialog', tollFreeContactDialog);
 bot.dialog('thanksMsgDialog', thanksMsgDialog);
 bot.dialog('details', contactDetails);
 bot.dialog('editContactDetailsDialog', editContactDetailsDialog);
+bot.dialog('otherInfoDialog', otherInfoDialog);
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {

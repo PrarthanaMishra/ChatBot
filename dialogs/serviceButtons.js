@@ -41,7 +41,7 @@ module.exports = function catering(session) {
                                 {
                                     "type": "TextBlock",
                                     "text": "Decoration",
-                                    'weight': 'bolder',
+                                    //'weight': 'bolder',
 
                                 }
 
@@ -62,7 +62,7 @@ module.exports = function catering(session) {
                                 {
                                     "type": "TextBlock",
                                     'text': 'Photography',
-                                    'weight': 'bolder',
+                                    // 'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
@@ -82,7 +82,7 @@ module.exports = function catering(session) {
                                 {
                                     "type": "TextBlock",
                                     'text': 'Catering',
-                                    'weight': 'bolder',
+                                    // 'weight': 'bolder',
                                     'style': 'Person',
 
                                 }
@@ -110,7 +110,7 @@ module.exports = function catering(session) {
                                 {
                                     "type": "TextBlock",
                                     'text': 'Venue',
-                                    'weight': 'bolder',
+                                    // 'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
@@ -130,7 +130,7 @@ module.exports = function catering(session) {
                                 {
                                     "type": "TextBlock",
                                     'text': 'Mehandi',
-                                    'weight': 'bolder',
+                                    //  'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
@@ -150,7 +150,7 @@ module.exports = function catering(session) {
                                 {
                                     "type": "TextBlock",
                                     'text': 'Entertainment',
-                                    'weight': 'bolder',
+                                    // 'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
