@@ -79,7 +79,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'submit':
                 formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.serviceChoosed); break;
             case 'cancel':
-                session.beginDialog('tollFreeContactDialog');
+                //  session.beginDialog('tollFreeContactDialog');
                 session.beginDialog('thanksMsgDialog'); break;
             case 'goback':
                 session.beginDialog('serviceButtons'); break;
@@ -95,7 +95,6 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
 
     }
 });
-
 
 function serviceSubmitAction(session, serviceButtons, args, serviceChoosed) {
     session.userdata = session.userData || {};
