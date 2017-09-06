@@ -39,6 +39,7 @@ module.exports = function contactFormDialog(session) {
                             {
                                 "type": "TextBlock",
                                 "text": "Phone Number"
+
                             },
                             {
                                 "type": "Input.Text",

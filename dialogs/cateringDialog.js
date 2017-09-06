@@ -18,7 +18,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Catering/1.jpg',
+                                    "url": pa + '/images/Catering/5.jpg',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
@@ -34,7 +34,7 @@ module.exports = function catering(session) {
 
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Catering/2.jpg',
+                                    "url": pa + '/images/Catering/6.jpg',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
@@ -49,7 +49,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Catering/3.jpg',
+                                    "url": pa + '/images/Catering/7.jpg',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",

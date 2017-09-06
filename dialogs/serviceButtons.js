@@ -136,9 +136,9 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "mehandi",
+                                "title": "mehndi",
                                 "data": {
-                                    "type": 'mehandi'
+                                    "type": 'mehndi'
                                 }
 
                             }
