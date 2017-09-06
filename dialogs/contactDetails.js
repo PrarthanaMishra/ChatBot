@@ -45,7 +45,7 @@ module.exports = function (session, args) {
                             },
                             {
                                 "type": 'TextBlock',
-                                "text": "is service you choosed.",
+                                "text": "is the service you choosed.",
                                 "weight": 'bolder',
                                 // 'size': "large"
                             },
@@ -56,6 +56,9 @@ module.exports = function (session, args) {
 
             }
         ]
+    }
+    if (!(session.userData && session.userData.name && session.userData.phone)) {
+        delete card.items[0].columns[0].items.splice(0, 2);
     }
     var blankCard = new BlankCard();
     blankCard.setBody(card);

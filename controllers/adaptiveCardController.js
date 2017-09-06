@@ -80,6 +80,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.serviceChoosed); break;
             case 'cancel':
                 //  session.beginDialog('tollFreeContactDialog');
+                session.beginDialog('details', session.userData.contactInfo, session.userData.serviceChoosed);
                 session.beginDialog('thanksMsgDialog'); break;
             case 'goback':
                 session.beginDialog('serviceButtons'); break;
