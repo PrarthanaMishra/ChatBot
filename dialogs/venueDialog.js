@@ -18,11 +18,11 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Venue booking/1.JPG',
+                                    "url": pa + '/images/Venuebooking/1.JPG',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://www.unobridge.com/servicedetails/578f1c92501325661856c496"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSLHGI2U2/public/1495092042320km5.JPG"
                                     }
                                 },
                             ]
@@ -38,7 +38,7 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://www.unobridge.com/servicedetails/578f1c92501325661856c496"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSFJREDL3/public/1496741808165IMG20170606143630_W20.jpg"
                                     }
                                 }
                             ]
