@@ -22,7 +22,8 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSJP16ATQ/public/Aroma_Wedding_Caterer_UnoBridge_1475162978158.jpg"
+                                        "url": pa + '/images/Catering/5.jpg'
+                                        // "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSJP16ATQ/public/Aroma_Wedding_Caterer_UnoBridge_1475162978158.jpg"
                                     }
                                 },
                             ]
@@ -38,7 +39,8 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSU4MUCWQ/public/Hungryyy_Caterer_UnoBridge_1475163096869.jpg"
+                                        "url": pa + '/images/Catering/6.jpg'
+                                        // "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSU4MUCWQ/public/Hungryyy_Caterer_UnoBridge_1475163096869.jpg"
                                     }
                                 }
                             ]
@@ -49,11 +51,12 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Catering/8.JPG',
+                                    "url": pa + '/images/Catering/7.JPG',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "ttps://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBS23LVGUQ/public/New_Sagar_Caterer_UnoBridge_1475163023227.jpg"
+                                        "url": pa + '/images/Catering/7.JPG'
+                                        //  "url": "ttps://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBS23LVGUQ/public/New_Sagar_Caterer_UnoBridge_1475163023227.jpg"
                                     }
                                 }
                             ]
@@ -69,6 +72,7 @@ module.exports = function catering(session) {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
                                         "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSM0MQIUQ/public/Aahar_Utsav_Caterer_UnoBridge_1475163027979.jpg"
+                                        //"url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSM0MQIUQ/public/Aahar_Utsav_Caterer_UnoBridge_1475163027979.jpg"
                                     }
                                 }
                             ]

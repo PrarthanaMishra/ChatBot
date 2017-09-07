@@ -12,21 +12,21 @@ module.exports = function catering(session) {
                 {
                     "type": "ColumnSet",
                     "columns": [
-                        {
-                            "type": "Column",
-                            "size": "auto",
-                            "items": [
-                                {
-                                    "type": "Image",
-                                    "url": pa + '/images/mehndi/1.jpg',
-                                    "selectAction": {
-                                        "type": "Action.OpenUrl",
-                                        "title": "cool link",
-                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSXJXVL4R/public/Sandhya_Krishnan_Mehndi_UnoBridge_1475163903434.jpg"
-                                    }
-                                },
-                            ]
-                        },
+                        // {
+                        //     "type": "Column",
+                        //     "size": "auto",
+                        //     "items": [
+                        //         {
+                        //             "type": "Image",
+                        //             "url": pa + '/images/mehndi/1.jpg',
+                        //             "selectAction": {
+                        //                 "type": "Action.OpenUrl",
+                        //                 "title": "cool link",
+                        //                 "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSXJXVL4R/public/Sandhya_Krishnan_Mehndi_UnoBridge_1475163903434.jpg"
+                        //             }
+                        //         },
+                        //     ]
+                        // },
                         {
                             "type": "Column",
                             "size": "auto",
@@ -38,7 +38,9 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSTRUZL4R/public/Sakina_Mehndi_Designs_UnoBridge_1475163904437.jpg"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSXJXVL4R/public/Sandhya_Krishnan_Mehndi_UnoBridge_1475163903434.jpg"
+
+                                        // "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSTRUZL4R/public/Sakina_Mehndi_Designs_UnoBridge_1475163904437.jpg"
                                     }
                                 }
                             ]
@@ -53,7 +55,9 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBS0OZMN4R/public/Ravi_Mehndi_Art_UnoBridge_1475163909872.jpg"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSTRUZL4R/public/Sakina_Mehndi_Designs_UnoBridge_1475163904437.jpg"
+
+                                        // "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBS0OZMN4R/public/Ravi_Mehndi_Art_UnoBridge_1475163909872.jpg"
                                     }
                                 }
                             ]
@@ -68,7 +72,7 @@ module.exports = function catering(session) {
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": "https://www.unobridge.com/servicedetails/578f1c92501325661856c496"
+                                        "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBS0OZMN4R/public/Ravi_Mehndi_Art_UnoBridge_1475163909872.jpg"
                                     }
                                 }
                             ]
