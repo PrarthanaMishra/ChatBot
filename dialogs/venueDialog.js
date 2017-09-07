@@ -4,6 +4,7 @@ var BlankCard = require('../adaptiveCards/blankCard.js');
 
 module.exports = function catering(session) {
     var pa = 'https://young-ridge-11917.herokuapp.com';
+    //  var pa = "https://bot.eventgeni.com";
     var card =
         {
             'type': 'Container',
@@ -18,7 +19,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Venuebooking/1.JPG',
+                                    "url": pa + '/images/Venubooking/1.JPG',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
@@ -34,7 +35,7 @@ module.exports = function catering(session) {
 
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Venue booking/2.jpg',
+                                    "url": pa + '/images/Venuebooking/2.jpg',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",

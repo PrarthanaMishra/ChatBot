@@ -35,11 +35,11 @@ module.exports = function catering(session) {
 
                                 {
                                     "type": "Image",
-                                    "url": pa + '/images/Catering/6.jpg',
+                                    "url": pa + '/images/Catering/6.JPG',
                                     "selectAction": {
                                         "type": "Action.OpenUrl",
                                         "title": "cool link",
-                                        "url": pa + '/images/Catering/6.jpg'
+                                        "url": pa + '/images/Catering/6.JPG'
                                         // "url": "https://unobridge.s3-ap-southeast-1.amazonaws.com/services/UBSU4MUCWQ/public/Hungryyy_Caterer_UnoBridge_1475163096869.jpg"
                                     }
                                 }
