@@ -5,7 +5,6 @@ module.exports = function (session, args) {
     session.userData = session.userData || {};
     session.userData.contactInfo = args || {};
     session.userData.contactInfo.serviceChoosed = args.serviceChoosed || [];
-    console.dir(session.userData.contactInfo.serviceChoosed);
 
     var card = {
         "type": "Container",
@@ -58,12 +57,9 @@ module.exports = function (session, args) {
     }
     if (!(session.userData && session.userData.contactInfo.name && session.userData.contactInfo.phone)) {
         delete card.items[0].columns[0].items.splice(0, 3);
-        console.log("--------------");
     }
     if (!(session.userData && session.userData.contactInfo && (session.userData.contactInfo.serviceChoosed.length > 0))) {
-        console.log(session.userData.contactInfo.serviceChoosed);
         delete card.items[0].columns[0].items.splice(4, 1);
-        console.log("****************");
     }
     var blankCard = new BlankCard();
     blankCard.setBody(card);

@@ -165,12 +165,11 @@ function serviceSubmitAction(session, serviceButtons, args, serviceChoosed) {
 }
 
 function formSubmitAction(session, value, args, flag, serviceChoosed) {
-    console.dir(args);
+
     session.userdata = session.userData || {};
     session.userdata.contactInfo = args || {};
     session.userData.updateFlag = flag || {};
     session.userData.serviceChoosed = serviceChoosed || [];
-    console.dir(session.userData.contactInfo);
     if (session && session.userdata && session.userdata.contactInfo &&
         session.userdata.contactInfo.name && session.userdata.contactInfo.phone && !session.userData.updateFlag) {
         if (session.userData.contactInfo.other) {
@@ -183,15 +182,13 @@ function formSubmitAction(session, value, args, flag, serviceChoosed) {
         return session.beginDialog('thanksMsgDialog');
     }
 
-    console.dir(value);
+
     if (value.name) {
         session.userdata.contactInfo.name = value.name;
     }
     if (value.phone) {
         session.userdata.contactInfo.phone = value.phone;
     }
-    console.dir(session.userData.contactInfo);
-    console.dir(session.userData.serviceChoosed);
     session.beginDialog('details', session.userData.contactInfo);
     session.beginDialog('thanksMsgDialog');
 }
