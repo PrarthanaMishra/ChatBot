@@ -33,7 +33,7 @@ module.exports = function contactFormDialog(session) {
                             {
                                 "type": "Input.Text",
                                 "id": "name",
-                                "placeholder": "Last, First"
+                                "placeholder": "Full name"
                             },
 
                             {
@@ -44,7 +44,7 @@ module.exports = function contactFormDialog(session) {
                             {
                                 "type": "Input.Text",
                                 "id": "phone",
-                                "placeholder": "xxx.xxx.xxxx",
+                                "placeholder": "enter 10 digit mobile number",
                                 "style": "tel"
                             }
                         ]
