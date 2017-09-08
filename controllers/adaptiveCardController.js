@@ -22,8 +22,9 @@ var cateringQueryFormDialog = require('../dialogs/cateringQueryFormDialog');
 var cateringButtons = require('../dialogs/cateringButtonsDialog.js');
 var textFieldDialog = require('../dialogs/textFieldDialog.js');
 var weddingMenuDialog = require('../dialogs/weddingMenuDialog.js');
-var decorationQueryFormDialog = require('../dialogs/decorationQueryFormDialog');
 var decorationButtons = require('../dialogs/decorationButtonsDialog.js');
+var decorationQueryFormDialog = require('../dialogs/decorationQueryFormDialog.js');
+
 
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
