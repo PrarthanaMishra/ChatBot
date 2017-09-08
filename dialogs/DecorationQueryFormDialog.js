@@ -1,7 +1,7 @@
 var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
-module.exports = function contactFormDialog(session) {
+module.exports = function (session) {
     var card = {
         'type': 'Container',
         'items': [

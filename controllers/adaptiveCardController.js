@@ -26,6 +26,9 @@ var decorationButtons = require('../dialogs/decorationButtonsDialog.js');
 var decorationQueryFormDialog = require('../dialogs/decorationQueryFormDialog');
 
 
+console.dir(decorationQueryFormDialog);
+
+
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
     appPassword: config.password
