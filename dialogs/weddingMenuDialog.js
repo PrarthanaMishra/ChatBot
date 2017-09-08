@@ -10,6 +10,22 @@ module.exports = function catering(session) {
             'items': [
 
                 {
+                    "type": "Columnset",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "size": "auto",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Some of the samples are shown below:-",
+                                    "weight": "bolder"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
                     "type": "ColumnSet",
                     "columns": [
                         {
