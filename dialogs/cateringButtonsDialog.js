@@ -10,35 +10,6 @@ module.exports = function catering(session) {
                 {
                     "type": "ColumnSet",
                     "columns": [
-                        {
-                            "type": "Column",
-                            "size": "2",
-                            "items": [
-                                {
-                                    "type": "TextBlock",
-                                    "text": "How can I help you! Below are the",
-                                    'weight': 'bolder',
-
-                                },
-                                {
-                                    "type": "TextBlock",
-                                    "text": "list of services we offer:- ",
-                                    'weight': 'bolder',
-
-                                },
-                                {
-                                    "type": "TextBlock",
-                                    "text": "Please click one from below:- ",
-                                    'weight': 'bolder',
-
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "type": "ColumnSet",
-                    "columns": [
 
                         {
                             "type": "Column",
@@ -46,7 +17,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    "text": "Decoration",
+                                    "text": "Wedding Menu",
                                     //'weight': 'bolder',
 
                                 }
@@ -54,9 +25,9 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "decoration",
+                                "title": "weddingmenu",
                                 "data": {
-                                    "type": 'decoration'
+                                    "type": 'weddingmenu'
                                 }
                             }
                         },
@@ -67,16 +38,16 @@ module.exports = function catering(session) {
 
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Photography',
+                                    'text': 'Naming ceremony',
                                     // 'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "photography",
+                                "title": "naming ceremony",
                                 "data": {
-                                    "type": 'photography'
+                                    "type": 'naming ceremony'
                                 }
 
                             }
@@ -87,7 +58,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Catering',
+                                    'text': 'Birthday',
                                     // 'weight': 'bolder',
                                     'style': 'Person',
 
@@ -96,9 +67,9 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "catering",
+                                "title": "birthday",
                                 "data": {
-                                    "type": 'catering'
+                                    "type": 'birthday'
                                 }
 
                             }
@@ -115,16 +86,16 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Venue',
+                                    'text': 'Engagement',
                                     // 'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "venue",
+                                "title": "engagement",
                                 "data": {
-                                    "type": 'venue'
+                                    "type": 'engagement'
                                 }
 
                             }
@@ -135,16 +106,16 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Mehandi',
+                                    'text': 'Baby Shower',
                                     //  'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "mehndi",
+                                "title": "babyshower",
                                 "data": {
-                                    "type": 'mehndi'
+                                    "type": 'babyshower'
                                 }
 
                             }
@@ -155,16 +126,41 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Entertainment',
+                                    'text': 'House waiving',
                                     // 'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "entertainment",
+                                "title": "housewaiving",
                                 "data": {
-                                    "type": 'entertainment'
+                                    "type": 'housewaiving'
+                                }
+
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "size": "auto",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    'text': 'Others',
+                                    // 'weight': 'bolder',
+                                    'style': 'Person'
+                                }
+                            ],
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "title": "others",
+                                "data": {
+                                    "type": 'others'
                                 }
 
                             }

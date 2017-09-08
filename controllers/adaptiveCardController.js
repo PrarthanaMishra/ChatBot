@@ -18,6 +18,10 @@ var thanksMsgDialog = require('../dialogs/thanksMsgDialog');
 var contactDetails = require('../dialogs/contactDetails');
 var editContactDetailsDialog = require('../dialogs/editContactDetailsDialog');
 var otherInfoDialog = require('../dialogs/otherInfoDialog');
+var cateringQueryFormDialog = require('../dialogs/cateringQueryFormDialog');
+var cateringButtons = require('../dialogs/cateringButtonsDialog.js');
+var textFieldDialog = require('../dialogs/textFieldDialog.js');
+var weddingMenuDialog = require('../dialogs/weddingMenuDialog.js');
 
 
 var connector = new botBuilder.ChatConnector({
@@ -36,13 +40,18 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
 
         switch (session.message.value.type) {
             case 'catering':
-                console.dir(session.userData);
                 session.userData.serviceButtons = 'catering';
-                if (session.userData.contactInfo.serviceChoosed.indexOf('catering') < 0) {
-                    session.userData.contactInfo.serviceChoosed.push('catering');
-                }
-                console.dir(session.userData.contactInfo.serviceButtons);
-                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
+                // if (session.userData.contactInfo.serviceChoosed.indexOf('catering') < 0) {
+                //     session.userData.contactInfo.serviceChoosed.push('catering');
+                // }
+                session.beginDialog('cateringQueryFormDialog'); break;
+            //   session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
+            case 'cateringSubmit':
+                cateringSubmitAction(session, session.message.value, session.userData.clientInfo); break;
+            case 'others':
+                session.beginDialog('textFieldDialog'); break;
+            case 'weddingmenu':
+                session.beginDialog('weddingMenuDialog'); break;
             case 'photography':
                 session.userData.serviceButtons = 'photography';
                 if (session.userData.contactInfo.serviceChoosed.indexOf('photography') < 0) {
@@ -84,8 +93,9 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.serviceChoosed); break;
             case 'cancel':
                 //  session.beginDialog('tollFreeContactDialog');
-                session.beginDialog('details', session.userData.contactInfo, session.userData.serviceChoosed);
-                session.beginDialog('thanksMsgDialog'); break;
+                //  session.beginDialog('details', session.userData.contactInfo, session.userData.serviceChoosed);
+                // session.beginDialog('thanksMsgDialog'); break;
+                session.beginDialog('serviceButtons'); break;
             case 'goback':
                 session.beginDialog('serviceButtons'); break;
             case 'updatecontact':
@@ -103,7 +113,7 @@ function serviceSubmitAction(session, serviceButtons, args, serviceChoosed) {
     session.userdata = session.userData || {};
     session.userdata.contactInfo = args || {};
     session.userData.serviceChoosed = serviceChoosed || [];
-    console.dir(session.userData.contactInfo);
+
     if (serviceButtons) {
         if (serviceButtons === 'catering') {
             session.beginDialog('catering');
@@ -193,6 +203,21 @@ function formSubmitAction(session, value, args, flag, serviceChoosed) {
     session.beginDialog('thanksMsgDialog');
 }
 
+function cateringSubmitAction(session, value, clientInfo) {
+    session.userData = session.userData || {};
+    session.userData.clientInfo = value || {};
+    if (value.date) {
+        session.userData.clientInfo.date = value.date;
+    }
+    if (value.packs) {
+        session.userData.clientInfo.packs = value.packs;
+    }
+    if (value.location) {
+        session.userData.clientInfo.location = value.location;
+    }
+    session.beginDialog('cateringButtons');
+}
+
 //Dialog definitions
 bot.dialog('serviceButtons', serviceButtons);
 bot.dialog('catering', cateringDialog);
@@ -208,6 +233,10 @@ bot.dialog('thanksMsgDialog', thanksMsgDialog);
 bot.dialog('details', contactDetails);
 bot.dialog('editContactDetailsDialog', editContactDetailsDialog);
 bot.dialog('otherInfoDialog', otherInfoDialog);
+bot.dialog('cateringQueryFormDialog', cateringQueryFormDialog);
+bot.dialog('cateringButtons', cateringButtons);
+bot.dialog('textFieldDialog', textFieldDialog);
+bot.dialog('weddingMenuDialog', weddingMenuDialog);
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
