@@ -19,6 +19,7 @@ module.exports = function catering(session) {
                                     "type": "TextBlock",
                                     "text": "Car decoration",
                                     //'weight': 'bolder',
+                                    'wrap': true
 
                                 }
 
