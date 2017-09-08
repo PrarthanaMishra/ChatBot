@@ -35,18 +35,18 @@ module.exports = function (session, args) {
                                 // 'size': "large"
                             },
 
-                            {
-                                "type": 'TextBlock',
-                                "text": session.userData.contactInfo.serviceChoosed.join(', '),
-                                //"weight": 'bolder',
-                                // 'size': "large"
-                            },
-                            {
-                                "type": 'TextBlock',
-                                "text": "is the service you choosed.",
-                                // "weight": 'bolder',
-                                // 'size': "large"
-                            },
+                            // {
+                            //     "type": 'TextBlock',
+                            //     "text": session.userData.contactInfo.serviceChoosed.join(', '),
+                            //     //"weight": 'bolder',
+                            //     // 'size': "large"
+                            // },
+                            // {
+                            //     "type": 'TextBlock',
+                            //     "text": "is the service you choosed.",
+                            //     // "weight": 'bolder',
+                            //     // 'size': "large"
+                            // },
 
                         ]
                     }

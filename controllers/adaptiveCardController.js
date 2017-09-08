@@ -22,6 +22,10 @@ var cateringQueryFormDialog = require('../dialogs/cateringQueryFormDialog');
 var cateringButtons = require('../dialogs/cateringButtonsDialog.js');
 var textFieldDialog = require('../dialogs/textFieldDialog.js');
 var weddingMenuDialog = require('../dialogs/weddingMenuDialog.js');
+var decorationQueryFormDialog = require('../dialogs/decorationQueryFormDialog');
+var decorationButtons = require('../dialogs/decorationButtonsDialog.js');
+
+
 
 
 var connector = new botBuilder.ChatConnector({
@@ -47,11 +51,13 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('cateringQueryFormDialog'); break;
             //   session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'cateringSubmit':
-                cateringSubmitAction(session, session.message.value, session.userData.clientInfo); break;
+                cateringSubmitAction(session, session.message.value, session.userData.clientInfo, session.userData.serviceButtons); break;
             case 'others':
                 session.beginDialog('textFieldDialog'); break;
             case 'weddingmenu':
-                session.beginDialog('weddingMenuDialog'); break;
+                session.beginDialog('weddingMenuDialog');
+                session.beginDialog('contactFormDialog');
+                break;
             case 'photography':
                 session.userData.serviceButtons = 'photography';
                 if (session.userData.contactInfo.serviceChoosed.indexOf('photography') < 0) {
@@ -60,10 +66,11 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'decoration':
                 session.userData.serviceButtons = 'decoration';
-                if (session.userData.contactInfo.serviceChoosed.indexOf('decoration') < 0) {
-                    session.userData.contactInfo.serviceChoosed.push('decoration');
-                }
-                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
+                session.beginDialog('decorationQueryFormDialog'); break;
+
+            // if (session.userData.contactInfo.serviceChoosed.indexOf('decoration') < 0) {
+            //     session.userData.contactInfo.serviceChoosed.push('decoration');
+            // }
             case 'entertainment':
                 session.userData.serviceButtons = 'entertainment';
                 if (session.userData.contactInfo.serviceChoosed.indexOf('entertainment') < 0) {
@@ -203,9 +210,11 @@ function formSubmitAction(session, value, args, flag, serviceChoosed) {
     session.beginDialog('thanksMsgDialog');
 }
 
-function cateringSubmitAction(session, value, clientInfo) {
+function cateringSubmitAction(session, value, clientInfo, serviceButtons) {
     session.userData = session.userData || {};
     session.userData.clientInfo = value || {};
+    session.userData.serviceButtons = serviceButtons || {};
+    console.log("+++++++++++++" + session.userData.serviceButtons);
     if (value.date) {
         session.userData.clientInfo.date = value.date;
     }
@@ -215,8 +224,18 @@ function cateringSubmitAction(session, value, clientInfo) {
     if (value.location) {
         session.userData.clientInfo.location = value.location;
     }
-    session.beginDialog('cateringButtons');
+    if (value.budget) {
+        session.userData.clientInfo.budget = value.budget;
+    }
+    if (session.userData.serviceButtons === 'catering') {
+        session.beginDialog('cateringButtons');
+    }
+    else if (session.userData.serviceButtons === 'decoration') {
+        session.beginDialog('decorationbuttons');
+    }
 }
+
+
 
 //Dialog definitions
 bot.dialog('serviceButtons', serviceButtons);
@@ -237,6 +256,8 @@ bot.dialog('cateringQueryFormDialog', cateringQueryFormDialog);
 bot.dialog('cateringButtons', cateringButtons);
 bot.dialog('textFieldDialog', textFieldDialog);
 bot.dialog('weddingMenuDialog', weddingMenuDialog);
+bot.dialog('decorationQueryFormDialog', decorationQueryFormDialog);
+bot.dialog('decorationbuttons', decorationButtons);
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
