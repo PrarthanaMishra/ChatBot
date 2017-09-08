@@ -25,9 +25,6 @@ var weddingMenuDialog = require('../dialogs/weddingMenuDialog.js');
 var decorationQueryFormDialog = require('../dialogs/decorationQueryFormDialog');
 var decorationButtons = require('../dialogs/decorationButtonsDialog.js');
 
-
-
-
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
     appPassword: config.password
