@@ -233,8 +233,6 @@ function cateringSubmitAction(session, value, clientInfo, serviceButtons) {
     }
 }
 
-
-
 //Dialog definitions
 bot.dialog('serviceButtons', serviceButtons);
 bot.dialog('catering', cateringDialog);

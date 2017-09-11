@@ -1,7 +1,7 @@
 var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
-module.exports = function (session) {
+module.exports = function decoration(session) {
     var card = {
         'type': 'Container',
         'items': [
