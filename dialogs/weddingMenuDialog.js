@@ -1,9 +1,8 @@
 var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
-
 module.exports = function catering(session) {
-    var pa = 'https://evening-cove-68971.herokuapp.com';
+    var pa = 'https://bot.eventgeni.com';
     var card =
         {
             'type': 'Container',
