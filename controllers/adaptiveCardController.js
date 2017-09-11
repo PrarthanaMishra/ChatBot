@@ -39,8 +39,10 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
         session.userData.contactInfo.serviceChoosed = session.userData.contactInfo.serviceChoosed || [];
 
         // A Card's Submit Action obj was received
+        console.log("----------------------------------------", session.message.value.type);
 
         switch (session.message.value.type) {
+
             case 'catering':
                 session.userData.serviceButtons = 'catering';
                 // if (session.userData.contactInfo.serviceChoosed.indexOf('catering') < 0) {
