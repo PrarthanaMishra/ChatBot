@@ -39,7 +39,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
         session.userData.contactInfo.serviceChoosed = session.userData.contactInfo.serviceChoosed || [];
 
         // A Card's Submit Action obj was received
-        console.log("----------------------------------------", session.message.value.type);
+        console.error(new Error(session.message.value.type));
 
         switch (session.message.value.type) {
 
