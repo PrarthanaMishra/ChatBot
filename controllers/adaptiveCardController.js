@@ -23,7 +23,8 @@ var cateringButtons = require('../dialogs/cateringButtonsDialog.js');
 var textFieldDialog = require('../dialogs/textFieldDialog.js');
 var weddingMenuDialog = require('../dialogs/weddingMenuDialog.js');
 var decorationButtons = require('../dialogs/decorationButtonsDialog.js');
-//var decorationQueryFormDialog = require('../dialogs/d');
+var decorationQueryFormDialog = require('../dialogs/decorationFormDialog.js');
+
 
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
@@ -62,8 +63,8 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 }
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'decoration':
-                session.userData.serviceButtons = 'decoration'; break;
-            //   session.beginDialog('decorationQueryFormDialog'); break;
+                session.userData.serviceButtons = 'decoration';
+                session.beginDialog('decorationQueryFormDialog'); break;
 
             // if (session.userData.contactInfo.serviceChoosed.indexOf('decoration') < 0) {
             //     session.userData.contactInfo.serviceChoosed.push('decoration');
@@ -253,7 +254,7 @@ bot.dialog('cateringQueryFormDialog', cateringQueryFormDialog);
 bot.dialog('cateringButtons', cateringButtons);
 bot.dialog('textFieldDialog', textFieldDialog);
 bot.dialog('weddingMenuDialog', weddingMenuDialog);
-//bot.dialog('decorationQueryFormDialog', decorationQueryFormDialog);
+bot.dialog('decorationQueryFormDialog', decorationQueryFormDialog);
 bot.dialog('decorationbuttons', decorationButtons);
 
 
