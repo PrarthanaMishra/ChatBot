@@ -64,11 +64,9 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'decoration':
                 session.userData.serviceButtons = 'decoration';
-                session.beginDialog('decorationQueryFormDialog'); break;
-
-            // if (session.userData.contactInfo.serviceChoosed.indexOf('decoration') < 0) {
-            //     session.userData.contactInfo.serviceChoosed.push('decoration');
-            // }
+                console.log("+++++++++++++++++++++++++");
+                session.beginDialog('cateringQueryFormDialog'); break;
+            // session.beginDialog('decorationQueryFormDialog'); break;
             case 'entertainment':
                 session.userData.serviceButtons = 'entertainment';
                 if (session.userData.contactInfo.serviceChoosed.indexOf('entertainment') < 0) {
