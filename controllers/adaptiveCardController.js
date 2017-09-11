@@ -45,6 +45,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
 
             case 'catering':
                 session.userData.serviceButtons = 'catering';
+                console.log("cccccccccccccccccccccccccc");
                 // if (session.userData.contactInfo.serviceChoosed.indexOf('catering') < 0) {
                 //     session.userData.contactInfo.serviceChoosed.push('catering');
                 // }
