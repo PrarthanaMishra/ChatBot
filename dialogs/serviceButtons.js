@@ -46,8 +46,9 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    "text": "Decoration",
+                                    "text": "Decoration"
                                     //'weight': 'bolder',
+                                    //'style': 'Person'
 
                                 }
 
