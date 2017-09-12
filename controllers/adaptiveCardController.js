@@ -39,7 +39,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
         session.userData.contactInfo.serviceChoosed = session.userData.contactInfo.serviceChoosed || [];
 
         // A Card's Submit Action obj was received
-        console.error(new Error(session.message.value.type));
+        // console.error(new Error(session.message.value.type));
 
         switch (session.message.value.type) {
 
@@ -56,32 +56,28 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 break;
             case 'photography':
                 session.userData.serviceButtons = 'photography';
-                if (session.userData.contactInfo.serviceChoosed.indexOf('photography') < 0) {
-                    session.userData.contactInfo.serviceChoosed.push('photography');
-                }
-                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
+                // if (session.userData.contactInfo.serviceChoosed.indexOf('photography') < 0) {
+                //     session.userData.contactInfo.serviceChoosed.push('photography');
+                // }
+                // session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
+                serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
+
             case 'decoration':
                 console.log("-------------------------------");
                 session.userData.serviceButtons = 'decoration';
                 session.beginDialog('decorationQueryFormDialog'); break;
             case 'entertainment':
                 session.userData.serviceButtons = 'entertainment';
-                if (session.userData.contactInfo.serviceChoosed.indexOf('entertainment') < 0) {
-                    session.userData.contactInfo.serviceChoosed.push('entertainment');
-                }
-                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
+                serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
+
             case 'venue':
                 session.userData.serviceButtons = 'venue';
-                if (session.userData.contactInfo.serviceChoosed.indexOf('venue') < 0) {
-                    session.userData.contactInfo.serviceChoosed.push('venue');
-                }
-                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
+                serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
+
             case 'mehndi':
                 session.userData.serviceButtons = 'mehndi';
-                if (session.userData.contactInfo.serviceChoosed.indexOf('mehndi') < 0) {
-                    session.userData.contactInfo.serviceChoosed.push('mehndi');
-                }
-                session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
+                serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
+
             case 'yes':
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
             case 'no':
