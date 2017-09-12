@@ -1,5 +1,3 @@
-var botBuilder = require('botbuilder');
-var BlankCard = require('../adaptiveCards/blankCard.js');
 
 module.exports = function decoration(session) {
     var card = {
@@ -130,6 +128,8 @@ module.exports = function decoration(session) {
         ]
 
     }
+    var botBuilder = require('botbuilder');
+    var BlankCard = require('../adaptiveCards/blankCard.js');
     var blankCard = new BlankCard();
     blankCard.setBody(card);
     var msg = new botBuilder.Message(session)
