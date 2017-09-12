@@ -61,6 +61,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 }
                 session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
             case 'decoration':
+                console.log("-------------------------------");
                 session.userData.serviceButtons = 'decoration';
                 session.beginDialog('decorationQueryFormDialog'); break;
             case 'entertainment':
