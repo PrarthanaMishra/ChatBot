@@ -24,7 +24,8 @@ var textFieldDialog = require('../dialogs/textFieldDialog.js');
 var weddingMenuDialog = require('../dialogs/weddingMenuDialog.js');
 var decorationButtons = require('../dialogs/decorationButtonsDialog.js');
 var decorationQueryFormDialog = require('../dialogs/decorationFormDialog.js');
-
+var photographyFormDialog = require('../dialogs/photographyFormDialog.js');
+var imageDialog = require('../dialogs/imageDialog.js');
 
 var connector = new botBuilder.ChatConnector({
     appId: config.appId,
@@ -56,17 +57,19 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 break;
             case 'photography':
                 session.userData.serviceButtons = 'photography';
-                // if (session.userData.contactInfo.serviceChoosed.indexOf('photography') < 0) {
-                //     session.userData.contactInfo.serviceChoosed.push('photography');
-                // }
-                // session.beginDialog('confirmDialog', session.userData.serviceButtons); break;
-                serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
+                session.beginDialog('photographyFormDialog'); break;
 
             case 'decoration':
-                console.log("-------------------------------");
                 session.userData.serviceButtons = 'decoration';
                 session.beginDialog('decorationQueryFormDialog');
                 break;
+            case 'cardecoration':
+                console.log("cccccccccccccccccccc");
+                var carImages = ['/images/decoration/carDecoration/1.jpg', '/images/decoration/carDecoration/2.jpg',
+                    '/images/Decoration/carDecoration/3.jpg'];
+                session.beginDialog('imageDialog', carImages);
+                session.beginDialog('contactFormDialog'); break;
+
             case 'entertainment':
                 session.userData.serviceButtons = 'entertainment';
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
@@ -102,6 +105,8 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'updatecancel':
                 session.beginDialog('details', session.userData.contactInfo, session.userData.serviceChoosed);
                 session.beginDialog('thanksMsgDialog'); break;
+            case 'photosubmit':
+                session.beginDialog('contactFormDialog'); break;
         }
     }
 });
@@ -177,6 +182,7 @@ function formSubmitAction(session, value, args, flag, serviceChoosed) {
     session.userdata.contactInfo = args || {};
     session.userData.updateFlag = flag || {};
     session.userData.serviceChoosed = serviceChoosed || [];
+    console.log("+++++++++++=" + value.myColor3);
     if (session && session.userdata && session.userdata.contactInfo &&
         session.userdata.contactInfo.name && session.userdata.contactInfo.phone && !session.userData.updateFlag) {
         if (session.userData.contactInfo.other) {
@@ -196,7 +202,9 @@ function formSubmitAction(session, value, args, flag, serviceChoosed) {
     if (value.phone) {
         session.userdata.contactInfo.phone = value.phone;
     }
-    session.beginDialog('details', session.userData.contactInfo);
+    if (session.userData && session.userData.contactInfo.name && session.userData.contactInfo.phone) {
+        session.beginDialog('details', session.userData.contactInfo);
+    }
     session.beginDialog('thanksMsgDialog');
 }
 
@@ -246,6 +254,8 @@ bot.dialog('textFieldDialog', textFieldDialog);
 bot.dialog('weddingMenuDialog', weddingMenuDialog);
 bot.dialog('decorationQueryFormDialog', decorationQueryFormDialog);
 bot.dialog('decorationbuttons', decorationButtons);
+bot.dialog('photographyFormDialog', photographyFormDialog);
+bot.dialog('imageDialog', imageDialog);
 
 
 bot.on('conversationUpdate', function (message) {

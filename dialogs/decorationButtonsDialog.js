@@ -41,7 +41,8 @@ module.exports = function catering(session) {
                                     "type": "TextBlock",
                                     'text': 'Birthday',
                                     // 'weight': 'bolder',
-                                    'style': 'Person'
+                                    'style': 'Person',
+                                    'wrap': true
                                 }
                             ],
                             "selectAction": {
@@ -90,7 +91,8 @@ module.exports = function catering(session) {
                                     "type": "TextBlock",
                                     'text': 'Engagement',
                                     // 'weight': 'bolder',
-                                    'style': 'Person'
+                                    'style': 'Person',
+                                    'wrap': true
                                 }
                             ],
                             "selectAction": {
@@ -131,7 +133,8 @@ module.exports = function catering(session) {
                                     "type": "TextBlock",
                                     'text': 'Thread Ceremony',
                                     // 'weight': 'bolder',
-                                    'style': 'Person'
+                                    'style': 'Person',
+                                    'wrap': true
                                 }
                             ],
                             "selectAction": {
@@ -156,7 +159,8 @@ module.exports = function catering(session) {
                                     "type": "TextBlock",
                                     'text': 'Others',
                                     // 'weight': 'bolder',
-                                    'style': 'Person'
+                                    'style': 'Person',
+                                    'wrap': true
                                 }
                             ],
                             "selectAction": {
@@ -169,10 +173,38 @@ module.exports = function catering(session) {
                             }
                         }
                     ]
+                },
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Columns",
+                            "size": "auto",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    'text': 'Go back',
+                                    'weight': 'bolder',
+                                    'style': 'Person',
+                                    'size': 'larger'
+
+                                }
+
+                            ],
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "title": "goback",
+                                "data": {
+                                    "type": 'goback'
+                                }
+
+                            }
+                        }
+                    ]
                 }
+
             ]
         }
-
 
     var blankCard = new BlankCard();
     blankCard.setBody(card);

@@ -12,7 +12,7 @@ module.exports = function decoration(session) {
                         "items": [
                             {
                                 "type": "TextBlock",
-                                "text": "When is the requirement?",
+                                "text": "When is the event?",
                                 "weight": "bolder",
                                 // "size": "large"
                             },
@@ -38,14 +38,15 @@ module.exports = function decoration(session) {
                             },
                             {
                                 "type": "TextBlock",
-                                "text": "Budget",
+                                "text": "What type of photography",
                                 "weight": "bolder"
 
                             },
                             {
-                                "type": "Input.Text",
-                                "id": "budget",
-                                "placeholder": "Enter your budget"
+                                "type": "TextBlock",
+                                "text": "you are looking for?",
+                                "weight": "bolder"
+
                             }
                         ]
                     },
@@ -57,6 +58,42 @@ module.exports = function decoration(session) {
                                 "type": "Image",
                                 "url": "https://media.glassdoor.com/sqll/1099839/unobridge-squarelogo-1457093763168.png",
                                 "size": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "type": "ColumnSet",
+                "columns": [
+                    {
+                        "type": "Columns",
+                        "size": "auto",
+                        "items": [
+                            {
+                                "type": "Input.ChoiceSet",
+                                "id": "myColor3",
+                                "isMultiSelect": true,
+                                // "value": "1,3",
+                                "style": "compact",
+                                "choices": [
+                                    {
+                                        "title": "Candid",
+                                        "value": "Candid",
+                                        "isSelected": false
+                                    },
+                                    {
+                                        "title": "Traditional",
+                                        "value": "Traditional",
+                                        "isSelected": false
+                                    },
+                                    {
+                                        "title": "Others",
+                                        "value": "Others",
+                                        "isSelected": false
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -80,9 +117,9 @@ module.exports = function decoration(session) {
                         ],
                         "selectAction": {
                             "type": "Action.Submit",
-                            "title": "cateringSubmit",
+                            "title": "photoSubmit",
                             "data": {
-                                "type": 'cateringSubmit'
+                                "type": 'photosubmit'
                             }
 
                         }
