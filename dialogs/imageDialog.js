@@ -2,7 +2,8 @@ var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
 module.exports = function catering(session, arrayOfImage) {
-    var pa = 'https://bot.eventgeni.com/';
+    var pa = 'https://bot.eventgeni.com';
+    console.log("***************", arrayOfImage[0]);
     var card =
         {
             'type': 'Container',

@@ -64,8 +64,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('decorationQueryFormDialog');
                 break;
             case 'cardecoration':
-                console.log("cccccccccccccccccccc");
-                var carImages = ['/images/decoration/carDecoration/1.jpg', '/images/decoration/carDecoration/2.jpg',
+                var carImages = ['/images/Decoration/carDecoration/1.jpg', '/images/Decoration/carDecoration/2.jpg',
                     '/images/Decoration/carDecoration/3.jpg'];
                 session.beginDialog('imageDialog', carImages);
                 session.beginDialog('contactFormDialog'); break;
