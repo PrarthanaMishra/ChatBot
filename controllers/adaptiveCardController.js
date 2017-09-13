@@ -146,6 +146,7 @@ function serviceSubmitAction(session, serviceButtons, args, serviceChoosed) {
             session.beginDialog('contactFormDialog');
         }
         else if (serviceButtons === 'entertainment') {
+            console.log("++++++");
             session.beginDialog('entertainment');
             if (session && session.userdata && session.userdata.contactInfo.phone) {
                 session.beginDialog('details', session.userData.contactInfo);
