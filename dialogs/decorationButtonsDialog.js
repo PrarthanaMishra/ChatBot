@@ -71,7 +71,7 @@ module.exports = function catering(session) {
                                 "type": "Action.Submit",
                                 "title": "birthday",
                                 "data": {
-                                    "type": 'birthday'
+                                    "type": 'decobirthday'
                                 }
 
                             }
@@ -142,7 +142,7 @@ module.exports = function catering(session) {
                                 "type": "Action.Submit",
                                 "title": "namingceremony",
                                 "data": {
-                                    "type": 'namingceremony'
+                                    "type": 'deconamingceremony'
                                 }
 
                             }
@@ -153,7 +153,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Name board',
+                                    'text': 'Stage Decoration',
                                     // 'weight': 'bolder',
                                     'style': 'Person',
                                     'wrap': true
@@ -161,9 +161,9 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "nameboard",
+                                "title": "stagedecoration",
                                 "data": {
-                                    "type": 'nameboard'
+                                    "type": 'stagedecoration'
                                 }
 
                             }

@@ -55,19 +55,19 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'catering';
                 session.beginDialog('cateringQueryFormDialog'); break;
             case 'babyShower':
-                session.beginDialog('imageDialog', getImages('Catering', 'babyShower'));
+                session.beginDialog('imageDialog', getImages('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'birthday':
                 session.beginDialog('imageDialog', getImages('Catering', 'birthday'));
                 session.beginDialog('contactFormDialog'); break;
             case 'engagement':
-                session.beginDialog('imageDialog', getImages('Catering', 'engagement'));
+                session.beginDialog('imageDialog', getImages('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'houseWarming':
-                session.beginDialog('imageDialog', getImages('Catering', 'houseWarming'));
+                session.beginDialog('imageDialog', getImages('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'namingceremony':
-                session.beginDialog('imageDialog', getImages('Catering', 'namingCeremony'));
+                session.beginDialog('imageDialog', getImages('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'weddingMenu':
                 session.beginDialog('weddingMenuDialog');
@@ -79,7 +79,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'decoration':
                 session.userData.serviceButtons = 'decoration';
                 session.beginDialog('decorationQueryFormDialog'); break;
-            case 'birthday':
+            case 'decobirthday':
                 session.beginDialog('imageDialog', getImages('Decoration', 'birthday'));
                 session.beginDialog('contactFormDialog'); break;
             case 'cardecoration':
@@ -91,13 +91,12 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'nameBoard':
                 session.beginDialog('imageDialog', getImages('Decoration', 'nameBoard'));
                 session.beginDialog('contactFormDialog'); break;
-            case 'namingCeremony':
+            case 'deconamingCeremony':
                 session.beginDialog('imageDialog', getImages('Decoration', 'namingCeremony'));
                 session.beginDialog('contactFormDialog'); break;
-            case 'stageDecoration':
+            case 'stagedecoration':
                 session.beginDialog('imageDialog', getImages('Decoration', 'stageDecoration'));
                 session.beginDialog('contactFormDialog'); break;
-
             case 'others':
                 session.beginDialog('textFieldDialog'); break;
             case 'photography':
@@ -110,7 +109,6 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('entertainmentFormDialog');
                 isContactInfo(session, session.userData.contactInfo); break;
             case 'venue':
-                console.log("-------------------");
                 session.userData.serviceButtons = 'venue';
                 session.beginDialog('venueFormDialog'); break;
             case 'venuSubmit':
