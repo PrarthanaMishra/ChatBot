@@ -15,9 +15,31 @@ module.exports = function catering(session) {
                             "type": "Column",
                             "size": "auto",
                             "items": [
+
                                 {
                                     "type": "TextBlock",
-                                    "text": "Car decoration",
+                                    "text": "These are the decorations we offer:-",
+                                    //'weight': 'bolder',
+                                    'wrap': true
+
+                                }
+
+                            ],
+                        }
+                    ]
+                },
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+
+                        {
+                            "type": "Column",
+                            "size": "auto",
+                            "items": [
+
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Car Decoration",
                                     //'weight': 'bolder',
                                     'wrap': true
 
@@ -60,19 +82,19 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Entire Wedding',
+                                    'text': 'Name Board',
                                     // 'weight': 'bolder',
                                     'style': 'Person',
-                                    'wrap': 'true'
+                                    'wrap': true
 
                                 }
 
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "entireweddng",
+                                "title": "nameboard",
                                 "data": {
-                                    "type": 'entirewedding'
+                                    "type": 'nameboard'
                                 }
 
                             }
@@ -89,7 +111,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Engagement',
+                                    'text': 'Manatapa Decoration',
                                     // 'weight': 'bolder',
                                     'style': 'Person',
                                     'wrap': true
@@ -97,9 +119,9 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "engagement",
+                                "title": "mantap",
                                 "data": {
-                                    "type": 'engagement'
+                                    "type": 'mantap'
                                 }
 
                             }
@@ -131,7 +153,7 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'Thread Ceremony',
+                                    'text': 'Name board',
                                     // 'weight': 'bolder',
                                     'style': 'Person',
                                     'wrap': true
@@ -139,9 +161,9 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "threadceremony",
+                                "title": "nameboard",
                                 "data": {
-                                    "type": 'threadceremony'
+                                    "type": 'nameboard'
                                 }
 
                             }
