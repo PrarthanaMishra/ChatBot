@@ -2,6 +2,7 @@ var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
 module.exports = function (session, arrayOfImage) {
+    arrayOfImage = Array.isArray(arrayOfImage) ? arrayOfImage : [arrayOfImage];
     var pa = 'https://bot.eventgeni.com';
     var card =
         {

@@ -39,6 +39,10 @@ function getImages(folder, subFolder) {
     return ['/images/' + folder + '/' + subFolder + '/' + '1.jpg', '/images/' + folder + '/' + subFolder + '/' + '2.jpg', '/images/' + folder + '/' + subFolder + '/' + '3.jpg']
 }
 
+function getCateringImage(folder, subFolder) {
+    return ['/images/' + folder + '/' + subFolder + '/' + '1.JPG', '/images/' + folder + '/' + subFolder + '/' + '2.JPG', '/images/' + folder + '/' + subFolder + '/' + '3.JPG'];
+}
+
 var bot = new botBuilder.UniversalBot(connector, function (session) {
     if (session.message && session.message.value) {
 
@@ -55,19 +59,19 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'catering';
                 session.beginDialog('cateringQueryFormDialog'); break;
             case 'babyShower':
-                session.beginDialog('imageDialog', getImages('Catering', 'weddingMenu'));
+                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'birthday':
-                session.beginDialog('imageDialog', getImages('Catering', 'birthday'));
+                session.beginDialog('imageDialog', getImages('Catering', 'birthday')[0]);
                 session.beginDialog('contactFormDialog'); break;
             case 'engagement':
-                session.beginDialog('imageDialog', getImages('Catering', 'weddingMenu'));
+                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'houseWarming':
-                session.beginDialog('imageDialog', getImages('Catering', 'weddingMenu'));
+                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'namingceremony':
-                session.beginDialog('imageDialog', getImages('Catering', 'weddingMenu'));
+                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'weddingMenu':
                 session.beginDialog('weddingMenuDialog');
