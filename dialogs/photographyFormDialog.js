@@ -87,11 +87,6 @@ module.exports = function decoration(session) {
                                         "title": "Traditional",
                                         "value": "Traditional",
                                         "isSelected": false
-                                    },
-                                    {
-                                        "title": "Others",
-                                        "value": "Others",
-                                        "isSelected": false
                                     }
                                 ]
                             }

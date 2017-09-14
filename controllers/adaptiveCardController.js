@@ -32,6 +32,12 @@ var connector = new botBuilder.ChatConnector({
     appPassword: config.password
 });
 
+
+function getImages(folder, subFolder) {
+    return ['/images/' + folder + '/' + subFolder + '/' + '1.jpg', '/images/' + folder + '/' + subFolder + '/' + '2.jpg', '/images/' + folder + '/' + subFolder + '/' + '3.jpg']
+}
+
+
 var bot = new botBuilder.UniversalBot(connector, function (session) {
     if (session.message && session.message.value) {
 
@@ -40,60 +46,76 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
         session.userData.contactInfo.serviceChoosed = session.userData.contactInfo.serviceChoosed || [];
 
         // A Card's Submit Action obj was received
-        // console.error(new Error(session.message.value.type));
 
         switch (session.message.value.type) {
 
             case 'catering':
                 session.userData.serviceButtons = 'catering';
                 session.beginDialog('cateringQueryFormDialog'); break;
+            case 'babyShower':
+                session.beginDialog('imageDialog', getImages('Catering', 'babyShower'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'birthday':
+                session.beginDialog('imageDialog', getImages('Catering', 'birthday'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'engagement':
+                session.beginDialog('imageDialog', getImages('Catering', 'engagement'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'houseWarming':
+                session.beginDialog('imageDialog', getImages('Catering', 'houseWarming'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'namingceremony':
+                session.beginDialog('imageDialog', getImages('Catering', 'namingCeremony'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'weddingMenu':
+                session.beginDialog('weddingMenuDialog');
+                session.beginDialog('contactFormDialog'); break;
             case 'cateringSubmit':
-                cateringSubmitAction(session, session.message.value, session.userData.clientInfo, session.userData.serviceButtons); break;
+                cateringSubmitAction(session, session.message.value, session.userData.clientInfo, session.userData.serviceButtons, session.userData.contactInfo);
+                break;
             case 'others':
                 session.beginDialog('textFieldDialog'); break;
-            case 'weddingmenu':
-                session.beginDialog('weddingMenuDialog');
-                session.beginDialog('contactFormDialog');
-                break;
             case 'photography':
                 session.userData.serviceButtons = 'photography';
                 session.beginDialog('photographyFormDialog'); break;
-
             case 'decoration':
                 session.userData.serviceButtons = 'decoration';
-                session.beginDialog('decorationQueryFormDialog');
-                break;
-            case 'cardecoration':
-                var carImages = ['/images/Decoration/carDecoration/1.jpg', '/images/Decoration/carDecoration/2.jpg',
-                    '/images/Decoration/carDecoration/3.jpg'];
-                session.beginDialog('imageDialog', carImages);
+                session.beginDialog('decorationQueryFormDialog'); break;
+            case 'birthday':
+                session.beginDialog('imageDialog', getImages('Decoration', 'birthday'));
                 session.beginDialog('contactFormDialog'); break;
-
+            case 'cardecoration':
+                session.beginDialog('imageDialog', getImages('Decoration', 'carDecoration'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'engagement':
+                session.beginDialog('imageDialog', getImages('Decoration', 'engagement'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'entireWedding':
+                session.beginDialog('imageDialog', getImages('Decoration', 'entireWedding'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'namingCeremony':
+                session.beginDialog('imageDialog', getImages('Decoration', 'namingCeremony'));
+                session.beginDialog('contactFormDialog'); break;
+            case 'threadCeremony':
+                session.beginDialog('imageDialog', getImages('Decoration', 'threadCeremony'));
+                session.beginDialog('contactFormDialog'); break;
             case 'entertainment':
                 session.userData.serviceButtons = 'entertainment';
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
-
             case 'venue':
                 session.userData.serviceButtons = 'venue';
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
-
             case 'mehndi':
                 session.userData.serviceButtons = 'mehndi';
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
-
             case 'yes':
                 serviceSubmitAction(session, session.userData.serviceButtons, session.userData.contactInfo); break;
             case 'no':
                 session.userData.contactInfo.serviceChoosed.pop();
                 session.beginDialog('otherInfoDialog', session.userData.contactInfo); break;
-            //  session.beginDialog('thanksMsgDialog', session.userData.contactInfo); break;
-            //   session.beginDialog('serviceButtons'); break;
             case 'submit':
                 formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.serviceChoosed); break;
             case 'cancel':
-                //  session.beginDialog('tollFreeContactDialog');
-                //  session.beginDialog('details', session.userData.contactInfo, session.userData.serviceChoosed);
-                // session.beginDialog('thanksMsgDialog'); break;
                 session.beginDialog('serviceButtons'); break;
             case 'goback':
                 session.beginDialog('serviceButtons'); break;
@@ -155,22 +177,23 @@ function serviceSubmitAction(session, serviceButtons, args, serviceChoosed) {
             session.beginDialog('contactFormDialog');
         }
         else if (serviceButtons === 'venue') {
-            session.beginDialog('venue');
-            if (session && session.userdata && session.userdata.contactInfo.phone) {
+            session.beginDialog('decorationQueryFormDialog');
+            if (session && session.userdata && session.userdata.contactInfo.phone
+                && session.message && session.message.value && session.message.value.type === 'cateringSubmit') {
                 session.beginDialog('details', session.userData.contactInfo);
                 session.beginDialog('thanksMsgDialog');
                 return;
             }
-            session.beginDialog('contactFormDialog');
+            //  session.beginDialog('contactFormDialog');
         }
         else if (serviceButtons === 'mehndi') {
-            session.beginDialog('mehndi');
+            session.beginDialog('decorationQueryFormDialog');
             if (session && session.userdata && session.userdata.contactInfo.phone) {
                 session.beginDialog('details', session.userData.contactInfo);
                 session.beginDialog('thanksMsgDialog');
                 return;
             }
-            session.beginDialog('contactFormDialog');
+            // session.beginDialog('contactFormDialog');
         }
 
     }
@@ -208,11 +231,14 @@ function formSubmitAction(session, value, args, flag, serviceChoosed) {
     session.beginDialog('thanksMsgDialog');
 }
 
-function cateringSubmitAction(session, value, clientInfo, serviceButtons) {
+function cateringSubmitAction(session, value, clientInfo, serviceButtons, contactInfo) {
     session.userData = session.userData || {};
     session.userData.clientInfo = value || {};
     session.userData.serviceButtons = serviceButtons || {};
+    session.userData.contactInfo = contactInfo || {};
+
     console.log("+++++++++++++" + session.userData.serviceButtons);
+    console.log(session.userData.contactInfo.name + session.userData.contactInfo.phone);
     if (value.date) {
         session.userData.clientInfo.date = value.date;
     }
@@ -225,11 +251,21 @@ function cateringSubmitAction(session, value, clientInfo, serviceButtons) {
     if (value.budget) {
         session.userData.clientInfo.budget = value.budget;
     }
+
     if (session.userData.serviceButtons === 'catering') {
         session.beginDialog('cateringButtons');
     }
     else if (session.userData.serviceButtons === 'decoration') {
         session.beginDialog('decorationbuttons');
+    }
+    else if (session.userData.serviceButtons === 'venue' || session.userData.serviceButtons === 'mehndi' ||
+        session.userData.serviceButtons === 'entertainment') {
+        if (session && session.userData && session.userData.contactInfo.phone) {
+            session.beginDialog('details', session.userData.contactInfo);
+            session.beginDialog('thanksMsgDialog');
+            return;
+        }
+        session.beginDialog('contactFormDialog');
     }
 }
 

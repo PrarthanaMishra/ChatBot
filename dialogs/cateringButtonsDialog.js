@@ -46,7 +46,7 @@ module.exports = function catering(session) {
                                 "type": "Action.Submit",
                                 "title": "naming ceremony",
                                 "data": {
-                                    "type": 'naming ceremony'
+                                    "type": 'namingceremony'
                                 }
 
                             }
@@ -125,16 +125,16 @@ module.exports = function catering(session) {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    'text': 'House waiving',
+                                    'text': 'House warming',
                                     // 'weight': 'bolder',
                                     'style': 'Person'
                                 }
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "housewaiving",
+                                "title": "housewarming",
                                 "data": {
-                                    "type": 'housewaiving'
+                                    "type": 'housewarming'
                                 }
 
                             }
