@@ -19,7 +19,7 @@ module.exports = function catering(session) {
                                 {
                                     "type": "TextBlock",
                                     "text": "These are the decorations we offer:-",
-                                    //'weight': 'bolder',
+                                    'weight': 'bolder',
                                     'wrap': true
 
                                 }
@@ -169,7 +169,7 @@ module.exports = function catering(session) {
                             }
                         }
                     ]
-                }
+                },
                 // {
                 //     "type": "ColumnSet",
                 //     "columns": [
@@ -195,7 +195,7 @@ module.exports = function catering(session) {
                 //             }
                 //         }
                 //     ]
-                //  },
+                // },
                 {
                     "type": "ColumnSet",
                     "columns": [

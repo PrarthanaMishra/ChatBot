@@ -99,9 +99,9 @@ module.exports = function contactFormDialog(session, args) {
                         ],
                         "selectAction": {
                             "type": "Action.Submit",
-                            "title": "submit",
+                            "title": "submits",
                             "data": {
-                                "type": 'submit'
+                                "type": 'submits'
                             }
 
                         }

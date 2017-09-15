@@ -145,6 +145,10 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('thanksMsgDialog'); break;
             case 'photosubmit':
                 session.beginDialog('contactFormDialog'); break;
+            case 'submits':
+                console.log("________________________________________");
+                isContactInfo(session, session.userData.contactInfo); break;
+
         }
     }
 });
@@ -202,6 +206,7 @@ function showImages(session, values, service) {
 }
 
 function isContactInfo(session, contactInfo) {
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
     session.userData = session.userData || {};
     session.userData.contactInfo = contactInfo || {};
     if (session && session.userData && session.userData.contactInfo.phone) {
