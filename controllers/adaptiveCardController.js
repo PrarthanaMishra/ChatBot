@@ -115,20 +115,20 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'entertainment';
                 session.beginDialog('entertainmentFormDialog'); break;
             case 'entertainmentSubmit':
-                showEntertainmentImages(session, session.message.value, session.userData.serviceButtons);
+                showImages(session, session.message.value, session.userData.serviceButtons);
                 isContactInfo(session, session.userData.contactInfo); break;
                 break;
             case 'venue':
                 session.userData.serviceButtons = 'venue';
                 session.beginDialog('venueFormDialog'); break;
             case 'venuSubmit':
-                session.beginDialog('venueDialog');
+                showImages(session, session.message.value, session.userData.serviceButtons);
                 isContactInfo(session, session.userData.contactInfo); break;
             case 'mehndi':
                 session.userData.serviceButtons = 'mehndi';
                 session.beginDialog('mehndiFormDialog'); break;
             case 'mehndiSubmit':
-                showEntertainmentImages(session, session.message.value, session.userData.serviceButtons);
+                showImages(session, session.message.value, session.userData.serviceButtons);
                 isContactInfo(session, session.userData.contactInfo); break;
             case 'submit':
                 formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.serviceChoosed); break;
@@ -149,7 +149,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
     }
 });
 
-function showEntertainmentImages(session, values, service) {
+function showImages(session, values, service) {
     switch (service) {
         case 'entertainment':
             var entertainment = values.entertainmentType
@@ -158,11 +158,11 @@ function showEntertainmentImages(session, values, service) {
                 for (var i = 0; i < array.length; i++) {
                     console.log(array[i]);
                     switch (array[i]) {
-                        case 'magician': session.beginDialog('imageDialog', getImages('Entertainment', 'magician')); break;
-                        case 'MC': session.beginDialog('imageDialog', getImages('Entertainment', 'MC')); break
-                        case 'Nadaswaram': session.beginDialog('imageDialog', getImages('Entertainment', 'nadaswaram')); break;
-                        case 'choreographer': session.beginDialog('imageDialog', getImages('Entertainment', 'choreographer')); break;
-                        case 'DJ': session.beginDialog('imageDialog', getImages('Entertainment', 'DJ')); break;
+                        case 'magician': session.beginDialog('imageDialog', { arrayOfImage: getImages('Entertainment', 'magician'), heading: "Magician" }); break;
+                        case 'MC': session.beginDialog('imageDialog', { arrayOfImage: getImages('Entertainment', 'MC'), heading: "MC" }); break
+                        case 'Nadaswaram': session.beginDialog('imageDialog', { arrayOfImage: getImages('Entertainment', 'nadaswaram'), heading: "Nadaswaram" }); break;
+                        case 'choreographer': session.beginDialog('imageDialog', { arrayOfImage: getImages('Entertainment', 'choreographer'), heading: "Choreographer" }); break;
+                        case 'DJ': session.beginDialog('imageDialog', { arrayOfImage: getImages('Entertainment', 'DJ'), heading: "DJ" }); break;
                     }
                 }
             }
@@ -190,9 +190,9 @@ function showEntertainmentImages(session, values, service) {
                 for (var i = 0; i < array.length; i++) {
                     console.log(array[i]);
                     switch (array[i]) {
-                        case 'KBH': session.beginDialog('imageDialog', getImages('Venuebooking', 'banquetHall')); break;
-                        case 'GPH': session.beginDialog('imageDialog', getImages('Venuebooking', 'grandPartyHall')); break;
-                        case 'KM': session.beginDialog('imageDialog', getImages('Venuebooking', 'kalyanaMantapa')); break
+                        case 'KBH': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venuebooking', 'banquetHall', 1), heading: "Banquet Hall" }); break;
+                        case 'GPH': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venuebooking', 'grandPartyHall', 1), heading: "Party hall" }); break;
+                        case 'KM': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venuebooking', 'kalyanaMantapa', 1), heading: "KalyanaMantapa" }); break
 
                     }
                 }
