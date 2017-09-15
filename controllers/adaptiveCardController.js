@@ -151,15 +151,15 @@ function showEntertainmentImages(session, values, service) {
             var entertainment = values.entertainmentType
             if (values.entertainmentType) {
                 var array = values.entertainmentType.split(';');
-            }
-            for (var i = 0; i < array.length; i++) {
-                console.log(array[i]);
-                switch (array[i]) {
-                    case 'magician': session.beginDialog('imageDialog', getImages('Entertainment', 'magician')); break;
-                    case 'MC': session.beginDialog('imageDialog', getImages('Entertainment', 'MC')); break
-                    case 'Nadaswaram': session.beginDialog('imageDialog', getImages('Entertainment', 'nadaswaram')); break;
-                    case 'choreographer': session.beginDialog('imageDialog', getImages('Entertainment', 'choreographer')); break;
-                    case 'DJ': session.beginDialog('imageDialog', getImages('Entertainment', 'DJ')); break;
+                for (var i = 0; i < array.length; i++) {
+                    console.log(array[i]);
+                    switch (array[i]) {
+                        case 'magician': session.beginDialog('imageDialog', getImages('Entertainment', 'magician')); break;
+                        case 'MC': session.beginDialog('imageDialog', getImages('Entertainment', 'MC')); break
+                        case 'Nadaswaram': session.beginDialog('imageDialog', getImages('Entertainment', 'nadaswaram')); break;
+                        case 'choreographer': session.beginDialog('imageDialog', getImages('Entertainment', 'choreographer')); break;
+                        case 'DJ': session.beginDialog('imageDialog', getImages('Entertainment', 'DJ')); break;
+                    }
                 }
             }
         case 'mehndi':
@@ -167,12 +167,13 @@ function showEntertainmentImages(session, values, service) {
             console.log(values.mehndiType);
             if (values.mehndiType) {
                 var array = values.mehndiType.split(';');
-            }
-            for (var i = 0; i < array.length; i++) {
-                console.log(array[i]);
-                switch (array[i]) {
-                    case 'bride': session.beginDialog('imageDialog', getImages('Entertainment', 'mehndi')); break;
-                    case 'guest': session.beginDialog('imageDialog', getImages('Entertainment', 'guest')); break
+
+                for (var i = 0; i < array.length; i++) {
+                    console.log(array[i]);
+                    switch (array[i]) {
+                        case 'bride': session.beginDialog('imageDialog', getImages('Entertainment', 'mehndi')); break;
+                        case 'guest': session.beginDialog('imageDialog', getImages('Entertainment', 'guest')); break
+                    }
                 }
             }
 
@@ -222,6 +223,7 @@ function validateDetails(session, values) {
     session.userData = session.userData || {};
     session.userData.contactInfo = values || {};
     if (session.userData && session.userData.contactInfo && session.userData.contactInfo.name && session.userData.contactInfo.phone) {
+        session.beginDialog('thanksMsgDialog');
         return;
     }
     session.userData.contactInfo.flag = "y";
