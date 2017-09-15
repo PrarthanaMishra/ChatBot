@@ -35,7 +35,7 @@ module.exports = function editContactDetailsDialog(session, args) {
                             {
                                 "type": "Input.Text",
                                 "id": "name",
-                                "placeholder": session.userData.contactInfo.name
+                                "value": session.userData.contactInfo.name,
                             },
 
                             {
@@ -45,7 +45,7 @@ module.exports = function editContactDetailsDialog(session, args) {
                             {
                                 "type": "Input.Text",
                                 "id": "phone",
-                                "placeholder": session.userData.contactInfo.phone,
+                                "value": session.userData.contactInfo.phone,
                                 "style": "tel"
                             }
                         ]

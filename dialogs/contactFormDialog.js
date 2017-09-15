@@ -1,7 +1,10 @@
 var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
-module.exports = function contactFormDialog(session) {
+module.exports = function contactFormDialog(session, args) {
+    session.userData = session.userData || {};
+    session.userData.contactInfo = args || {};
+    console.dir(args);
     var card = {
         'type': 'Container',
         'items': [
@@ -33,7 +36,9 @@ module.exports = function contactFormDialog(session) {
                             {
                                 "type": "Input.Text",
                                 "id": "name",
-                                "placeholder": "Full name"
+                                "placeholder": "Full name",
+                                "value": session.userData.contactInfo.name
+
                             },
 
                             {
@@ -45,6 +50,7 @@ module.exports = function contactFormDialog(session) {
                                 "type": "Input.Text",
                                 "id": "phone",
                                 "placeholder": "enter 10 digit mobile number",
+                                "value": session.userData.contactInfo.phone,
                                 "style": "tel"
                             }
                         ]
@@ -115,6 +121,11 @@ module.exports = function contactFormDialog(session) {
         ]
 
     }
+    if (session && session.userData && session.userData.contactInfo.flag === "y") {
+        card.items[0].columns[0].items[0].text = "Please fill both the fields";
+        card.items[0].columns[0].items.splice(1, 1);
+    }
+
     var blankCard = new BlankCard();
     blankCard.setBody(card);
     var msg = new botBuilder.Message(session)

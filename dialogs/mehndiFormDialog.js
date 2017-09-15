@@ -62,7 +62,7 @@ module.exports = function contactFormDialog(session) {
                         "items": [
                             {
                                 "type": "Input.ChoiceSet",
-                                "id": "myColor3",
+                                "id": "mehndiType",
                                 "isMultiSelect": true,
                                 // "value": "1,3",
                                 "style": "compact",
@@ -74,7 +74,7 @@ module.exports = function contactFormDialog(session) {
                                     },
                                     {
                                         "title": "All Guest",
-                                        "value": "allguest",
+                                        "value": "guest",
                                         "isSelected": false
                                     }
                                 ]

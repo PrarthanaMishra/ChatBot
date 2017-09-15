@@ -111,7 +111,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'entertainment';
                 session.beginDialog('entertainmentFormDialog'); break;
             case 'entertainmentSubmit':
-                showEntertainmentImages(session, session.message.value);
+                showEntertainmentImages(session, session.message.value, session.userData.serviceButtons);
                 isContactInfo(session, session.userData.contactInfo); break;
                 break;
             case 'venue':
@@ -124,6 +124,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'mehndi';
                 session.beginDialog('mehndiFormDialog'); break;
             case 'mehndiSubmit':
+                showEntertainmentImages(session, session.message.value, session.userData.serviceButtons);
                 isContactInfo(session, session.userData.contactInfo); break;
             case 'submit':
                 formSubmitAction(session, session.message.value, session.userData.contactInfo, session.userData.serviceChoosed); break;
@@ -144,24 +145,41 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
     }
 });
 
-function showEntertainmentImages(session, values) {
-    var entertainment = values.entertainmentType
-    console.log(values.entertainmentType);
-    var array = values.entertainmentType.split(';');
-    for (var i = 0; i < array.length; i++) {
-        console.log(array[i]);
-        switch (array[i]) {
-            case 'magician': session.beginDialog('imageDialog', getImages('Entertainment', 'magician')); break;
-            case 'MC': session.beginDialog('imageDialog', getImages('Entertainment', 'MC')); break
-            case 'Nadaswaram': session.beginDialog('imageDialog', getImages('Entertainment', 'Nadaswaram')); break;
-            case 'choreographer': session.beginDialog('imageDialog', getImages('Entertainment', 'choreographer')); break;
-            case 'DJ': session.beginDialog('imageDialog', getImages('Entertainment', 'DJ')); break;
+function showEntertainmentImages(session, values, service) {
+    switch (service) {
+        case 'entertainment':
+            var entertainment = values.entertainmentType
+            if (values.entertainmentType) {
+                var array = values.entertainmentType.split(';');
+            }
+            for (var i = 0; i < array.length; i++) {
+                console.log(array[i]);
+                switch (array[i]) {
+                    case 'magician': session.beginDialog('imageDialog', getImages('Entertainment', 'magician')); break;
+                    case 'MC': session.beginDialog('imageDialog', getImages('Entertainment', 'MC')); break
+                    case 'Nadaswaram': session.beginDialog('imageDialog', getImages('Entertainment', 'nadaswaram')); break;
+                    case 'choreographer': session.beginDialog('imageDialog', getImages('Entertainment', 'choreographer')); break;
+                    case 'DJ': session.beginDialog('imageDialog', getImages('Entertainment', 'DJ')); break;
+                }
+            }
+        case 'mehndi':
+            var entertainment = values.mehndiType
+            console.log(values.mehndiType);
+            if (values.mehndiType) {
+                var array = values.mehndiType.split(';');
+            }
+            for (var i = 0; i < array.length; i++) {
+                console.log(array[i]);
+                switch (array[i]) {
+                    case 'bride': session.beginDialog('imageDialog', getImages('Entertainment', 'mehndi')); break;
+                    case 'guest': session.beginDialog('imageDialog', getImages('Entertainment', 'guest')); break
+                }
+            }
 
-            // case 'Nadaswaram': session.beginDialog('imageDialog', getImages('Entertainment', 'Nadaswaram')); break
-
-        }
     }
 }
+
+
 
 function isContactInfo(session, contactInfo) {
     session.userData = session.userData || {};
@@ -196,7 +214,18 @@ function formSubmitAction(session, value, args, flag, serviceChoosed) {
     if (session.userData && session.userData.contactInfo.name && session.userData.contactInfo.phone) {
         session.beginDialog('details', session.userData.contactInfo);
     }
-    session.beginDialog('thanksMsgDialog');
+    validateDetails(session, session.userData.contactInfo);
+    // session.beginDialog('thanksMsgDialog');
+}
+
+function validateDetails(session, values) {
+    session.userData = session.userData || {};
+    session.userData.contactInfo = values || {};
+    if (session.userData && session.userData.contactInfo && session.userData.contactInfo.name && session.userData.contactInfo.phone) {
+        return;
+    }
+    session.userData.contactInfo.flag = "y";
+    session.beginDialog('contactFormDialog', session.userData.contactInfo);
 }
 
 function cateringSubmitAction(session, value, clientInfo, serviceButtons, contactInfo) {
