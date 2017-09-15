@@ -62,23 +62,23 @@ module.exports = function contactFormDialog(session) {
                         "items": [
                             {
                                 "type": "Input.ChoiceSet",
-                                "id": "myColor3",
+                                "id": "venueType",
                                 "isMultiSelect": true,
                                 // "value": "1,3",
                                 "style": "compact",
                                 "choices": [
                                     {
-                                        "title": "Khayal Banquet Hall",
+                                        "title": "Banquet Hall",
                                         "value": "KBH",
                                         "isSelected": false
                                     },
                                     {
-                                        "title": "BS Grand Party Hall",
+                                        "title": "Grand Party Hall",
                                         "value": "GPH",
                                         "isSelected": false
                                     },
                                     {
-                                        "title": "SJP kalyana Mantapa",
+                                        "title": "kalyana Mantapa",
                                         "value": "KM",
                                         "isSelected": false
                                     }

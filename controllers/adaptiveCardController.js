@@ -171,8 +171,25 @@ function showEntertainmentImages(session, values, service) {
                 for (var i = 0; i < array.length; i++) {
                     console.log(array[i]);
                     switch (array[i]) {
-                        case 'bride': session.beginDialog('imageDialog', getImages('Entertainment', 'mehndi')); break;
-                        case 'guest': session.beginDialog('imageDialog', getImages('Entertainment', 'guest')); break
+                        case 'bride': session.beginDialog('imageDialog', getImages('mehndi', 'bride')); break;
+                        case 'guest': session.beginDialog('imageDialog', getImages('mehndi', 'guest')); break;
+                    }
+                }
+            }
+
+        case 'venue':
+            var entertainment = values.venueType
+            console.log(values.venueType);
+            if (values.venueType) {
+                var array = values.venueType.split(';');
+
+                for (var i = 0; i < array.length; i++) {
+                    console.log(array[i]);
+                    switch (array[i]) {
+                        case 'KBH': session.beginDialog('imageDialog', getImages('Venuebooking', 'banquetHall')); break;
+                        case 'GPH': session.beginDialog('imageDialog', getImages('Venuebooking', 'grandPartyHall')); break;
+                        case 'KM': session.beginDialog('imageDialog', getImages('Venuebooking', 'kalyanaMantapa')); break
+
                     }
                 }
             }
