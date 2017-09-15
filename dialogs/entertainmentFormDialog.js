@@ -62,29 +62,29 @@ module.exports = function contactFormDialog(session) {
                         "items": [
                             {
                                 "type": "Input.ChoiceSet",
-                                "id": "myColor3",
+                                "id": "entertainmentType",
                                 "isMultiSelect": true,
                                 // "value": "1,3",
                                 "style": "compact",
                                 "choices": [
                                     {
                                         "title": "Magician",
-                                        "value": "KBH",
+                                        "value": "magician",
                                         "isSelected": false
                                     },
                                     {
                                         "title": "MC",
-                                        "value": "GPH",
+                                        "value": "MC",
                                         "isSelected": false
                                     },
                                     {
                                         "title": "Nadaswaram",
-                                        "value": "KM",
+                                        "value": "Nadaswaram",
                                         "isSelected": false
                                     },
                                     {
                                         "title": "choreographer",
-                                        "value": "KM",
+                                        "value": "choreographer",
                                         "isSelected": false
                                     },
                                     {
@@ -118,7 +118,7 @@ module.exports = function contactFormDialog(session) {
                             "type": "Action.Submit",
                             "title": "entertainmentSubmit",
                             "data": {
-                                "type": 'venuSubmit'
+                                "type": 'entertainmentSubmit'
                             }
 
                         }

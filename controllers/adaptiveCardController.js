@@ -111,8 +111,9 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'entertainment';
                 session.beginDialog('entertainmentFormDialog'); break;
             case 'entertainmentSubmit':
-                session.beginDialog('entertainmentFormDialog');
+                showEntertainmentImages(session, session.message.value);
                 isContactInfo(session, session.userData.contactInfo); break;
+                break;
             case 'venue':
                 session.userData.serviceButtons = 'venue';
                 session.beginDialog('venueFormDialog'); break;
@@ -142,6 +143,25 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
         }
     }
 });
+
+function showEntertainmentImages(session, values) {
+    var entertainment = values.entertainmentType
+    console.log(values.entertainmentType);
+    var array = values.entertainmentType.split(';');
+    for (var i = 0; i < array.length; i++) {
+        console.log(array[i]);
+        switch (array[i]) {
+            case 'magician': session.beginDialog('imageDialog', getImages('Entertainment', 'magician')); break;
+            case 'MC': session.beginDialog('imageDialog', getImages('Entertainment', 'MC')); break
+            case 'Nadaswaram': session.beginDialog('imageDialog', getImages('Entertainment', 'Nadaswaram')); break;
+            case 'choreographer': session.beginDialog('imageDialog', getImages('Entertainment', 'choreographer')); break;
+            case 'DJ': session.beginDialog('imageDialog', getImages('Entertainment', 'DJ')); break;
+
+            // case 'Nadaswaram': session.beginDialog('imageDialog', getImages('Entertainment', 'Nadaswaram')); break
+
+        }
+    }
+}
 
 function isContactInfo(session, contactInfo) {
     session.userData = session.userData || {};
