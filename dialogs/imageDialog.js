@@ -1,13 +1,29 @@
 var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
-module.exports = function (session, arrayOfImage) {
-    arrayOfImage = Array.isArray(arrayOfImage) ? arrayOfImage : [arrayOfImage];
+module.exports = function (session, data) {
+    var arrayOfImage = Array.isArray(data.arrayOfImage) ? data.arrayOfImage : [data.arrayOfImage];
     var pa = 'https://bot.eventgeni.com';
     var card =
         {
             'type': 'Container',
             'items': [
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "size": "large",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": data.heading,
+                                    "weight": "Strong"
+                                }
+                            ]
+                        }
+                    ]
+                },
 
                 {
                     "type": "ColumnSet",
@@ -62,6 +78,7 @@ module.exports = function (session, arrayOfImage) {
                 }
             ]
         }
+
 
     var blankCard = new BlankCard();
     blankCard.setBody(card);

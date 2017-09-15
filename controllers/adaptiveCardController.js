@@ -35,12 +35,16 @@ var connector = new botBuilder.ChatConnector({
     appPassword: config.password
 });
 
-function getImages(folder, subFolder) {
-    return ['/images/' + folder + '/' + subFolder + '/' + '1.jpg', '/images/' + folder + '/' + subFolder + '/' + '2.jpg', '/images/' + folder + '/' + subFolder + '/' + '3.jpg']
+function getImages(folder, subFolder, numOfImg) {
+    numOfImg = numOfImg || 3;
+    var img = [];
+    for (var i = 1; i <= numOfImg; i++)
+        img.push('/images/' + folder + '/' + subFolder + '/' + i + '.jpg');
+    return img;
 }
 
 function getCateringImage(folder, subFolder) {
-    return ['/images/' + folder + '/' + subFolder + '/' + '1.JPG', '/images/' + folder + '/' + subFolder + '/' + '2.JPG', '/images/' + folder + '/' + subFolder + '/' + '3.JPG'];
+
 }
 
 var bot = new botBuilder.UniversalBot(connector, function (session) {
@@ -171,8 +175,8 @@ function showEntertainmentImages(session, values, service) {
                 for (var i = 0; i < array.length; i++) {
                     console.log(array[i]);
                     switch (array[i]) {
-                        case 'bride': session.beginDialog('imageDialog', getImages('mehndi', 'bride')); break;
-                        case 'guest': session.beginDialog('imageDialog', getImages('mehndi', 'guest')); break;
+                        case 'bride': session.beginDialog('imageDialog', { arrayOfImage: getImages('mehndi', 'bride', 2), heading: "Bridal Makeup" }); break;
+                        case 'guest': session.beginDialog('imageDialog', { arrayOfImage: getImages('mehndi', 'guest', 1), heading: 'Makeup for wedding' }); break;
                     }
                 }
             }
@@ -196,8 +200,6 @@ function showEntertainmentImages(session, values, service) {
 
     }
 }
-
-
 
 function isContactInfo(session, contactInfo) {
     session.userData = session.userData || {};
@@ -253,7 +255,6 @@ function cateringSubmitAction(session, value, clientInfo, serviceButtons, contac
     session.userData.serviceButtons = serviceButtons || {};
     session.userData.contactInfo = contactInfo || {};
 
-    console.log("+++++++++++++" + session.userData.serviceButtons);
     console.log(session.userData.contactInfo.name + session.userData.contactInfo.phone);
     if (value.date) {
         session.userData.clientInfo.date = value.date;
