@@ -74,11 +74,12 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'weddingMenu':
-                session.beginDialog('weddingMenuDialog');
+                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
                 session.beginDialog('contactFormDialog'); break;
             case 'cateringSubmit':
                 cateringSubmitAction(session, session.message.value, session.userData.clientInfo, session.userData.serviceButtons, session.userData.contactInfo);
                 break;
+
             //decoration and it's sub buttons
             case 'decoration':
                 session.userData.serviceButtons = 'decoration';
@@ -233,7 +234,6 @@ bot.dialog('imageDialog', imageDialog);
 bot.dialog('venueFormDialog', venueFormDialog);
 bot.dialog('entertainmentFormDialog', entertainmentFormDialog);
 bot.dialog('mehndiFormDialog', mehndiFormDialog);
-
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
