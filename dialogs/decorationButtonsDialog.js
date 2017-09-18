@@ -140,7 +140,7 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "namingceremony",
+                                "title": "deconamingceremony",
                                 "data": {
                                     "type": 'deconamingceremony'
                                 }
@@ -187,9 +187,9 @@ module.exports = function catering(session) {
                             ],
                             "selectAction": {
                                 "type": "Action.Submit",
-                                "title": "others",
+                                "title": "decosubmit",
                                 "data": {
-                                    "type": 'others'
+                                    "type": 'decosubmit'
                                 }
 
                             }

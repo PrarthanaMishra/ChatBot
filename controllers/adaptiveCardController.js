@@ -5,13 +5,6 @@ var BlankCard = require('../adaptiveCards/blankCard');
 var TextFieldCard = require('../adaptiveCards/textFieldCard');
 var TextBlockCard = require('../adaptiveCards/textBlock');
 var serviceButtons = require('../dialogs/serviceButtons');
-var cateringDialog = require('../dialogs/cateringDialog');
-var photographyDialog = require('../dialogs/photographyDialog');
-var decorationDialog = require('../dialogs/decorationDialog');
-var entertainmentDialog = require('../dialogs/entertainmentDialog');
-var mehndiDialog = require('../dialogs/mehndiDialog');
-var venueDialog = require('../dialogs/venueDialog');
-var confirmDialog = require('../dialogs/confirmDialog');
 var contactFormDialog = require('../dialogs/contactFormDialog');
 var tollFreeContactDialog = require('../dialogs/tollFreeContactDialog');
 var thanksMsgDialog = require('../dialogs/thanksMsgDialog');
@@ -21,7 +14,6 @@ var otherInfoDialog = require('../dialogs/otherInfoDialog');
 var cateringQueryFormDialog = require('../dialogs/cateringQueryFormDialog');
 var cateringButtons = require('../dialogs/cateringButtonsDialog.js');
 var textFieldDialog = require('../dialogs/textFieldDialog.js');
-var weddingMenuDialog = require('../dialogs/weddingMenuDialog.js');
 var decorationButtons = require('../dialogs/decorationButtonsDialog.js');
 var decorationQueryFormDialog = require('../dialogs/decorationFormDialog.js');
 var photographyFormDialog = require('../dialogs/photographyFormDialog.js');
@@ -36,7 +28,7 @@ var connector = new botBuilder.ChatConnector({
 });
 
 function getImages(folder, subFolder, numOfImg) {
-    numOfImg = numOfImg || 3;
+    numOfImg = numOfImg || 7;
     var img = [];
     for (var i = 1; i <= numOfImg; i++)
         img.push('/images/' + folder + '/' + subFolder + '/' + i + '.jpg');
@@ -68,22 +60,22 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'catering';
                 session.beginDialog('cateringQueryFormDialog', session.userData.clientInfo); break;
             case 'babyshower':
-                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'birthday':
-                session.beginDialog('imageDialog', { arrayOfImage: [getImages('Catering', 'birthday')[0]] });
+                session.beginDialog('imageDialog', { arrayOfImage: [getImages('Catering', 'birthday')[0]], heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'engagement':
-                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'housewarming':
-                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'namingceremony':
-                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'weddingmenu':
-                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'cateringSubmit':
                 cateringSubmitAction(session, session.message.value, session.userData.clientInfo, session.userData.serviceButtons, session.userData.contactInfo);
@@ -94,22 +86,23 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'decoration';
                 session.beginDialog('decorationQueryFormDialog', session.userData.clientInfo); break;
             case 'decobirthday':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'birthday') });
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'birthday'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'cardecoration':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'carDecoration') });
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'carDecoration'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'mantap':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapaDecoration') });
+                mantapImagesByBudget(session, session.userData.clientInfo, session.userData.serviceButtons);
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapaDecoration'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
-            case 'nameBoard':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'nameBoard') });
+            case 'nameboard':
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'nameBoard'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
-            case 'deconamingCeremony':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'namingCeremony') });
+            case 'deconamingceremony':
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'namingCeremony'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'stagedecoration':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'stageDecoration') });
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'stageDecoration'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'others':
                 session.beginDialog('textFieldDialog'); break;
@@ -288,13 +281,6 @@ function cateringSubmitAction(session, value, clientInfo, serviceButtons, contac
 
 //Dialog definitions
 bot.dialog('serviceButtons', serviceButtons);
-bot.dialog('catering', cateringDialog);
-bot.dialog('decoration', decorationDialog);
-bot.dialog('entertainment', entertainmentDialog);
-bot.dialog('mehndi', mehndiDialog);
-bot.dialog('venueDialog', venueDialog);
-bot.dialog('photography', photographyDialog);
-bot.dialog('confirmDialog', confirmDialog);
 bot.dialog('contactFormDialog', contactFormDialog);
 bot.dialog('tollFreeContactDialog', tollFreeContactDialog);
 bot.dialog('thanksMsgDialog', thanksMsgDialog);
@@ -304,7 +290,6 @@ bot.dialog('otherInfoDialog', otherInfoDialog);
 bot.dialog('cateringQueryFormDialog', cateringQueryFormDialog);
 bot.dialog('cateringButtons', cateringButtons);
 bot.dialog('textFieldDialog', textFieldDialog);
-bot.dialog('weddingMenuDialog', weddingMenuDialog);
 bot.dialog('decorationQueryFormDialog', decorationQueryFormDialog);
 bot.dialog('decorationbuttons', decorationButtons);
 bot.dialog('photographyFormDialog', photographyFormDialog);
