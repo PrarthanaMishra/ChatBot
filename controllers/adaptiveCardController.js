@@ -76,13 +76,13 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'engagement':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
-            case 'houseWarming':
+            case 'housewarming':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'namingceremony':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
-            case 'weddingMenu':
+            case 'weddingmenu':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'cateringSubmit':
