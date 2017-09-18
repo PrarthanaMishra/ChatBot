@@ -43,7 +43,7 @@ function getImages(folder, subFolder, numOfImg) {
     return img;
 }
 
-function getCateringImage(folder, subFolder) {
+function getCateringImage(folder, subFolder, numOfImg) {
     numOfImg = numOfImg || 3;
     var img = [];
     for (var i = 1; i <= numOfImg; i++)
