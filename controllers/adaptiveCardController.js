@@ -44,6 +44,11 @@ function getImages(folder, subFolder, numOfImg) {
 }
 
 function getCateringImage(folder, subFolder) {
+    numOfImg = numOfImg || 3;
+    var img = [];
+    for (var i = 1; i <= numOfImg; i++)
+        img.push('/images/' + folder + '/' + subFolder + '/' + i + '.JPG');
+    return img;
 
 }
 
@@ -63,22 +68,22 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'catering';
                 session.beginDialog('cateringQueryFormDialog'); break;
             case 'babyshower':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Catering', 'weddingMenu') });
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'birthday':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Catering', 'weddingMenu') }[0]);
+                session.beginDialog('imageDialog', { arrayOfImage: [getCateringImage('Catering', 'birthday')[0]] });
                 session.beginDialog('contactFormDialog'); break;
             case 'engagement':
-                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'houseWarming':
-                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'namingceremony':
-                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'weddingMenu':
-                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
+                session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'cateringSubmit':
                 cateringSubmitAction(session, session.message.value, session.userData.clientInfo, session.userData.serviceButtons, session.userData.contactInfo);
@@ -194,9 +199,9 @@ function showImages(session, values, service) {
                 for (var i = 0; i < array.length; i++) {
                     console.log(array[i]);
                     switch (array[i]) {
-                        case 'KBH': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venuebooking', 'banquetHall', 1), heading: "Banquet Hall" }); break;
-                        case 'GPH': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venuebooking', 'grandPartyHall', 1), heading: "Party hall" }); break;
-                        case 'KM': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venuebooking', 'kalyanaMantapa', 1), heading: "KalyanaMantapa" }); break
+                        case 'KBH': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venubooking', 'banquetHall', 1), heading: "Banquet Hall" }); break;
+                        case 'GPH': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venubooking', 'grandPartyHall', 1), heading: "Party hall" }); break;
+                        case 'KM': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venubooking', 'kalyanaMantapa', 1), heading: "KalyanaMantapa" }); break
 
                     }
                 }
