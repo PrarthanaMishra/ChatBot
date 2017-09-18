@@ -1,5 +1,7 @@
 
-module.exports = function decoration(session) {
+module.exports = function decoration(session, args) {
+    session.userData = session.userData || {};
+    session.userData.clientInfo = args || {};
     var card = {
         'type': 'Container',
         'items': [
@@ -18,7 +20,8 @@ module.exports = function decoration(session) {
                             },
                             {
                                 "type": "Input.Date",
-                                "id": "date"
+                                "id": "date",
+                                "value": session.userData.clientInfo.date
                                 //"weight": "bolder"
                                 // "size": "large"
                             },
@@ -33,8 +36,7 @@ module.exports = function decoration(session) {
                                 "type": "Input.Text",
                                 "id": "location",
                                 "placeholder": "Enter your location",
-
-
+                                "value": session.userData.clientInfo.location
                             },
                             {
                                 "type": "TextBlock",
@@ -45,7 +47,8 @@ module.exports = function decoration(session) {
                             {
                                 "type": "Input.Text",
                                 "id": "budget",
-                                "placeholder": "Enter your budget"
+                                "placeholder": "Enter your budget",
+                                "value": session.userData.clientInfo.budget
                             }
                         ]
                     },

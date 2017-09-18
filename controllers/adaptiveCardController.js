@@ -66,12 +66,12 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             // catering and it's sub buttons
             case 'catering':
                 session.userData.serviceButtons = 'catering';
-                session.beginDialog('cateringQueryFormDialog'); break;
+                session.beginDialog('cateringQueryFormDialog', session.userData.clientInfo); break;
             case 'babyshower':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'birthday':
-                session.beginDialog('imageDialog', { arrayOfImage: [getCateringImage('Catering', 'birthday')[0]] });
+                session.beginDialog('imageDialog', { arrayOfImage: [getImages('Catering', 'birthday')[0]] });
                 session.beginDialog('contactFormDialog'); break;
             case 'engagement':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu') });
@@ -92,7 +92,7 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             //decoration and it's sub buttons
             case 'decoration':
                 session.userData.serviceButtons = 'decoration';
-                session.beginDialog('decorationQueryFormDialog'); break;
+                session.beginDialog('decorationQueryFormDialog', session.userData.clientInfo); break;
             case 'decobirthday':
                 session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'birthday') });
                 session.beginDialog('contactFormDialog'); break;
@@ -115,23 +115,23 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('textFieldDialog'); break;
             case 'photography':
                 session.userData.serviceButtons = 'photography';
-                session.beginDialog('photographyFormDialog'); break;
+                session.beginDialog('photographyFormDialog', session.userData.clientInfo); break;
             case 'entertainment':
                 session.userData.serviceButtons = 'entertainment';
-                session.beginDialog('entertainmentFormDialog'); break;
+                session.beginDialog('entertainmentFormDialog', session.userData.clientInfo); break;
             case 'entertainmentSubmit':
                 showImages(session, session.message.value, session.userData.serviceButtons);
                 isContactInfo(session, session.userData.contactInfo); break;
                 break;
             case 'venue':
                 session.userData.serviceButtons = 'venue';
-                session.beginDialog('venueFormDialog'); break;
+                session.beginDialog('venueFormDialog', session.userData.clientInfo); break;
             case 'venuSubmit':
                 showImages(session, session.message.value, session.userData.serviceButtons);
                 isContactInfo(session, session.userData.contactInfo); break;
             case 'mehndi':
                 session.userData.serviceButtons = 'mehndi';
-                session.beginDialog('mehndiFormDialog'); break;
+                session.beginDialog('mehndiFormDialog', session.userData.clientInfo); break;
             case 'mehndiSubmit':
                 showImages(session, session.message.value, session.userData.serviceButtons);
                 isContactInfo(session, session.userData.contactInfo); break;
@@ -151,7 +151,6 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'photosubmit':
                 session.beginDialog('contactFormDialog'); break;
             case 'submits':
-                console.log("________________________________________");
                 isContactInfo(session, session.userData.contactInfo); break;
 
         }
@@ -199,9 +198,9 @@ function showImages(session, values, service) {
                 for (var i = 0; i < array.length; i++) {
                     console.log(array[i]);
                     switch (array[i]) {
-                        case 'KBH': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venubooking', 'banquetHall', 1), heading: "Banquet Hall" }); break;
-                        case 'GPH': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venubooking', 'grandPartyHall', 1), heading: "Party hall" }); break;
-                        case 'KM': session.beginDialog('imageDialog', { arrayOfImage: getImages('Venubooking', 'kalyanaMantapa', 1), heading: "KalyanaMantapa" }); break
+                        case 'KBH': session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Venubooking', 'banquetHall', 1), heading: "Banquet Hall" }); break;
+                        case 'GPH': session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Venubooking', 'grandPartyHall', 1), heading: "Party hall" }); break;
+                        case 'KM': session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Venubooking', 'kalyanaMantapa', 1), heading: "KalyanaMantapa" }); break
 
                     }
                 }

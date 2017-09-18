@@ -1,7 +1,9 @@
 var botBuilder = require('botbuilder');
 var BlankCard = require('../adaptiveCards/blankCard.js');
 
-module.exports = function contactFormDialog(session) {
+module.exports = function contactFormDialog(session, args) {
+    session.userData = session.userData || {};
+    session.userData.clientInfo = args || {};
     var card = {
         'type': 'Container',
         'items': [
@@ -20,7 +22,8 @@ module.exports = function contactFormDialog(session) {
                             },
                             {
                                 "type": "Input.Date",
-                                "id": "date"
+                                "id": "date",
+                                "value": session.userData.clientInfo.date
                                 //"weight": "bolder"
                                 // "size": "large"
                             },
@@ -35,7 +38,7 @@ module.exports = function contactFormDialog(session) {
                                 "type": "Input.Text",
                                 "id": "location",
                                 "placeholder": "Please  enter your location",
-
+                                "value": session.userData.clientInfo.location
 
                             }
                         ]
