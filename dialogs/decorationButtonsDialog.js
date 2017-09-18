@@ -170,32 +170,32 @@ module.exports = function catering(session) {
                         }
                     ]
                 },
-                // {
-                //     "type": "ColumnSet",
-                //     "columns": [
-                //         {
-                //             "type": "Column",
-                //             "size": "auto",
-                //             "items": [
-                //                 {
-                //                     "type": "TextBlock",
-                //                     'text': 'Others',
-                //                     // 'weight': 'bolder',
-                //                     'style': 'Person',
-                //                     'wrap': true
-                //                 }
-                //             ],
-                //             "selectAction": {
-                //                 "type": "Action.Submit",
-                //                 "title": "others",
-                //                 "data": {
-                //                     "type": 'others'
-                //                 }
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "size": "auto",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    'text': 'Others',
+                                    // 'weight': 'bolder',
+                                    'style': 'Person',
+                                    'wrap': true
+                                }
+                            ],
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "title": "others",
+                                "data": {
+                                    "type": 'others'
+                                }
 
-                //             }
-                //         }
-                //     ]
-                // },
+                            }
+                        }
+                    ]
+                },
                 {
                     "type": "ColumnSet",
                     "columns": [

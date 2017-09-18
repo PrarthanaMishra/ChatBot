@@ -62,11 +62,11 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
             case 'catering':
                 session.userData.serviceButtons = 'catering';
                 session.beginDialog('cateringQueryFormDialog'); break;
-            case 'babyShower':
-                session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
+            case 'babyshower':
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Catering', 'weddingMenu') });
                 session.beginDialog('contactFormDialog'); break;
             case 'birthday':
-                session.beginDialog('imageDialog', getImages('Catering', 'birthday')[0]);
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Catering', 'weddingMenu') }[0]);
                 session.beginDialog('contactFormDialog'); break;
             case 'engagement':
                 session.beginDialog('imageDialog', getCateringImage('Catering', 'weddingMenu'));
@@ -89,22 +89,22 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.userData.serviceButtons = 'decoration';
                 session.beginDialog('decorationQueryFormDialog'); break;
             case 'decobirthday':
-                session.beginDialog('imageDialog', getImages('Decoration', 'birthday'));
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'birthday') });
                 session.beginDialog('contactFormDialog'); break;
             case 'cardecoration':
-                session.beginDialog('imageDialog', getImages('Decoration', 'carDecoration'));
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'carDecoration') });
                 session.beginDialog('contactFormDialog'); break;
             case 'mantap':
-                session.beginDialog('imageDialog', getImages('Decoration', 'mantapaDecoration'));
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapaDecoration') });
                 session.beginDialog('contactFormDialog'); break;
             case 'nameBoard':
-                session.beginDialog('imageDialog', getImages('Decoration', 'nameBoard'));
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'nameBoard') });
                 session.beginDialog('contactFormDialog'); break;
             case 'deconamingCeremony':
-                session.beginDialog('imageDialog', getImages('Decoration', 'namingCeremony'));
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'namingCeremony') });
                 session.beginDialog('contactFormDialog'); break;
             case 'stagedecoration':
-                session.beginDialog('imageDialog', getImages('Decoration', 'stageDecoration'));
+                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'stageDecoration') });
                 session.beginDialog('contactFormDialog'); break;
             case 'others':
                 session.beginDialog('textFieldDialog'); break;
