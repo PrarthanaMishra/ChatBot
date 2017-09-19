@@ -99,8 +99,8 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'carDecoration'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'mantap':
+                session.userData.serviceButtons = 'mantap'
                 mantapImagesByBudget(session, session.userData.clientInfo, session.userData.serviceButtons);
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapaDecoration'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'nameboard':
                 session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'nameBoard'), heading: "Some of the samples are:" });
@@ -109,7 +109,8 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'namingCeremony'), heading: "Some of the samples are:" });
                 session.beginDialog('contactFormDialog'); break;
             case 'stagedecoration':
-                session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'stageDecoration'), heading: "Some of the samples are:" });
+                session.userData.serviceButtons = 'stagedecoration'
+                mantapImagesByBudget(session, session.userData.clientInfo, session.userData.serviceButtons);
                 session.beginDialog('contactFormDialog'); break;
             case 'others':
                 session.beginDialog('textFieldDialog'); break;
@@ -179,14 +180,14 @@ function mantapImagesByBudget(session, clientInfo, serviceButtons) {
     }
     else if (serviceButtons === 'stagedecoration') {
         if (70000 <= session.userData.clientInfo.budget <= 100000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'stagedecoration', '70000-100000'), heading: "Stage with 50000 budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '70000-100000'), heading: "Stage with 50000 budget" });
         }
         else if (100000 <= session.userData.clientInfo.budget <= 150000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'stagedecoration', '100000-150000'), heading: "Stage with 10000 budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '100000-150000'), heading: "Stage with 10000 budget" });
 
         }
         else if (150000 <= session.userData.clientInfo.budget <= 200000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'stagedecoration', '150000-200000'), heading: "Stage with 150000 budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '150000-200000'), heading: "Stage with 150000 budget" });
         }
 
 
