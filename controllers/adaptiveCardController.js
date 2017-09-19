@@ -68,22 +68,28 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('cateringQueryFormDialog', session.userData.clientInfo); break;
             case 'babyshower':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                //  session.beginDialog('contactFormDialog');
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'birthday':
                 session.beginDialog('imageDialog', { arrayOfImage: [getImages('Catering', 'birthday')[0]], heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                // session.beginDialog('contactFormDialog');
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'engagement':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                // session.beginDialog('contactFormDialog');
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'housewarming':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                // session.beginDialog('contactFormDialog'); 
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'namingceremony':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                // session.beginDialog('contactFormDialog');
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'weddingmenu':
                 session.beginDialog('imageDialog', { arrayOfImage: getCateringImage('Catering', 'weddingMenu'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                // session.beginDialog('contactFormDialog');
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'cateringSubmit':
                 cateringSubmitAction(session, session.message.value, session.userData.clientInfo, session.userData.serviceButtons, session.userData.contactInfo);
                 break;
@@ -94,24 +100,28 @@ var bot = new botBuilder.UniversalBot(connector, function (session) {
                 session.beginDialog('decorationQueryFormDialog', session.userData.clientInfo); break;
             case 'decobirthday':
                 session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'birthday'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                // session.beginDialog('contactFormDialog', session.userData.contactInfo); 
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'cardecoration':
                 session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'carDecoration'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                // session.beginDialog('contactFormDialog', session.userData.contactInfo); 
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'mantap':
                 session.userData.serviceButtons = 'mantap'
                 mantapImagesByBudget(session, session.userData.clientInfo, session.userData.serviceButtons);
-                session.beginDialog('contactFormDialog'); break;
+                //session.beginDialog('contactFormDialog', session.userData.contactInfo);
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'nameboard':
                 session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'nameBoard'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                session.beginDialog('contactFormDialog', session.userData.contactInfo); break;
             case 'deconamingceremony':
                 session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'namingCeremony'), heading: "Some of the samples are:" });
-                session.beginDialog('contactFormDialog'); break;
+                // session.beginDialog('contactFormDialog', session.userData.contactInfo);
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'stagedecoration':
                 session.userData.serviceButtons = 'stagedecoration'
                 mantapImagesByBudget(session, session.userData.clientInfo, session.userData.serviceButtons);
-                session.beginDialog('contactFormDialog'); break;
+                isContactInfo(session, session.userData.contactInfo); break;
             case 'others':
                 session.beginDialog('textFieldDialog'); break;
             case 'photography':
@@ -163,27 +173,27 @@ function mantapImagesByBudget(session, clientInfo, serviceButtons) {
     session.userData.clientInfo = clientInfo || {};
     if (serviceButtons === 'mantap') {
         if (session.userData.clientInfo.budget <= 50000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '50000'), heading: "Mantap with " + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '50000'), heading: "Mantap with " + session.userData.clientInfo.budget + " budget" });
         }
         else if (50000 < session.userData.clientInfo.budget && session.userData.clientInfo.budget <= 75000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '50000-75000'), heading: "Mantap with " + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '50000-75000'), heading: "Mantap with " + session.userData.clientInfo.budget + " budget" });
 
         }
         else if (75001 <= session.userData.clientInfo.budget) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '75000-100000'), heading: "Mantap with " + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '75000-100000'), heading: "Mantap with " + session.userData.clientInfo.budget + " budget" });
 
         }
     }
     else if (serviceButtons === 'stagedecoration') {
         if (70000 <= session.userData.clientInfo.budget && session.userData.clientInfo.budget <= 100000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '70000-100000'), heading: "Stage with " + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '70000-100000'), heading: "Stage with " + session.userData.clientInfo.budget + " budget" });
         }
         else if (100000 < session.userData.clientInfo.budget && session.userData.clientInfo.budget <= 150000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '100000-150000'), heading: "Stage with " + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '100000-150000'), heading: "Stage with " + session.userData.clientInfo.budget + " budget" });
 
         }
         else if (150000 < session.userData.clientInfo.budget) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '150000-200000'), heading: "Stage with" + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '150000-200000'), heading: "Stage with" + session.userData.clientInfo.budget + " budget" });
         }
 
 
