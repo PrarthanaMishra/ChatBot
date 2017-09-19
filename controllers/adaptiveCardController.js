@@ -163,26 +163,26 @@ function mantapImagesByBudget(session, clientInfo, serviceButtons) {
     session.userData.clientInfo = clientInfo || {};
     if (serviceButtons === 'mantap') {
         if (session.userData.clientInfo.budget <= 50000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '50000'), heading: "Mantap with" + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '50000'), heading: "Mantap with " + session.userData.clientInfo.budget + "budget" });
         }
         else if (50000 < session.userData.clientInfo.budget && session.userData.clientInfo.budget <= 75000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '50000-75000'), heading: "Mantap with" + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '50000-75000'), heading: "Mantap with " + session.userData.clientInfo.budget + "budget" });
 
         }
         else if (75001 <= session.userData.clientInfo.budget) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '75000-100000'), heading: "Mantap with" + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'mantapa', '75000-100000'), heading: "Mantap with " + session.userData.clientInfo.budget + "budget" });
 
         }
     }
     else if (serviceButtons === 'stagedecoration') {
         if (70000 <= session.userData.clientInfo.budget && session.userData.clientInfo.budget <= 100000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '70000-100000'), heading: "Stage with" + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '70000-100000'), heading: "Stage with " + session.userData.clientInfo.budget + "budget" });
         }
         else if (100000 < session.userData.clientInfo.budget && session.userData.clientInfo.budget <= 150000) {
-            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '100000-150000'), heading: "Stage with" + session.userData.clientInfo.budget + "budget" });
+            session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '100000-150000'), heading: "Stage with " + session.userData.clientInfo.budget + "budget" });
 
         }
-        else if (150000 < session.userData.clientInfo.budget && session.userData.clientInfo.budget <= 200000) {
+        else if (150000 < session.userData.clientInfo.budget) {
             session.beginDialog('imageDialog', { arrayOfImage: getImages('Decoration', 'backdrop', '150000-200000'), heading: "Stage with" + session.userData.clientInfo.budget + "budget" });
         }
 
