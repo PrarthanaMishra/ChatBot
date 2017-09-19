@@ -28,7 +28,7 @@ var connector = new botBuilder.ChatConnector({
 });
 
 function getImages(folder, subFolder, subSubFolder, numOfImg) {
-    subSubFolder = subSubFolder || {};
+    subSubFolder = subSubFolder || null;
     numOfImg = numOfImg || 3;
     if (subSubFolder) {
         var img = [];
